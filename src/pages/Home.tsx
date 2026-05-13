@@ -145,11 +145,11 @@ export default function Home() {
               开始您的数据分析学习之旅
             </h2>
             <p className="text-stone-600 max-w-2xl mx-auto text-sm sm:text-base">
-              探索我们的课程、项目和题库，从零成为数据分析高手
+              探索我们的知识、项目和题库，从零成为数据分析高手
             </p>
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-              <Link to="/courses" className="px-6 sm:px-8 py-3 sm:py-4 bg-softpink-100 text-softpink-800 rounded-2xl sm:rounded-3xl font-medium cursor-pointer hover:bg-softpink-200 transition-colors text-sm sm:text-base">
-                浏览课程
+              <Link to="/knowledge" className="px-6 sm:px-8 py-3 sm:py-4 bg-softpink-100 text-softpink-800 rounded-2xl sm:rounded-3xl font-medium cursor-pointer hover:bg-softpink-200 transition-colors text-sm sm:text-base">
+                浏览知识
               </Link>
               <Link to="/projects" className="px-6 sm:px-8 py-3 sm:py-4 bg-white border border-cream-200 text-stone-700 rounded-2xl sm:rounded-3xl font-medium cursor-pointer hover:bg-cream-50 transition-colors text-sm sm:text-base">
                 查看项目

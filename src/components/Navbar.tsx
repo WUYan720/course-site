@@ -28,7 +28,7 @@ export default function Navbar() {
 
   const navItems = [
     { path: '/', label: '首页', icon: Home },
-    { path: '/courses', label: '课程', icon: BookOpen },
+    { path: '/knowledge', label: '知识', icon: BookOpen },
     { path: '/projects', label: '项目', icon: Code2 },
     { path: '/questions', label: '题库', icon: ClipboardList },
   ]
