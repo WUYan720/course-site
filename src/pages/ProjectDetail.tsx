@@ -1,9 +1,9 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { projects } from "@/data/projects";
-import { ArrowLeft, ChevronLeft, ChevronRight, FileText, Database, BookOpen, Lightbulb, Download, PenTool, GraduationCap } from "lucide-react";
-import CsvUploader from "@/components/CsvUploader";
+import { ArrowLeft, ChevronLeft, ChevronRight, FileText, Database, BookOpen, Lightbulb, Download, PenTool, GraduationCap, Upload } from "lucide-react";
 import CodeEditor from "@/components/CodeEditor";
 import AIChat from "@/components/AIChat";
+import Papa from "papaparse";
 
 const mockCsvData: Record<string, string> = {
   "project1_retail_data.csv": "门店名称,日期,品类,营收,客流量,坪效,毛利率\n北京朝阳店,2024-01-01,食品,15000,300,50,0.35\n北京海淀店,2024-01-01,饮料,12000,250,48,0.32\n上海浦东店,2024-01-01,日用品,18000,350,51,0.38\n广州天河店,2024-01-01,食品,16000,320,50,0.36",
@@ -66,17 +66,17 @@ export default function ProjectDetail() {
         } else {
           inCodeBlock = false;
           elements.push(
-            <div key={`code-${codeKey++}`} className="my-4 rounded-2xl overflow-hidden border border-cream-200">
-              <div className="bg-stone-800 px-4 py-2 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            <div key={`code-${codeKey++}`} className="my-3 sm:my-4 rounded-xl sm:rounded-2xl overflow-hidden border border-cream-200">
+              <div className="bg-stone-800 px-3 sm:px-4 py-2 flex items-center justify-between">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-red-500 rounded-full"></div>
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-yellow-500 rounded-full"></div>
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full"></div>
                 </div>
                 <span className="text-xs text-stone-400">{codeLanguage || "code"}</span>
               </div>
-              <pre className="bg-stone-900 p-4 overflow-x-auto">
-                <code className="text-green-400 font-mono text-sm whitespace-pre">{codeContent}</code>
+              <pre className="bg-stone-900 p-3 sm:p-4 overflow-x-auto">
+                <code className="text-green-400 font-mono text-xs sm:text-sm whitespace-pre">{codeContent}</code>
               </pre>
             </div>
           );
@@ -93,21 +93,43 @@ export default function ProjectDetail() {
         const title = line.replace("# ", "");
         if (title.includes("核心知识点拆解")) {
           elements.push(
-            <h1 key={index} className="text-lg font-bold text-softpink-700 mb-3 flex items-center gap-2">
-              <BookOpen className="w-5 h-5" />
+            <h1 key={index} className="text-base sm:text-lg font-bold text-softpink-700 mb-2 sm:mb-3 flex items-center gap-2">
+              <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
               {title}
             </h1>
           );
         } else if (title.includes("课堂例题与课后练习")) {
           elements.push(
-            <h1 key={index} className="text-2xl font-bold text-softcyan-700 mt-8 mb-6 flex items-center gap-2 border-b border-cream-200 pb-4">
-              <PenTool className="w-6 h-6" />
+            <h1 key={index} className="text-xl sm:text-2xl font-bold text-softcyan-700 mt-6 sm:mt-8 mb-4 sm:mb-6 flex flex-wrap items-center gap-2 border-b border-cream-200 pb-3 sm:pb-4">
+              <PenTool className="w-5 h-5 sm:w-6 sm:h-6" />
               {title}
+              <label className="ml-auto flex items-center gap-1.5 px-2.5 py-1 bg-softpink-50 hover:bg-softpink-100 text-softpink-700 rounded-lg text-xs font-medium cursor-pointer transition-colors">
+                <Upload className="w-3.5 h-3.5" />
+                上传数据
+                <input
+                  type="file"
+                  accept=".csv"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      Papa.parse(file, {
+                        header: true,
+                        skipEmptyLines: true,
+                        complete: (results) => {
+                          console.log("CSV数据已加载:", results.data);
+                          alert(`✅ ${file.name} 已加载，共 ${results.data.length} 行`);
+                        }
+                      });
+                    }
+                  }}
+                />
+              </label>
             </h1>
           );
         } else {
           elements.push(
-            <h1 key={index} className="text-3xl font-bold text-stone-800 mt-8 mb-4 first:mt-0">
+            <h1 key={index} className="text-2xl sm:text-3xl font-bold text-stone-800 mt-6 sm:mt-8 mb-3 sm:mb-4 first:mt-0">
               {title}
             </h1>
           );
@@ -147,41 +169,41 @@ export default function ProjectDetail() {
           Icon = BookOpen;
           iconColor = "text-purple-600";
         }
-        
+
         elements.push(
-          <h2 key={index} className={`${isKnowledgePoint ? 'text-base font-bold text-stone-700 mt-4 mb-2 flex items-center gap-2' : 'text-xl font-bold text-stone-800 mt-6 mb-3 flex items-center gap-2'}`}>
+          <h2 key={index} className={`${isKnowledgePoint ? 'text-sm sm:text-base font-bold text-stone-700 mt-3 sm:mt-4 mb-1.5 sm:mb-2 flex items-center gap-2' : 'text-lg sm:text-xl font-bold text-stone-800 mt-5 sm:mt-6 mb-2 sm:mb-3 flex items-center gap-2'}`}>
             {isKnowledgePoint ? (
-              <span className="w-2 h-2 bg-softpink-400 rounded-full"></span>
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-softpink-400 rounded-full"></span>
             ) : (
-              <Icon className={`w-5 h-5 ${iconColor}`} />
+              <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${iconColor}`} />
             )}
             {title}
           </h2>
         );
       } else if (line.startsWith("### ")) {
         elements.push(
-          <h3 key={index} className="text-base font-bold text-stone-700 mt-4 mb-2 flex items-center gap-2">
-            <span className="w-2 h-2 bg-softpink-400 rounded-full"></span>
+          <h3 key={index} className="text-sm sm:text-base font-bold text-stone-700 mt-3 sm:mt-4 mb-1.5 sm:mb-2 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-softpink-400 rounded-full"></span>
             {line.replace("### ", "")}
           </h3>
         );
       } else if (line.trim() === "") {
-        elements.push(<div key={index} className="h-3" />);
+        elements.push(<div key={index} className="h-2 sm:h-3" />);
       } else if (line.startsWith("- ")) {
         elements.push(
-          <li key={index} className="text-stone-700 mb-3 ml-6 list-disc leading-relaxed pl-2">
+          <li key={index} className="text-stone-700 mb-2 sm:mb-3 ml-4 sm:ml-6 list-disc leading-relaxed pl-1 sm:pl-2 text-sm sm:text-base">
             {renderInlineCode(line.replace("- ", ""))}
           </li>
         );
       } else if (line.match(/^\d+\. /)) {
         elements.push(
-          <li key={index} className="text-stone-700 mb-2 ml-6 list-decimal leading-relaxed">
+          <li key={index} className="text-stone-700 mb-1.5 sm:mb-2 ml-4 sm:ml-6 list-decimal leading-relaxed text-sm sm:text-base">
             {renderInlineCode(line.replace(/^\d+\. /, ""))}
           </li>
         );
       } else {
         elements.push(
-          <p key={index} className="text-stone-700 mb-2 leading-relaxed">
+          <p key={index} className="text-stone-700 mb-1.5 sm:mb-2 leading-relaxed text-sm sm:text-base">
             {renderInlineCode(line)}
           </p>
         );
@@ -196,7 +218,7 @@ export default function ProjectDetail() {
     return parts.map((part, i) => {
       if (part.startsWith("`") && part.endsWith("`")) {
         return (
-          <code key={i} className="bg-cream-100 text-softpink-700 px-1.5 py-0.5 rounded text-sm font-mono">
+          <code key={i} className="bg-cream-100 text-softpink-700 px-1 sm:px-1.5 py-0.5 rounded text-xs sm:text-sm font-mono">
             {part.slice(1, -1)}
           </code>
         );
@@ -207,12 +229,12 @@ export default function ProjectDetail() {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-cream-50 flex items-center justify-center py-12">
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center py-8 sm:py-12 px-4">
         <div className="text-center">
-          <h2 className="text-xl font-bold text-stone-800 mb-4">项目不存在</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-stone-800 mb-4">项目不存在</h2>
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-softpink-100 hover:bg-softpink-200 text-softpink-800 font-medium rounded-2xl transition-colors"
+            className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-softpink-100 hover:bg-softpink-200 text-softpink-800 font-medium rounded-xl sm:rounded-2xl transition-colors text-sm sm:text-base"
           >
             <ArrowLeft className="w-4 h-4" />
             返回项目列表
@@ -223,18 +245,18 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-cream-50 py-12">
-      <div className="w-[1280px] mx-auto px-8">
-        <div className="space-y-8">
-          <div className="flex items-center justify-between">
+    <div className="min-h-screen bg-cream-50 py-6 sm:py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="space-y-6 sm:space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
             <Link
               to="/projects"
-              className="flex items-center gap-2 text-stone-600 hover:text-softpink-700 transition-colors"
+              className="inline-flex items-center gap-2 text-stone-600 hover:text-softpink-700 transition-colors text-sm sm:text-base order-2 sm:order-1"
             >
               <ArrowLeft className="w-4 h-4" />
               返回项目列表
             </Link>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 order-1 sm:order-2">
               <button
                 onClick={handlePrev}
                 disabled={projectId === 1}
@@ -252,46 +274,46 @@ export default function ProjectDetail() {
             </div>
           </div>
 
-          <div className="bg-white rounded-4xl p-10 shadow-sm border border-cream-200">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="bg-softpink-100 text-softpink-700 px-4 py-1 rounded-full text-sm font-medium">
+          <div className="bg-white rounded-2xl sm:rounded-3xl lg:rounded-4xl p-5 sm:p-8 lg:p-10 shadow-sm border border-cream-200">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
+              <div className="bg-softpink-100 text-softpink-700 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-medium">
                 项目 {project.id}
               </div>
               <button
                 onClick={() => downloadCsv(project.dataFile)}
-                className="bg-softcyan-100 hover:bg-softcyan-200 text-softcyan-700 px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1 transition-colors cursor-pointer"
+                className="bg-softcyan-100 hover:bg-softcyan-200 text-softcyan-700 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1 transition-colors cursor-pointer w-fit"
               >
                 <Database className="w-3 h-3" />
                 {project.dataFile}
                 <Download className="w-3 h-3" />
               </button>
             </div>
-            
-            <h1 className="text-3xl font-bold text-stone-800 mb-2 leading-tight">
+
+            <h1 className="text-2xl sm:text-3xl font-bold text-stone-800 mb-2 leading-tight">
               {project.name}
             </h1>
-            <p className="text-stone-600 text-lg mb-6">{project.summary}</p>
-            
-            <div className="border-t border-cream-200 pt-6 space-y-6">
+            <p className="text-stone-600 text-base sm:text-lg mb-5 sm:mb-6">{project.summary}</p>
+
+            <div className="border-t border-cream-200 pt-5 sm:pt-6 space-y-5 sm:space-y-6">
               <div>
-                <h2 className="text-lg font-bold text-softpink-700 mb-3 flex items-center gap-2">
-                  <FileText className="w-5 h-5" />
+                <h2 className="text-base sm:text-lg font-bold text-softpink-700 mb-2 sm:mb-3 flex items-center gap-2">
+                  <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
                   项目概述
                 </h2>
-                <div className="text-stone-700 leading-relaxed">
+                <div className="text-stone-700 leading-relaxed text-sm sm:text-base">
                   {renderInlineCode(project.overview)}
                 </div>
               </div>
 
-              <div className="border-t border-cream-200 pt-6">
+              <div className="border-t border-cream-200 pt-5 sm:pt-6">
                 {renderContent(project.content)}
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-4xl p-6 shadow-sm border border-cream-200">
-            <div className="grid grid-cols-2 gap-6">
-              <div className="min-h-[500px] max-h-[700px] overflow-y-auto scroll-smooth pr-2 
+          <div className="bg-white rounded-2xl sm:rounded-3xl lg:rounded-4xl p-4 sm:p-6 shadow-sm border border-cream-200">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+              <div className="min-h-[800px] sm:min-h-[900px] max-h-[900px] sm:max-h-[1000px] overflow-y-auto scroll-smooth pr-2 
                 [&::-webkit-scrollbar]:w-2 
                 [&::-webkit-scrollbar-thumb]:bg-cream-300 
                 [&::-webkit-scrollbar-thumb]:rounded-full 
@@ -299,17 +321,13 @@ export default function ProjectDetail() {
                 [&::-webkit-scrollbar-track]:bg-cream-100">
                 {renderContent(project.exercises)}
               </div>
-              <div>
+              <div className="min-h-[800px] sm:min-h-[900px] max-h-[900px] sm:max-h-[1000px] overflow-y-auto scroll-smooth">
                 <CodeEditor />
               </div>
             </div>
           </div>
 
-          <div className="space-y-4">
-            <CsvUploader />
-          </div>
-
-          <div className="sticky top-24">
+          <div className="lg:sticky lg:top-24">
             <AIChat />
           </div>
         </div>

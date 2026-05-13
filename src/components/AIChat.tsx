@@ -58,50 +58,50 @@ export default function AIChat() {
   };
 
   return (
-    <div className="bg-white rounded-4xl shadow-sm border border-cream-200 overflow-hidden h-[600px] flex flex-col">
-      <div className="bg-gradient-to-r from-softpink-50 to-softcyan-50 px-6 py-4 border-b border-cream-200 flex-shrink-0">
-        <h3 className="text-lg font-bold text-stone-800 flex items-center gap-2">
-          <MessageCircle className="w-5 h-5 text-softpink-600" />
+    <div className="bg-white rounded-2xl sm:rounded-3xl lg:rounded-4xl shadow-sm border border-cream-200 overflow-hidden h-[300px] sm:h-[350px] md:h-[400px] flex flex-col">
+      <div className="bg-gradient-to-r from-softpink-50 to-softcyan-50 px-4 sm:px-6 py-3 sm:py-4 border-b border-cream-200 flex-shrink-0">
+        <h3 className="text-base sm:text-lg font-bold text-stone-800 flex items-center gap-2">
+          <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-softpink-600" />
           AI 学习助手
         </h3>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`flex items-start gap-3 ${
+            className={`flex items-start gap-2 sm:gap-3 ${
               message.sender === "user" ? "flex-row-reverse" : ""
             }`}
           >
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+              className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                 message.sender === "bot"
                   ? "bg-softpink-100"
                   : "bg-softcyan-100"
               }`}
             >
               {message.sender === "bot" ? (
-                <Bot className="w-4 h-4 text-softpink-600" />
+                <Bot className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-softpink-600" />
               ) : (
-                <User className="w-4 h-4 text-softcyan-600" />
+                <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-softcyan-600" />
               )}
             </div>
             <div
-              className={`px-4 py-2 rounded-2xl max-w-[80%] ${
+              className={`px-3 sm:px-4 py-2 rounded-2xl max-w-[75%] sm:max-w-[80%] ${
                 message.sender === "bot"
                   ? "bg-cream-100 text-stone-700"
                   : "bg-softcyan-100 text-stone-800"
               }`}
             >
-              <p className="text-sm leading-relaxed">{message.text}</p>
+              <p className="text-xs sm:text-sm leading-relaxed">{message.text}</p>
             </div>
           </div>
         ))}
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="p-4 border-t border-cream-200 flex-shrink-0">
+      <div className="p-3 sm:p-4 border-t border-cream-200 flex-shrink-0">
         <div className="flex gap-2">
           <input
             type="text"
@@ -109,11 +109,11 @@ export default function AIChat() {
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && handleSend()}
             placeholder="输入你的问题..."
-            className="flex-1 px-4 py-2 bg-cream-50 border border-cream-200 rounded-2xl text-sm focus:outline-none focus:border-softpink-300"
+            className="flex-1 px-3 sm:px-4 py-2 bg-cream-50 border border-cream-200 rounded-xl sm:rounded-2xl text-sm focus:outline-none focus:border-softpink-300"
           />
           <button
             onClick={handleSend}
-            className="px-4 py-2 bg-softpink-100 hover:bg-softpink-200 text-softpink-700 rounded-2xl transition-colors"
+            className="px-3 sm:px-4 py-2 bg-softpink-100 hover:bg-softpink-200 text-softpink-700 rounded-xl sm:rounded-2xl transition-colors"
           >
             <Send className="w-4 h-4" />
           </button>

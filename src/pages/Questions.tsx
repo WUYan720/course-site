@@ -3,28 +3,28 @@ import { ArrowLeft } from 'lucide-react'
 
 export default function Questions() {
   return (
-    <div className="min-h-screen bg-cream-50 py-12">
-      <div className="w-[1280px] mx-auto px-8">
-        <div className="space-y-8">
+    <div className="min-h-screen bg-cream-50 py-8 sm:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="space-y-6 sm:space-y-8">
           <Link
             to="/"
-            className="flex items-center gap-2 text-stone-600 hover:text-softpink-700 transition-colors"
+            className="inline-flex items-center gap-2 text-stone-600 hover:text-softpink-700 transition-colors text-sm sm:text-base"
           >
             <ArrowLeft className="w-4 h-4" />
             返回首页
           </Link>
-          
-          <div className="space-y-6">
-            <div className="h-16 bg-cream-100 rounded-3xl"></div>
-            
-            <div className="space-y-6">
+
+          <div className="space-y-4 sm:space-y-6">
+            <div className="h-14 sm:h-16 bg-cream-100 rounded-2xl sm:rounded-3xl"></div>
+
+            <div className="space-y-4 sm:space-y-6">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="space-y-4">
-                  <div className="h-12 bg-softpink-100 rounded-2xl"></div>
+                <div key={i} className="space-y-3 sm:space-y-4">
+                  <div className="h-10 sm:h-12 bg-softpink-100 rounded-xl sm:rounded-2xl"></div>
                   <div className="space-y-2">
-                    <div className="h-10 bg-cream-100 rounded-xl"></div>
-                    <div className="h-10 bg-cream-100 rounded-xl"></div>
-                    <div className="h-10 bg-cream-100 rounded-xl"></div>
+                    <div className="h-9 sm:h-10 bg-cream-100 rounded-xl"></div>
+                    <div className="h-9 sm:h-10 bg-cream-100 rounded-xl"></div>
+                    <div className="h-9 sm:h-10 bg-cream-100 rounded-xl"></div>
                   </div>
                 </div>
               ))}
