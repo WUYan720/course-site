@@ -1,24 +1,55 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
 # Logs
-logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# IDE
+.vscode/
+.idea/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Temporary files
+*.pyc
+__pycache__/
+*.ts~
+*.md~
+*.py~
+build_course_content.py
+parse_financial_visualization.py
+parse_group_aggregation.py
+parse_markdown.py
+parse_markdown_fixed.py
+reorder_chapters.py
+check_course_content.py
+json_to_ts.py
+list_chapters.py
+simple_fix.py
+final_parsed.json
+financial_visualization_parsed.json
+group_aggregation_parsed.json
+parsed_data.json
+*.pyc
+__pycache__/
+
+# Temporary markdown files (processed files)
+A_B.md
+多数据.md
+多数据*.md
+购物篮分析.md
+客户聚类分析.md
+数据可视化*.md
+财务数据可视化.md
+分组聚合分析.md
+数据清洗.md
+多数据.md
+异常值检测.md
+时间序列分析.md
+特征工程.md
+fix_and_format.py
+
+# Trae specs files (optional, can be kept or removed)
+.trae/
