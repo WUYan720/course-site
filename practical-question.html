@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数据清洗实操题</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background-color: #FFFDF7;
+    color: #3A3A3A;
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border: 1px solid #FFE4BA;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* 标题区域 */
+  .header {
+    background-color: #FFF9EB;
+    padding: 20px 24px;
+    border-bottom: 1px solid #FFE4BA;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-icon {
+    width: 20px;
+    height: 20px;
+    color: #00897B;
+  }
+
+  .header-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #3A3A3A;
+  }
+
+  .header-count {
+    font-size: 14px;
+    color: #8A8A8A;
+  }
+
+  /* 题目内容 */
+  .question-section {
+    padding: 24px;
+  }
+
+  .question-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #3A3A3A;
+    margin-bottom: 16px;
+  }
+
+  .question-description {
+    background-color: #FFF9EB;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 14px;
+    color: #5A5A5A;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .question-description strong {
+    color: #3A3A3A;
+  }
+
+  .question-step {
+    margin-top: 8px;
+  }
+
+  /* 答题输入框 */
+  .answer-textarea {
+    width: 100%;
+    min-height: 160px;
+    padding: 12px 14px;
+    border: 1px solid #FFE4BA;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    font-family: "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #3A3A3A;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .answer-textarea:focus {
+    outline: none;
+    border-color: #26A69A;
+    box-shadow: 0 0 0 3px rgba(38, 166, 154, 0.15);
+  }
+
+  .answer-textarea::placeholder {
+    color: #B8B8B8;
+  }
+
+  /* 提交按钮 */
+  .submit-btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: #2196F3;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+  }
+
+  .submit-btn:hover {
+    background-color: #1976D2;
+    box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+  }
+
+  .submit-btn:active {
+    background-color: #1565C0;
+    transform: translateY(1px);
+  }
+
+  .submit-btn-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .submit-btn:disabled {
+    background-color: #B0BEC5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  /* 结果显示区域 */
+  .result-area {
+    margin-top: 24px;
+  }
+
+  /* 用户答案卡片 */
+  .result-card {
+    background-color: #E3F2FD;
+    border: 1px solid #90CAF9;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .result-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .result-card-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .result-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1565C0;
+  }
+
+  .code-block {
+    background-color: #263238;
+    border-radius: 6px;
+    padding: 12px;
+    overflow-x: auto;
+  }
+
+  .code-block pre {
+    margin: 0;
+  }
+
+  .code-block code {
+    font-family: "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #ECEFF1;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* 分析结果卡片 */
+  .analysis-card {
+    background-color: #E8F8F5;
+    border: 1px solid #80CBC4;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .analysis-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #00695C;
+  }
+
+  .analysis-section {
+    margin-top: 14px;
+  }
+
+  .analysis-section:first-child {
+    margin-top: 10px;
+  }
+
+  .analysis-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .analysis-subtitle.correct {
+    color: #2E7D32;
+  }
+
+  .analysis-subtitle.warning {
+    color: #EF6C00;
+  }
+
+  .analysis-subtitle.suggestion {
+    color: #00695C;
+  }
+
+  .analysis-list {
+    list-style: none;
+    padding-left: 22px;
+  }
+
+  .analysis-list li {
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #4A4A4A;
+    position: relative;
+  }
+
+  .analysis-list li::before {
+    content: "•";
+    position: absolute;
+    left: -14px;
+    color: inherit;
+    font-weight: bold;
+  }
+
+  .analysis-list li.correct {
+    color: #2E7D32;
+  }
+
+  .analysis-list li.warning {
+    color: #E65100;
+  }
+
+  .analysis-list li.suggestion {
+    color: #00695C;
+  }
+
+  /* 每步完成状态 */
+  .step-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+
+  .step-check-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .step-check.completed {
+    color: #2E7D32;
+  }
+
+  .step-check.missing {
+    color: #C62828;
+  }
+
+  .step-check.partial {
+    color: #EF6C00;
+  }
+
+  /* 参考答案卡片 */
+  .reference-card {
+    background-color: #E8F5E9;
+    border: 1px solid #A5D6A7;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .reference-card .result-card-title {
+    color: #2E7D32;
+  }
+
+  /* 隐藏类 */
+  .hidden {
+    display: none !important;
+  }
+
+  /* 滚动条美化 */
+  .code-block::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .code-block::-webkit-scrollbar-track {
+    background: #37474F;
+    border-radius: 4px;
+  }
+
+  .code-block::-webkit-scrollbar-thumb {
+    background: #607D8B;
+    border-radius: 4px;
+  }
+
+  .code-block::-webkit-scrollbar-thumb:hover {
+    background: #78909C;
+  }
+
+  /* 响应式 */
+  @media (max-width: 640px) {
+    body {
+      padding: 10px;
+    }
+
+    .question-section {
+      padding: 16px;
+    }
+
+    .header {
+      padding: 16px;
+    }
+
+    .header-title {
+      font-size: 16px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .submit-btn-wrapper {
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- 标题 -->
+  <div class="header">
+    <div class="header-left">
+      <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m18 16-4-4-4 4-6-6"/><path d="M2 12h20"/><path d="M22 20H2"/>
+      </svg>
+      <span class="header-title">实操题</span>
+    </div>
+    <span class="header-count">1 道</span>
+  </div>
+
+  <!-- 题目内容 -->
+  <div class="question-section">
+    <h2 class="question-title">数据清洗实操题</h2>
+
+    <div class="question-description">
+      <p>现有一份电商用户数据，已读取为 Pandas 的 DataFrame，包含列：用户 ID、年龄、性别、消费金额、注册时间，其中存在部分缺失值、重复记录以及年龄为负数的异常数据。请使用 Python 完成以下操作：</p>
+      <div class="question-step">1. 使用 <code>drop_duplicates()</code> 删除重复的用户记录；</div>
+      <div class="question-step">2. 处理年龄字段的异常值，将负数的年龄替换为该字段的中位数；</div>
+      <div class="question-step">3. 对性别字段的缺失值，用众数进行填充；</div>
+      <div class="question-step">4. 对消费金额的缺失值，用均值进行填充。</div>
+    </div>
+
+    <!-- 答题输入框 -->
+    <textarea
+      id="answerInput"
+      class="answer-textarea"
+      placeholder="请在此输入您的作答内容（Python代码）..."
+    ></textarea>
+
+    <!-- 提交按钮 -->
+    <div class="submit-btn-wrapper">
+      <button id="submitBtn" class="submit-btn" onclick="submitAnswer()">
+        <svg class="submit-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+        <span>提交作答</span>
+      </button>
+    </div>
+
+    <!-- 结果显示区域 -->
+    <div id="resultArea" class="result-area hidden"></div>
+  </div>
+</div>
+
+<script>
+  // 标准参考答案
+  const referenceAnswer = `# 去重
+df = df.drop_duplicates(subset='用户ID')
+
+# 处理年龄异常值
+age_median = df['年龄'].median()
+df.loc[df['年龄'] < 0, '年龄'] = age_median
+
+# 填充性别缺失值
+gender_mode = df['性别'].mode()[0]
+df['性别'] = df['性别'].fillna(gender_mode)
+
+# 填充消费金额缺失值
+amount_mean = df['消费金额'].mean()
+df['消费金额'] = df['消费金额'].fillna(amount_mean)`;
+
+  function analyzeCode(userCode) {
+    const analysis = {
+      steps: [],
+      correct: [],
+      problems: [],
+      suggestions: []
+    };
+
+    const code = userCode.trim();
+    const codeLower = code.toLowerCase();
+
+    if (!code) {
+      analysis.problems.push('您还没有输入任何代码，请先尝试作答。');
+      analysis.suggestions.push('可以参考题目要求，一步步完成数据清洗的四个步骤。');
+      analysis.steps.push({ name: '步骤 1：删除重复记录', status: 'missing', desc: '未检测到去重相关代码' });
+      analysis.steps.push({ name: '步骤 2：处理年龄异常值', status: 'missing', desc: '未检测到年龄异常处理代码' });
+      analysis.steps.push({ name: '步骤 3：填充性别缺失值', status: 'missing', desc: '未检测到性别填充代码' });
+      analysis.steps.push({ name: '步骤 4：填充消费金额缺失值', status: 'missing', desc: '未检测到消费金额填充代码' });
+      return analysis;
+    }
+
+    // 步骤1：检查去重
+    if (codeLower.includes('drop_duplicates') || codeLower.includes('drop duplicates')) {
+      analysis.steps.push({
+        name: '步骤 1：删除重复记录',
+        status: 'completed',
+        desc: '检测到使用了 drop_duplicates() 方法去重'
+      });
+      analysis.correct.push('正确使用了 drop_duplicates() 方法进行去重处理。');
+
+      if (codeLower.includes('subset') && codeLower.includes('用户')) {
+        analysis.correct.push('去重时指定了 subset 参数，按用户ID进行去重，逻辑正确。');
+      } else {
+        analysis.suggestions.push('建议在 drop_duplicates() 中添加 subset=[\'用户ID\']，明确按用户ID去重，避免因其他列微小差异导致漏删。');
+      }
+    } else {
+      analysis.steps.push({
+        name: '步骤 1：删除重复记录',
+        status: 'missing',
+        desc: '未检测到 drop_duplicates() 的使用'
+      });
+      analysis.problems.push('缺少去重步骤。应该使用 df = df.drop_duplicates(subset=\'用户ID\') 删除重复的用户记录。');
+    }
+
+    // 步骤2：检查年龄异常处理
+    const hasAgeNegative = codeLower.includes('age') || codeLower.includes('年龄') || (codeLower.includes('< 0') || codeLower.includes('<0'));
+    const hasMedian = codeLower.includes('median');
+    const hasAgeReplace = codeLower.includes('.loc') || codeLower.includes('replace') || codeLower.includes('fillna');
+
+    if (hasMedian && (hasAgeNegative || hasAgeReplace)) {
+      analysis.steps.push({
+        name: '步骤 2：处理年龄异常值',
+        status: 'completed',
+        desc: '检测到使用中位数处理年龄异常值'
+      });
+      analysis.correct.push('正确使用了 median() 计算中位数来处理年龄异常值。');
+
+      if (codeLower.includes('.loc') && (codeLower.includes('age') || codeLower.includes('年龄'))) {
+        analysis.correct.push('使用 .loc 进行条件赋值，语法规范。');
+      }
+    } else if (hasMedian) {
+      analysis.steps.push({
+        name: '步骤 2：处理年龄异常值',
+        status: 'partial',
+        desc: '检测到 median，但缺少对负年龄的条件判断'
+      });
+      analysis.problems.push('计算了中位数，但未明确筛选出负数年龄并替换。');
+      analysis.suggestions.push('应该先判断哪些年龄小于0，例如：df.loc[df[\'年龄\'] < 0, \'年龄\'] = age_median');
+    } else {
+      analysis.steps.push({
+        name: '步骤 2：处理年龄异常值',
+        status: 'missing',
+        desc: '未检测到年龄异常值处理'
+      });
+      analysis.problems.push('缺少处理年龄异常值的步骤。应先计算中位数，再将负数年龄替换为中位数。');
+    }
+
+    // 步骤3：检查性别缺失值填充
+    const hasGenderFillna = (codeLower.includes('mode') && (codeLower.includes('fillna') || codeLower.includes('性别') || codeLower.includes('gender'))) ||
+                           (codeLower.includes('fillna') && (codeLower.includes('性别') || codeLower.includes('gender')));
+
+    if (hasGenderFillna) {
+      analysis.steps.push({
+        name: '步骤 3：填充性别缺失值',
+        status: 'completed',
+        desc: '检测到使用众数填充性别字段'
+      });
+      analysis.correct.push('正确使用了 mode() 计算众数来填充性别字段的缺失值。');
+
+      if (codeLower.includes('[0]') || codeLower.includes('.iloc')) {
+        analysis.correct.push('注意到使用了 [0] 来获取第一个众数值，这是正确的处理方式。');
+      } else {
+        analysis.suggestions.push('mode() 返回的是一个 Series，建议加上 [0] 来取第一个众数值，例如：df[\'性别\'].mode()[0]');
+      }
+    } else if (codeLower.includes('fillna') && (codeLower.includes('性别') || codeLower.includes('gender'))) {
+      analysis.steps.push({
+        name: '步骤 3：填充性别缺失值',
+        status: 'partial',
+        desc: '检测到 fillna 但未使用众数'
+      });
+      analysis.problems.push('对性别字段使用了 fillna，但没有明确使用众数 mode()。');
+      analysis.suggestions.push('性别是分类变量，建议使用众数填充：gender_mode = df[\'性别\'].mode()[0]; df[\'性别\'] = df[\'性别\'].fillna(gender_mode)');
+    } else {
+      analysis.steps.push({
+        name: '步骤 3：填充性别缺失值',
+        status: 'missing',
+        desc: '未检测到性别字段缺失值处理'
+      });
+      analysis.problems.push('缺少对性别字段缺失值的处理。');
+    }
+
+    // 步骤4：检查消费金额缺失值填充
+    const hasAmountFillna = (codeLower.includes('mean') && (codeLower.includes('消费') || codeLower.includes('amount') || codeLower.includes('金额'))) ||
+                           (codeLower.includes('fillna') && (codeLower.includes('消费') || codeLower.includes('amount') || codeLower.includes('金额')));
+
+    if (hasAmountFillna && codeLower.includes('mean')) {
+      analysis.steps.push({
+        name: '步骤 4：填充消费金额缺失值',
+        status: 'completed',
+        desc: '检测到使用均值填充消费金额'
+      });
+      analysis.correct.push('正确使用了 mean() 计算均值来填充消费金额字段的缺失值。');
+    } else if (codeLower.includes('fillna') && (codeLower.includes('消费') || codeLower.includes('amount') || codeLower.includes('金额'))) {
+      analysis.steps.push({
+        name: '步骤 4：填充消费金额缺失值',
+        status: 'partial',
+        desc: '检测到 fillna 但未使用均值'
+      });
+      analysis.problems.push('对消费金额使用了 fillna，但没有明确使用均值 mean()。');
+      analysis.suggestions.push('消费金额是数值型数据，建议使用均值填充：amount_mean = df[\'消费金额\'].mean(); df[\'消费金额\'] = df[\'消费金额\'].fillna(amount_mean)');
+    } else {
+      analysis.steps.push({
+        name: '步骤 4：填充消费金额缺失值',
+        status: 'missing',
+        desc: '未检测到消费金额字段缺失值处理'
+      });
+      analysis.problems.push('缺少对消费金额字段缺失值的处理。');
+    }
+
+    // 通用语法/逻辑检查
+    if (codeLower.includes('import pandas') || codeLower.includes('import numpy')) {
+      analysis.correct.push('代码开头导入了必要的库，好习惯！');
+    } else {
+      analysis.suggestions.push('建议在代码开头添加 import pandas as pd，确保可以使用 Pandas 功能。');
+    }
+
+    if (codeLower.includes('dataframe') || codeLower.includes('df') || codeLower.includes('read_csv')) {
+      analysis.correct.push('正确使用了 DataFrame 结构来处理数据。');
+    }
+
+    // 常见问题检测
+    if (codeLower.includes('df =') && !codeLower.includes('drop_duplicates')) {
+      analysis.suggestions.push('注意：在进行任何修改前，建议先备份原始数据或确保操作的可追溯性。');
+    }
+
+    // inplace 检测
+    if (codeLower.includes('inplace=true')) {
+      analysis.suggestions.push('虽然使用 inplace=True 可以节省内存，但建议使用赋值方式（df = df.method()）更清晰，避免副作用。');
+    }
+
+    // 如果所有步骤都完成
+    const completedCount = analysis.steps.filter(s => s.status === 'completed').length;
+    if (completedCount === 4) {
+      analysis.suggestions.push('🌟 非常棒！您已经完成了所有四个步骤。可以进一步优化代码的可读性，例如添加注释说明每一步的目的。');
+    } else if (completedCount >= 2) {
+      analysis.suggestions.push('您已完成部分步骤，继续加油完善剩余的部分！');
+    } else {
+      analysis.suggestions.push('建议按照题目的四个步骤依次完成：先去重、再处理年龄异常、然后处理两个字段的缺失值填充。');
+    }
+
+    return analysis;
+  }
+
+  function renderResult(userCode, analysis) {
+    const resultArea = document.getElementById('resultArea');
+    let html = '';
+
+    // 用户答案
+    html += `
+      <div class="result-card">
+        <div class="result-card-header">
+          <svg class="result-card-icon" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+          <span class="result-card-title">您的答案</span>
+        </div>
+        <div class="code-block">
+          <pre><code>${escapeHtml(userCode) || '（空答案）'}</code></pre>
+        </div>
+      </div>
+    `;
+
+    // 每步完成状态
+    let stepsHtml = `
+      <div class="analysis-card">
+        <div class="result-card-header">
+          <svg class="result-card-icon" viewBox="0 0 24 24" fill="none" stroke="#00695C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          <span class="analysis-card-title">每步完成情况</span>
+        </div>
+    `;
+    analysis.steps.forEach(step => {
+      const statusClass = step.status;
+      let statusIcon = '';
+      let statusText = '';
+      if (step.status === 'completed') {
+        statusIcon = '<svg class="step-check-icon" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        statusText = '✓ 已完成';
+      } else if (step.status === 'partial') {
+        statusIcon = '<svg class="step-check-icon" viewBox="0 0 24 24" fill="none" stroke="#EF6C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+        statusText = '△ 部分完成';
+      } else {
+        statusIcon = '<svg class="step-check-icon" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+        statusText = '✗ 未完成';
+      }
+      stepsHtml += `
+        <div class="step-check ${statusClass}">
+          ${statusIcon}
+          <span style="font-weight:600; margin-right: 4px;">${step.name}：</span>
+          <span>${step.desc}（${statusText}）</span>
+        </div>
+      `;
+    });
+    stepsHtml += `</div>`;
+    html += stepsHtml;
+
+    // 正确的地方
+    if (analysis.correct.length > 0) {
+      html += `
+        <div class="analysis-card">
+          <div class="analysis-section">
+            <div class="analysis-subtitle correct">
+              <svg style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+              </svg>
+              <span>正确的地方</span>
+            </div>
+            <ul class="analysis-list">
+              ${analysis.correct.map(item => `<li class="correct">${item}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    // 存在的问题
+    if (analysis.problems.length > 0) {
+      html += `
+        <div class="analysis-card" style="background-color:#FFF3E0; border-color:#FFB74D;">
+          <div class="analysis-section">
+            <div class="analysis-subtitle warning">
+              <svg style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="#EF6C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <span>存在的问题</span>
+            </div>
+            <ul class="analysis-list">
+              ${analysis.problems.map(item => `<li class="warning">${item}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    // 修改建议
+    if (analysis.suggestions.length > 0) {
+      html += `
+        <div class="analysis-card">
+          <div class="analysis-section">
+            <div class="analysis-subtitle suggestion">
+              <svg style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="#00695C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+              </svg>
+              <span>修改建议</span>
+            </div>
+            <ul class="analysis-list">
+              ${analysis.suggestions.map(item => `<li class="suggestion">${item}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    // 标准参考答案
+    html += `
+      <div class="reference-card">
+        <div class="result-card-header">
+          <svg class="result-card-icon" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span class="result-card-title" style="color:#2E7D32;">标准参考答案</span>
+        </div>
+        <div class="code-block">
+          <pre><code>${referenceAnswer}</code></pre>
+        </div>
+        <div style="margin-top:12px; padding:10px 12px; background-color:#F1F8E9; border-radius:6px; font-size:13px; color:#33691E; line-height:1.7;">
+          <strong>说明：</strong>以上是完整的参考答案。数据清洗的核心思路是：先去重避免重复处理 → 再处理异常值防止影响统计 → 最后根据不同字段类型选择合适的填充策略（分类变量用众数、数值变量用均值）。
+        </div>
+      </div>
+    `;
+
+    resultArea.innerHTML = html;
+    resultArea.classList.remove('hidden');
+
+    // 滚动到结果区域
+    resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function submitAnswer() {
+    const userCode = document.getElementById('answerInput').value;
+    const submitBtn = document.getElementById('submitBtn');
+
+    // 显示加载状态
+    submitBtn.disabled = true;
+    const originalContent = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<svg class="submit-btn-icon" style="animation:spin 1s linear infinite" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg><span>分析中...</span>';
+
+    setTimeout(() => {
+      const analysis = analyzeCode(userCode);
+      renderResult(userCode, analysis);
+
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalContent;
+    }, 600);
+  }
+
+  // 添加旋转动画样式
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = `
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  `;
+  document.head.appendChild(styleSheet);
+</script>
+
+</body>
+</html>

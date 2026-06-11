@@ -321,7 +321,7 @@ export default function ProjectDetail() {
                 [&::-webkit-scrollbar-track]:bg-cream-100">
                 {renderContent(project.exercises)}
               </div>
-              <div className="min-h-[800px] sm:min-h-[900px] max-h-[900px] sm:max-h-[1000px] overflow-y-auto scroll-smooth">
+              <div className="min-h-[900px] sm:min-h-[1000px] max-h-[1000px] sm:max-h-[1100px] overflow-y-auto scroll-smooth">
                 <CodeEditor />
               </div>
             </div>

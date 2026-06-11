@@ -39,18 +39,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `语法 (Pandas):`,
+      content: `语法 (Pandas):`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `import pandas as pd\ndata = pd.read_csv(\'data.csv\')\nprint(data.isnull().sum()) # 统计每列缺失数量`,
-      },
+        code: `import pandas as pd\ndata = pd.read_csv('data.csv')\nprint(data.isnull().sum()) # 统计每列缺失数量`      }
     },
     {
       type: "text",
-      content: `\`isnull()\`返回布尔型 DataFrame，\`sum()\`汇总每列缺失个数。`,
+      content: `\`isnull()\`返回布尔型 DataFrame，\`sum()\`汇总每列缺失个数。`
     }
     ],
   },
@@ -59,18 +58,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- 删除含缺失值的行: \`data.dropna()\`\n\n- 删除指定列有缺失的行: \`data.dropna(subset=[\'列名\'])\`\n\n- 原地修改: \`data.dropna(inplace=True)\``,
+      content: `- 删除含缺失值的行: \`data.dropna()\`\n\n- 删除指定列有缺失的行: \`data.dropna(subset=['列名'])\`\n\n- 原地修改: \`data.dropna(inplace=True)\``
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `data.dropna(inplace=True) # 删除所有含NaN的行`,
-      },
+        code: `data.dropna(inplace=True) # 删除所有含NaN的行`      }
     },
     {
       type: "text",
-      content: `注意：删除前应确认缺失比例，避免过度损失样本。`,
+      content: `注意：删除前应确认缺失比例，避免过度损失样本。`
     }
     ],
   },
@@ -79,18 +77,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `常用方法：均值、中位数、众数、指定值、前向 / 后向填充。`,
+      content: `常用方法：均值、中位数、众数、指定值、前向 / 后向填充。`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 用均值填充\ndata[\'age\'].fillna(data[\'age\'].mean(), inplace=True)\n# 用中位数填充\ndata[\'income\'].fillna(data[\'income\'].median(), inplace=True)\n# 用众数填充\nmode_val = data[\'gender\'].mode()\ndata[\'gender\'].fillna(mode_val, inplace=True)\n# 指定常数填充\ndata.fillna(0, inplace=True)`,
-      },
+        code: `# 用均值填充\ndata['age'].fillna(data['age'].mean(), inplace=True)\n# 用中位数填充\ndata['income'].fillna(data['income'].median(), inplace=True)\n# 用众数填充\nmode_val = data['gender'].mode()\ndata['gender'].fillna(mode_val, inplace=True)\n# 指定常数填充\ndata.fillna(0, inplace=True)`      }
     },
     {
       type: "text",
-      content: `举例：在用户信息数据中，年龄缺失时使用全体用户的平均年龄填充；收入缺失时使用中位数 (避免极值影响)。`,
+      content: `举例：在用户信息数据中，年龄缺失时使用全体用户的平均年龄填充；收入缺失时使用中位数 (避免极值影响)。`
     }
     ],
   },
@@ -99,18 +96,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `当数据中用 “n/a”、“NA”、“—” 等表示缺失时，需在读取时声明:`,
+      content: `当数据中用 “n/a”、“NA”、“—” 等表示缺失时，需在读取时声明:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `missing_values = ["n/a", "na", "--"]\ndata = pd.read_csv(\'data.csv\', na_values=missing_values)`,
-      },
+        code: `missing_values = ["n/a", "na", "--"]\ndata = pd.read_csv('data.csv', na_values=missing_values)`      }
     },
     {
       type: "text",
-      content: `这样 Pandas 会将这些字符串识别为 NaN。`,
+      content: `这样 Pandas 会将这些字符串识别为 NaN。`
     }
     ],
   },
@@ -121,12 +117,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `print(data.duplicated().sum()) # 重复行数\n# 查看重复行\nprint(data[data.duplicated()])`,
-      },
+        code: `print(data.duplicated().sum()) # 重复行数\n# 查看重复行\nprint(data[data.duplicated()])`      }
     },
     {
       type: "text",
-      content: `\`duplicated()\`返回布尔 Series，默认标记第一次出现之后的重复为 True。`,
+      content: `\`duplicated()\`返回布尔 Series，默认标记第一次出现之后的重复为 True。`
     }
     ],
   },
@@ -137,12 +132,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `data.drop_duplicates(inplace=True) # 保留第一次出现的行\n# 基于指定列判断重复\ndata.drop_duplicates(subset=[\'id\', \'name\'], keep=\'first\', inplace=True)`,
-      },
+        code: `data.drop_duplicates(inplace=True) # 保留第一次出现的行\n# 基于指定列判断重复\ndata.drop_duplicates(subset=['id', 'name'], keep='first', inplace=True)`      }
     },
     {
       type: "text",
-      content: `参数\`keep\`可选 \'first\'(保留第一个)、\'last\'(保留最后一个)、False (全部删除)。\n\n举例：电商订单数据中，同一订单号出现多次，按订单号去重保留第一条记录。`,
+      content: `参数\`keep\`可选 'first'(保留第一个)、'last'(保留最后一个)、False (全部删除)。\n\n举例：电商订单数据中，同一订单号出现多次，按订单号去重保留第一条记录。`
     }
     ],
   },
@@ -151,18 +145,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `语法:`,
+      content: `语法:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `Q1 = data[\'column\'].quantile(0.25)\nQ3 = data[\'column\'].quantile(0.75)\nIQR = Q3 - Q1\nlower = Q1 - 1.5 * IQR\nupper = Q3 + 1.5 * IQR\ndata = data[(data[\'column\'] >= lower) & (data[\'column\'] <= upper)]`,
-      },
+        code: `Q1 = data['column'].quantile(0.25)\nQ3 = data['column'].quantile(0.75)\nIQR = Q3 - Q1\nlower = Q1 - 1.5 * IQR\nupper = Q3 + 1.5 * IQR\ndata = data[(data['column'] >= lower) & (data['column'] <= upper)]`      }
     },
     {
       type: "text",
-      content: `超出上下限的值被视为异常值并删除。`,
+      content: `超出上下限的值被视为异常值并删除。`
     }
     ],
   },
@@ -173,12 +166,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `from scipy import stats\nz_scores = stats.zscore(data[\'column\'])\ndata = data[(z_scores > -3) & (z_scores < 3)] # 保留Z-score在[-3,3]内的行`,
-      },
+        code: `from scipy import stats\nz_scores = stats.zscore(data['column'])\ndata = data[(z_scores > -3) & (z_scores < 3)] # 保留Z-score在[-3,3]内的行`      }
     },
     {
       type: "text",
-      content: `通常认为 \\| Z\\|\\>3 为异常值。`,
+      content: `通常认为 | Z|>3 为异常值。`
     }
     ],
   },
@@ -189,12 +181,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `import matplotlib.pyplot as plt\nplt.boxplot(data[\'column\'])\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\nplt.boxplot(data['column'])\nplt.show()`      }
     },
     {
       type: "text",
-      content: `箱线图能直观显示异常值 (图中圆点)。\n\n举例：分析员工薪资时，发现个别月薪为 100 万元 (录入错误)，用 IQR 方法识别并剔除或修正为缺失值后填充均值。`,
+      content: `箱线图能直观显示异常值 (图中圆点)。\n\n举例：分析员工薪资时，发现个别月薪为 100 万元 (录入错误)，用 IQR 方法识别并剔除或修正为缺失值后填充均值。`
     }
     ],
   },
@@ -205,12 +196,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `# 转为整数/浮点\ndata[\'age\'] = data[\'age\'].astype(int)\n# 转为日期时间\ndata[\'date\'] = pd.to_datetime(data[\'date\'])`,
-      },
+        code: `# 转为整数/浮点\ndata['age'] = data['age'].astype(int)\n# 转为日期时间\ndata['date'] = pd.to_datetime(data['date'])`      }
     },
     {
       type: "text",
-      content: `确保数值列能运算、日期列能排序和提取特征。`,
+      content: `确保数值列能运算、日期列能排序和提取特征。`
     }
     ],
   },
@@ -219,18 +209,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- 去除空格: \`data[\'name\'].str.strip()\`\n\n- 统一大小写: \`data[\'name\'].str.lower()\`\n\n- 替换字符: \`data[\'phone\'].str.replace(\'-\', \'\')\`\n\n- 正则删除非字母数字: \`data[\'note\'].str.replace(\'[^a-zA-Z0-9]\', \'\')\`\n\n举例：对 Payment 列 (含美元符号和逗号) 的清洗:`,
+      content: `- 去除空格: \`data['name'].str.strip()\`\n\n- 统一大小写: \`data['name'].str.lower()\`\n\n- 替换字符: \`data['phone'].str.replace('-', '')\`\n\n- 正则删除非字母数字: \`data['note'].str.replace('[^a-zA-Z0-9]', '')\`\n\n举例：对 Payment 列 (含美元符号和逗号) 的清洗:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `data["Payment"] = data["Payment"].str[1:].str.replace(",", ".").astype(float)`,
-      },
+        code: `data["Payment"] = data["Payment"].str[1:].str.replace(",", ".").astype(float)`      }
     },
     {
       type: "text",
-      content: `先将第一个字符 ($) 去掉，再将逗号替换为点，最后转为浮点数。`,
+      content: `先将第一个字符 ($) 去掉，再将逗号替换为点，最后转为浮点数。`
     }
     ],
   },
@@ -241,12 +230,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `data["Date"] = data["Date"].astype("datetime64[ns]")`,
-      },
+        code: `data["Date"] = data["Date"].astype("datetime64[ns]")`      }
     },
     {
       type: "text",
-      content: `可将多种日期格式 (如 “2020/12/01”、“20201226”) 统一为标准 datetime。`,
+      content: `可将多种日期格式 (如 “2020/12/01”、“20201226”) 统一为标准 datetime。`
     }
     ],
   },
@@ -255,7 +243,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `在 Excel 中，可使用 “数据→分列” 功能将日期时间拆分为两列，或用 Ctrl\\+E 快速填充提取部分字符。`,
+      content: `在 Excel 中，可使用 “数据→分列” 功能将日期时间拆分为两列，或用 Ctrl+E 快速填充提取部分字符。`
     }
     ],
   },
@@ -264,18 +252,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `将数据映射到 \\[0,1\\] 区间:`,
+      content: `将数据映射到 [0,1] 区间:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from sklearn.preprocessing import MinMaxScaler\nscaler = MinMaxScaler()\ndata[[\'col1\', \'col2\']] = scaler.fit_transform(data[[\'col1\', \'col2\']])`,
-      },
+        code: `from sklearn.preprocessing import MinMaxScaler\nscaler = MinMaxScaler()\ndata[['col1', 'col2']] = scaler.fit_transform(data[['col1', 'col2']])`      }
     },
     {
       type: "text",
-      content: `适用于需要将不同量纲特征统一尺度的情况。`,
+      content: `适用于需要将不同量纲特征统一尺度的情况。`
     }
     ],
   },
@@ -284,18 +271,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `转换成均值为 0、标准差为 1 的分布:`,
+      content: `转换成均值为 0、标准差为 1 的分布:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from sklearn.preprocessing import StandardScaler\nscaler = StandardScaler()\ndata[[\'col1\', \'col2\']] = scaler.fit_transform(data[[\'col1\', \'col2\']])`,
-      },
+        code: `from sklearn.preprocessing import StandardScaler\nscaler = StandardScaler()\ndata[['col1', 'col2']] = scaler.fit_transform(data[['col1', 'col2']])`      }
     },
     {
       type: "text",
-      content: `常用于机器学习模型对特征分布有要求的场景 (如线性回归、SVM)。`,
+      content: `常用于机器学习模型对特征分布有要求的场景 (如线性回归、SVM)。`
     }
     ],
   },
@@ -304,7 +290,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `除了 Python，Excel 在快速清洗小规模数据时也极为高效。以下为核心语法 (操作):\n\n1. **分列**: 选中列 → 数据 → 分列 → 按分隔符或固定宽度拆分。例如将 “2025-05-11 14:30:00” 分为日期和时间两列。\n\n2. **快速填充 (Ctrl\\+E)**: 通过示例自动填充规律。例如从 “张明 13812345678” 中只提取手机号。\n\n3. **删除重复项**: 数据 → 删除重复项，可基于多列判断。\n\n4. **条件格式标记重复**: 选中区域 → 条件格式 → 突出显示重复值，标红重复项。\n\n5. **TRIM 函数去空格**: \`=TRIM(A1)\`去除前后多余空格。\n\n举例：从身份证号中提取出生日期:\n使用分列 (固定宽度) 取出第 7\\~14 位数字，再转为日期格式。`,
+      content: `除了 Python，Excel 在快速清洗小规模数据时也极为高效。以下为核心语法 (操作):\n\n1. **分列**: 选中列 → 数据 → 分列 → 按分隔符或固定宽度拆分。例如将 “2025-05-11 14:30:00” 分为日期和时间两列。\n\n2. **快速填充 (Ctrl+E)**: 通过示例自动填充规律。例如从 “张明 13812345678” 中只提取手机号。\n\n3. **删除重复项**: 数据 → 删除重复项，可基于多列判断。\n\n4. **条件格式标记重复**: 选中区域 → 条件格式 → 突出显示重复值，标红重复项。\n\n5. **TRIM 函数去空格**: \`=TRIM(A1)\`去除前后多余空格。\n\n举例：从身份证号中提取出生日期:\n使用分列 (固定宽度) 取出第 7\\~14 位数字，再转为日期格式。`
     }
     ],
   },
@@ -313,7 +299,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `SPSS 通过语法实现批量清洗，适合统计分析场景。`,
+      content: `SPSS 通过语法实现批量清洗，适合统计分析场景。`
     }
     ],
   },
@@ -324,12 +310,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "spss",
-        code: `SORT CASES BY ID Name.\nMATCH FILES /FILE=* /BY ID Name /FIRST=firstcase.\nSELECT IF (firstcase=1).\nEXECUTE.`,
-      },
+        code: `SORT CASES BY ID Name.\nMATCH FILES /FILE=* /BY ID Name /FIRST=firstcase.\nSELECT IF (firstcase=1).\nEXECUTE.`      }
     },
     {
       type: "text",
-      content: `先排序，再标记每组第一个记录，筛选保留。`,
+      content: `先排序，再标记每组第一个记录，筛选保留。`
     }
     ],
   },
@@ -340,12 +325,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "spss",
-        code: `AGGREGATE\n/OUTFILE=* MODE=ADDVARIABLES\n/BREAK=\n/var1_mean=MEAN(var1).\nIF MISSING(var1) var1 = var1_mean.\nEXECUTE.`,
-      },
+        code: `AGGREGATE\n/OUTFILE=* MODE=ADDVARIABLES\n/BREAK=\n/var1_mean=MEAN(var1).\nIF MISSING(var1) var1 = var1_mean.\nEXECUTE.`      }
     },
     {
       type: "text",
-      content: `先计算均值存为新变量，再用 IF 赋值替换缺失值。`,
+      content: `先计算均值存为新变量，再用 IF 赋值替换缺失值。`
     }
     ],
   },
@@ -356,12 +340,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "spss",
-        code: `DESCRIPTIVES VARIABLES=var1 /SAVE.\nEXECUTE.`,
-      },
+        code: `DESCRIPTIVES VARIABLES=var1 /SAVE.\nEXECUTE.`      }
     },
     {
       type: "text",
-      content: `自动生成 Z 标准化新变量 Zvar1。`,
+      content: `自动生成 Z 标准化新变量 Zvar1。`
     }
     ],
   },
@@ -372,12 +355,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "spss",
-        code: `IF (age < 18) age_group = 1.\nIF (age >= 18 & age < 30) age_group = 2.\nIF (age >= 30 & age < 50) age_group = 3.\nIF (age >= 50) age_group = 4.\nEXECUTE.`,
-      },
+        code: `IF (age < 18) age_group = 1.\nIF (age >= 18 & age < 30) age_group = 2.\nIF (age >= 30 & age < 50) age_group = 3.\nIF (age >= 50) age_group = 4.\nEXECUTE.`      }
     },
     {
       type: "text",
-      content: `根据年龄分四组。`,
+      content: `根据年龄分四组。`
     }
     ],
   },
@@ -386,18 +368,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `假设有一个包含用户 ID、姓名、年龄、性别、收入、注册日期的 CSV 文件，按以下步骤清洗:`,
+      content: `假设有一个包含用户 ID、姓名、年龄、性别、收入、注册日期的 CSV 文件，按以下步骤清洗:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `import pandas as pd\nimport numpy as np\nfrom sklearn.preprocessing import StandardScaler, MinMaxScaler, LabelEncoder\n\n# 加载数据\ndata = pd.read_csv(\'user_data.csv\')\n\n# 1. 查看基本信息与缺失\nprint(data.info())\nprint(data.isnull().sum())\n\n# 2. 填充缺失值(年龄用均值,收入用中位数)\ndata[\'age\'] = data[\'age\'].fillna(data[\'age\'].mean())\ndata[\'income\'] = data[\'income\'].fillna(data[\'income\'].median())\n\n# 3. 删除重复用户(基于ID)\ndata.drop_duplicates(subset=[\'id\'], inplace=True)\n\n# 4. 转换日期格式\ndata[\'reg_date\'] = pd.to_datetime(data[\'reg_date\'])\n\n# 5. 异常值检测(年龄超过100视为异常,用均值替换)\ndata.loc[data[\'age\'] > 100, \'age\'] = data[\'age\'].mean()\n\n# 6. 性别编码(标签编码)\nle = LabelEncoder()\ndata[\'gender\'] = le.fit_transform(data[\'gender\'])\n\n# 7. 收入标准化\nscaler = StandardScaler()\ndata[\'income_scaled\'] = scaler.fit_transform(data[[\'income\']])\n\nprint(data.head())`,
-      },
+        code: `import pandas as pd\nimport numpy as np\nfrom sklearn.preprocessing import StandardScaler, MinMaxScaler, LabelEncoder\n\n# 加载数据\ndata = pd.read_csv('user_data.csv')\n\n# 1. 查看基本信息与缺失\nprint(data.info())\nprint(data.isnull().sum())\n\n# 2. 填充缺失值(年龄用均值,收入用中位数)\ndata['age'] = data['age'].fillna(data['age'].mean())\ndata['income'] = data['income'].fillna(data['income'].median())\n\n# 3. 删除重复用户(基于ID)\ndata.drop_duplicates(subset=['id'], inplace=True)\n\n# 4. 转换日期格式\ndata['reg_date'] = pd.to_datetime(data['reg_date'])\n\n# 5. 异常值检测(年龄超过100视为异常,用均值替换)\ndata.loc[data['age'] > 100, 'age'] = data['age'].mean()\n\n# 6. 性别编码(标签编码)\nle = LabelEncoder()\ndata['gender'] = le.fit_transform(data['gender'])\n\n# 7. 收入标准化\nscaler = StandardScaler()\ndata['income_scaled'] = scaler.fit_transform(data[['income']])\n\nprint(data.head())`      }
     },
     {
       type: "text",
-      content: `该实例涵盖了缺失值、重复值、异常值、格式转换、编码和标准化等核心步骤，是数据清洗的标准流程。`,
+      content: `该实例涵盖了缺失值、重复值、异常值、格式转换、编码和标准化等核心步骤，是数据清洗的标准流程。`
     }
     ],
   },
@@ -406,11 +387,11 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `数据清洗的核心知识点围绕识别脏数据并修正 / 删除，具体技术包含:\n\n- 缺失值: \`dropna()\` / \`fillna()\`(均值、中位数、众数)\n\n- 重复值: \`duplicated()\` / \`drop_duplicates()\`\n\n- 异常值: IQR 法、Z-score、箱线图\n\n- 格式统一: \`astype()\`、\`pd.to_datetime()\`、\`str.replace()\`、正则\n\n- 数据变换: \`MinMaxScaler\` / \`StandardScaler\`\n\n- 工具扩展: Excel 分列、快速填充；SPSS 的\`AGGREGATE\`、\`RECODE\`等。\n\n掌握这些语法和实例，能够高效处理大多数数据质量问题，为后续分析奠定可靠基础。`,
+      content: `数据清洗的核心知识点围绕识别脏数据并修正 / 删除，具体技术包含:\n\n- 缺失值: \`dropna()\` / \`fillna()\`(均值、中位数、众数)\n\n- 重复值: \`duplicated()\` / \`drop_duplicates()\`\n\n- 异常值: IQR 法、Z-score、箱线图\n\n- 格式统一: \`astype()\`、\`pd.to_datetime()\`、\`str.replace()\`、正则\n\n- 数据变换: \`MinMaxScaler\` / \`StandardScaler\`\n\n- 工具扩展: Excel 分列、快速填充；SPSS 的\`AGGREGATE\`、\`RECODE\`等。\n\n掌握这些语法和实例，能够高效处理大多数数据质量问题，为后续分析奠定可靠基础。`
     },
     {
       type: "note",
-      content: `（注：文档部分内容可能由 AI 生成）`,
+      content: `（注：文档部分内容可能由 AI 生成）`
     }
     ],
   }
@@ -426,7 +407,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `分组聚合操作的本质可以用 “拆分 - 应用 - 合并” 三部曲来概括:\n\n1. 拆分 (Split): 根据指定的一个或多个键 (key), 将原始数据集拆分成若干个子小组。\n\n2. 应用 (Apply): 对每一个子小组独立地应用一个函数，这个函数可以是聚合函数 (求和、平均值)、转换函数 (标准化) 或过滤函数。\n\n3. 合并 (Combine): 将每一步 “应用” 的结果合并成一个新的、结构清晰的数据结构 (DataFrame 或 Series)。\n\n这个模式适用于所有主流分析工具，无论是 SQL 还是 Pandas, 底层逻辑完全一致。`,
+      content: `分组聚合操作的本质可以用 “拆分 - 应用 - 合并” 三部曲来概括:\n\n1. 拆分 (Split): 根据指定的一个或多个键 (key), 将原始数据集拆分成若干个子小组。\n\n2. 应用 (Apply): 对每一个子小组独立地应用一个函数，这个函数可以是聚合函数 (求和、平均值)、转换函数 (标准化) 或过滤函数。\n\n3. 合并 (Combine): 将每一步 “应用” 的结果合并成一个新的、结构清晰的数据结构 (DataFrame 或 Series)。\n\n这个模式适用于所有主流分析工具，无论是 SQL 还是 Pandas, 底层逻辑完全一致。`
     }
     ],
   },
@@ -435,18 +416,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `在关系型数据库中，GROUP BY 子句用于结合聚合函数，根据一个或多个列对结果集进行分组。其基本语法为:`,
+      content: `在关系型数据库中，GROUP BY 子句用于结合聚合函数，根据一个或多个列对结果集进行分组。其基本语法为:`
     },
     {
       type: "code",
       code: {
         language: "sql",
-        code: `SELECT column_name, aggregate_function(column_name)\nFROM table_name\nWHERE condition\nGROUP BY column_name;`,
-      },
+        code: `SELECT column_name, aggregate_function(column_name)\nFROM table_name\nWHERE condition\nGROUP BY column_name;`      }
     },
     {
       type: "text",
-      content: `核心铁律：SELECT 子句中所有未使用聚合函数的列，都必须出现在 GROUP BY 子句中。这是因为数据库在处理每个分组时，非聚合列的值可能有多个，必须明确指定按哪个字段分组才能得到唯一的汇总行。`,
+      content: `核心铁律：SELECT 子句中所有未使用聚合函数的列，都必须出现在 GROUP BY 子句中。这是因为数据库在处理每个分组时，非聚合列的值可能有多个，必须明确指定按哪个字段分组才能得到唯一的汇总行。`
     }
     ],
   },
@@ -457,8 +437,7 @@ export const courseContent: Chapter[] = [
       type: "table",
       table: {
         headers: [`函数`, `作用`, `说明`],
-        rows: [[`COUNT()`, `统计行数或非空值数量`, `COUNT (\\*) 统计所有行，COUNT (列名) 忽略 NULL 值`], [`SUM()`, `计算总和`, `仅适用于数值列`], [`AVG()`, `计算平均值`, `自动忽略 NULL 值`], [`MIN()`, `计算最小值`, `可用于数值、日期、字符串`], [`MAX()`, `计算最大值`, `同上`]],
-      },
+        rows: [[`COUNT()`, `统计行数或非空值数量`, `COUNT (*) 统计所有行，COUNT (列名) 忽略 NULL 值`], [`SUM()`, `计算总和`, `仅适用于数值列`], [`AVG()`, `计算平均值`, `自动忽略 NULL 值`], [`MIN()`, `计算最小值`, `可用于数值、日期、字符串`], [`MAX()`, `计算最大值`, `同上`]]      }
     }
     ],
   },
@@ -467,36 +446,33 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `#### 例 1: 统计每个国家的产品种类数\n\n假设有水果表 T\\_TEST\\_FRUITINFO, 包含字段 FruitName、ProductPlace、Price, 按出产国统计水果种类:`,
+      content: `#### 例 1: 统计每个国家的产品种类数\n\n假设有水果表 T\\_TEST\\_FRUITINFO, 包含字段 FruitName、ProductPlace、Price, 按出产国统计水果种类:`
     },
     {
       type: "code",
       code: {
         language: "sql",
-        code: `SELECT COUNT(*) AS 水果种类, ProductPlace AS 出产国\nFROM T_TEST_FRUITINFO\nGROUP BY ProductPlace;`,
-      },
+        code: `SELECT COUNT(*) AS 水果种类, ProductPlace AS 出产国\nFROM T_TEST_FRUITINFO\nGROUP BY ProductPlace;`      }
     },
     {
       type: "text",
-      content: `这条语句将数据集按国家分组，然后对每个组统计记录数。\n\n#### 例 2: 统计每个客户的订单总金额\n\n假设有订单表 Orders (O\\_Id, OrderDate, OrderPrice, Customer):`,
+      content: `这条语句将数据集按国家分组，然后对每个组统计记录数。\n\n#### 例 2: 统计每个客户的订单总金额\n\n假设有订单表 Orders (O\\_Id, OrderDate, OrderPrice, Customer):`
     },
     {
       type: "code",
       code: {
         language: "sql",
-        code: `SELECT Customer, SUM(OrderPrice) AS 总金额\nFROM Orders\nGROUP BY Customer;`,
-      },
+        code: `SELECT Customer, SUM(OrderPrice) AS 总金额\nFROM Orders\nGROUP BY Customer;`      }
     },
     {
       type: "text",
-      content: `结果会按客户名称分组，计算出每个客户的消费总额。\n\n#### 例 3: 按多列复合分组\n\n按产品和月份统计销售额:`,
+      content: `结果会按客户名称分组，计算出每个客户的消费总额。\n\n#### 例 3: 按多列复合分组\n\n按产品和月份统计销售额:`
     },
     {
       type: "code",
       code: {
         language: "sql",
-        code: `SELECT product_id, MONTH(sale_date) AS sale_month, SUM(sales) AS total_sales\nFROM sales_table\nGROUP BY product_id, sale_month;`,
-      },
+        code: `SELECT product_id, MONTH(sale_date) AS sale_month, SUM(sales) AS total_sales\nFROM sales_table\nGROUP BY product_id, sale_month;`      }
     }
     ],
   },
@@ -505,14 +481,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `WHERE 子句在分组前过滤行，而 HAVING 子句在分组后对聚合结果进行筛选:`,
+      content: `WHERE 子句在分组前过滤行，而 HAVING 子句在分组后对聚合结果进行筛选:`
     },
     {
       type: "code",
       code: {
         language: "sql",
-        code: `SELECT region, SUM(sales) AS total_sales\nFROM sales_data\nGROUP BY region\nHAVING SUM(sales) > 10000;`,
-      },
+        code: `SELECT region, SUM(sales) AS total_sales\nFROM sales_data\nGROUP BY region\nHAVING SUM(sales) > 10000;`      }
     }
     ],
   },
@@ -521,7 +496,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `SQL 语句的执行顺序遵循：WHERE → GROUP BY → HAVING → ORDER BY。理解这一点有助于正确编写分组查询。`,
+      content: `SQL 语句的执行顺序遵循：WHERE → GROUP BY → HAVING → ORDER BY。理解这一点有助于正确编写分组查询。`
     }
     ],
   },
@@ -530,7 +505,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Pandas 通过 groupby () 方法实现了极其强大灵活的分组聚合功能，语法上更贴近 “拆分 - 应用 - 合并” 的思维模式。`,
+      content: `Pandas 通过 groupby () 方法实现了极其强大灵活的分组聚合功能，语法上更贴近 “拆分 - 应用 - 合并” 的思维模式。`
     }
     ],
   },
@@ -541,19 +516,17 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `DataFrame.groupby(by=None, axis=0, level=None, as_index=True, sort=True, dropna=True)`,
-      },
+        code: `DataFrame.groupby(by=None, axis=0, level=None, as_index=True, sort=True, dropna=True)`      }
     },
     {
       type: "text",
-      content: `主要参数说明:`,
+      content: `主要参数说明:`
     },
     {
       type: "table",
       table: {
         headers: [`参数`, `说明`, `默认值`],
-        rows: [[`by`, `分组依据，可以是列名、列名列表、函数、字典或 Series`, `None`], [`as\\_index`, `是否将分组键作为结果索引`, `True`], [`sort`, `是否对分组键排序`, `True`], [`dropna`, `是否排除包含 NaN 值的分组`, `True`]],
-      },
+        rows: [[`by`, `分组依据，可以是列名、列名列表、函数、字典或 Series`, `None`], [`as\\_index`, `是否将分组键作为结果索引`, `True`], [`sort`, `是否对分组键排序`, `True`], [`dropna`, `是否排除包含 NaN 值的分组`, `True`]]      }
     }
     ],
   },
@@ -562,36 +535,33 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `#### 单列分组聚合:`,
+      content: `#### 单列分组聚合:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 按部门计算平均薪资\navg_salary = df.groupby(\'Department\')[\'Salary\'].mean()`,
-      },
+        code: `# 按部门计算平均薪资\navg_salary = df.groupby('Department')['Salary'].mean()`      }
     },
     {
       type: "text",
-      content: `#### 多列分组聚合:`,
+      content: `#### 多列分组聚合:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 按地区和部门计算平均销售额(生成分层索引)\navg_sales = df.groupby([\'Region\', \'Department\'])[\'Sales\'].mean()`,
-      },
+        code: `# 按地区和部门计算平均销售额(生成分层索引)\navg_sales = df.groupby(['Region', 'Department'])['Sales'].mean()`      }
     },
     {
       type: "text",
-      content: `#### 选取部分列聚合:`,
+      content: `#### 选取部分列聚合:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 两种写法等价,选取\'data1\'列按\'key1\'分组后计算均值\ngrouped1 = df[\'data1\'].groupby(df[\'key1\']).mean()\ngrouped2 = df.groupby(df[\'key1\'])[\'data1\'].mean()`,
-      },
+        code: `# 两种写法等价,选取'data1'列按'key1'分组后计算均值\ngrouped1 = df['data1'].groupby(df['key1']).mean()\ngrouped2 = df.groupby(df['key1'])['data1'].mean()`      }
     }
     ],
   },
@@ -602,12 +572,11 @@ export const courseContent: Chapter[] = [
       type: "table",
       table: {
         headers: [`函数`, `作用`],
-        rows: [[`sum()`, `计算总和`], [`mean()`, `计算平均值`], [`count()`, `计算非缺失值的数量`], [`size()`, `计算所有元素的数量 (包括缺失值)`], [`std()`, `计算标准差`], [`min()/max()`, `计算最小值 / 最大值`], [`first()/last()`, `返回每组的第一个 / 最后一个值`], [`nunique()`, `计算唯一值的数量`]],
-      },
+        rows: [[`sum()`, `计算总和`], [`mean()`, `计算平均值`], [`count()`, `计算非缺失值的数量`], [`size()`, `计算所有元素的数量 (包括缺失值)`], [`std()`, `计算标准差`], [`min()/max()`, `计算最小值 / 最大值`], [`first()/last()`, `返回每组的第一个 / 最后一个值`], [`nunique()`, `计算唯一值的数量`]]      }
     },
     {
       type: "text",
-      content: `注意:size () 与 count () 的区别在于前者包含 NaN 值，后者不包含。`,
+      content: `注意:size () 与 count () 的区别在于前者包含 NaN 值，后者不包含。`
     }
     ],
   },
@@ -616,25 +585,23 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `.agg () 方法允许对分组后的数据一次性应用多个聚合函数:`,
+      content: `.agg () 方法允许对分组后的数据一次性应用多个聚合函数:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 对薪资同时计算总和、均值和标准差\nsalary_stats = df.groupby(\'Department\')[\'Salary\'].agg([\'sum\', \'mean\', \'std\'])`,
-      },
+        code: `# 对薪资同时计算总和、均值和标准差\nsalary_stats = df.groupby('Department')['Salary'].agg(['sum', 'mean', 'std'])`      }
     },
     {
       type: "text",
-      content: `也可以对不同列分别指定不同的聚合函数:`,
+      content: `也可以对不同列分别指定不同的聚合函数:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `result = df.groupby(\'Department\').agg({\n    \'Salary\': [\'sum\', \'mean\'],\n    \'Sales\': \'max\'\n})`,
-      },
+        code: `result = df.groupby('Department').agg({\n    'Salary': ['sum', 'mean'],\n    'Sales': 'max'\n})`      }
     }
     ],
   },
@@ -643,14 +610,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `transform () 方法可以在保持原始数据形状的同时进行分组计算，常用于数据标准化:`,
+      content: `transform () 方法可以在保持原始数据形状的同时进行分组计算，常用于数据标准化:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 计算每组内的z-score标准化\nz_scores = df.groupby(\'Group\')[\'Value\'].transform(\n    lambda x: (x - x.mean()) / x.std()\n)`,
-      },
+        code: `# 计算每组内的z-score标准化\nz_scores = df.groupby('Group')['Value'].transform(\n    lambda x: (x - x.mean()) / x.std()\n)`      }
     }
     ],
   },
@@ -659,25 +625,23 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `GroupBy 对象支持迭代，产生由分组名和数据块组成的二元元组:`,
+      content: `GroupBy 对象支持迭代，产生由分组名和数据块组成的二元元组:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `for name, group in df.groupby(\'Department\'):\n    print(f"部门: {name}")\n    print(group)`,
-      },
+        code: `for name, group in df.groupby('Department'):\n    print(f"部门: {name}")\n    print(group)`      }
     },
     {
       type: "text",
-      content: `对于多列分组，元组第一个元素是键值组成的元组:`,
+      content: `对于多列分组，元组第一个元素是键值组成的元组:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `for (k1, k2), group in df.groupby([\'Region\', \'Department\']):\n    print(k1, k2)\n    print(group)`,
-      },
+        code: `for (k1, k2), group in df.groupby(['Region', 'Department']):\n    print(k1, k2)\n    print(group)`      }
     }
     ],
   },
@@ -686,7 +650,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `分组是将数据按某些特征进行分类归组，目的是使数据更加有序和易于观察。\n聚合是对分组后的数据进行统计计算 (求和、平均值等), 目的是将大量数据转化为易于理解的汇总信息。\n两者通常结合使用：先分组后聚合，这也是数据分析中最常见的操作模式。`,
+      content: `分组是将数据按某些特征进行分类归组，目的是使数据更加有序和易于观察。\n聚合是对分组后的数据进行统计计算 (求和、平均值等), 目的是将大量数据转化为易于理解的汇总信息。\n两者通常结合使用：先分组后聚合，这也是数据分析中最常见的操作模式。`
     }
     ],
   },
@@ -695,14 +659,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `除了内置函数，还可以在 Pandas 中传入自定义函数:`,
+      content: `除了内置函数，还可以在 Pandas 中传入自定义函数:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `def range_func(x):\n    return x.max() - x.min()\n\nresult = df.groupby(\'category\')[\'value\'].agg([\'mean\', range_func, \'std\'])`,
-      },
+        code: `def range_func(x):\n    return x.max() - x.min()\n\nresult = df.groupby('category')['value'].agg(['mean', range_func, 'std'])`      }
     }
     ],
   },
@@ -711,7 +674,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- 使用分类数据类型 (category) 可以显著提升分组性能。\n\n- 如果不需要排序结果，设置 sort=False。\n\n- 优先使用内置聚合函数，通常比自定义函数更快。`,
+      content: `- 使用分类数据类型 (category) 可以显著提升分组性能。\n\n- 如果不需要排序结果，设置 sort=False。\n\n- 优先使用内置聚合函数，通常比自定义函数更快。`
     }
     ],
   },
@@ -722,8 +685,7 @@ export const courseContent: Chapter[] = [
       type: "table",
       table: {
         headers: [`问题`, `解决方案`],
-        rows: [[`分组键包含 NaN 值`, `设置 dropna=True (默认) 或先处理缺失值`], [`分组结果顺序混乱`, `设置 sort=True 确保分组键排序`], [`自定义函数性能差`, `尽量使用向量化操作或内置函数`]],
-      },
+        rows: [[`分组键包含 NaN 值`, `设置 dropna=True (默认) 或先处理缺失值`], [`分组结果顺序混乱`, `设置 sort=True 确保分组键排序`], [`自定义函数性能差`, `尽量使用向量化操作或内置函数`]]      }
     }
     ],
   },
@@ -732,14 +694,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Pandas 还支持通过字典或 Series 进行分组映射，非常灵活:`,
+      content: `Pandas 还支持通过字典或 Series 进行分组映射，非常灵活:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `mapping = {\'a\': \'red\', \'b\': \'red\', \'c\': \'blue\', \'d\': \'blue\', \'e\': \'red\'}\nby_column = people.groupby(mapping, axis=1).sum()`,
-      },
+        code: `mapping = {'a': 'red', 'b': 'red', 'c': 'blue', 'd': 'blue', 'e': 'red'}\nby_column = people.groupby(mapping, axis=1).sum()`      }
     }
     ],
   },
@@ -748,11 +709,11 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `分组聚合分析是数据处理的基石，无论是 SQL 还是 Pandas 都遵循着相同的 “拆分 - 应用 - 合并” 思想。SQL 的 GROUP BY 语法简洁严格，适用于数据库查询；Pandas 的 groupby 则更加灵活，提供了丰富的聚合函数、自定义聚合、分组转换等功能。掌握这些核心知识点，能够高效地从海量数据中提取出有价值的统计信息，为业务决策提供数据支持。\n\n理解分组聚合的核心不在于记住每个函数的参数，而在于建立起 “按维度拆解、按指标汇总” 的思维方式。当你面对任何需要分类统计的问题时，都应该下意识地思考三个问题：按什么分组？要算什么指标？要不要过滤分组结果？把握住这三点，分组聚合就不再是难题。`,
+      content: `分组聚合分析是数据处理的基石，无论是 SQL 还是 Pandas 都遵循着相同的 “拆分 - 应用 - 合并” 思想。SQL 的 GROUP BY 语法简洁严格，适用于数据库查询；Pandas 的 groupby 则更加灵活，提供了丰富的聚合函数、自定义聚合、分组转换等功能。掌握这些核心知识点，能够高效地从海量数据中提取出有价值的统计信息，为业务决策提供数据支持。\n\n理解分组聚合的核心不在于记住每个函数的参数，而在于建立起 “按维度拆解、按指标汇总” 的思维方式。当你面对任何需要分类统计的问题时，都应该下意识地思考三个问题：按什么分组？要算什么指标？要不要过滤分组结果？把握住这三点，分组聚合就不再是难题。`
     },
     {
       type: "note",
-      content: `（注：文档部分内容可能由 AI 生成）`,
+      content: `（注：文档部分内容可能由 AI 生成）`
     }
     ],
   }
@@ -760,7 +721,7 @@ export const courseContent: Chapter[] = [
   },
   {
     id: 'market-basket-analysis',
-    title: `购物篮分析内容提取`,
+    title: `购物篮分析`,
     subtitle: `购物篮分析核心知识点、语法与实例`,
     sections: [
   {
@@ -768,7 +729,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `在关联分析中，项集 (Itemset) 是指包含 0 个或多个项的集合。若一个项集包含 k 个项，则称为 k 项集。例如 \\{啤酒，尿布，牛奶\\} 是一个 3 - 项集。事务 (Transaction) 对应一次购物记录，通常包含一个唯一标识 (TID) 和该次购买的所有商品。购物篮数据常用二元表示：每行对应一个事务，每列对应一个商品，值为 1 表示该商品被购买，0 表示未购买。`,
+      content: `在关联分析中，项集 (Itemset) 是指包含 0 个或多个项的集合。若一个项集包含 k 个项，则称为 k 项集。例如 \\{啤酒，尿布，牛奶\\} 是一个 3 - 项集。事务 (Transaction) 对应一次购物记录，通常包含一个唯一标识 (TID) 和该次购买的所有商品。购物篮数据常用二元表示：每行对应一个事务，每列对应一个商品，值为 1 表示该商品被购买，0 表示未购买。`
     }
     ],
   },
@@ -777,7 +738,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `支持度衡量某个项集在所有事务中出现的频率，反映规则的普遍性。对于规则 $X \\to Y$ , 支持度定义为:\n\n$Support(X \\to Y)=\\frac{ 同时包含 X 和 Y 的事务数 }{ 总事务数 }$\n\n例如，若总事务数为 5, 同时包含牛奶、尿布、啤酒的事务有 2 个，则支持度 =2 / 5=0.4 (或 40%)。支持度越高，说明该组合越常见。`,
+      content: `支持度衡量某个项集在所有事务中出现的频率，反映规则的普遍性。对于规则 $X \\to Y$ , 支持度定义为:\n\n$Support(X \\to Y)=\\frac{ 同时包含 X 和 Y 的事务数 }{ 总事务数 }$\n\n例如，若总事务数为 5, 同时包含牛奶、尿布、啤酒的事务有 2 个，则支持度 =2 / 5=0.4 (或 40%)。支持度越高，说明该组合越常见。`
     }
     ],
   },
@@ -786,7 +747,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `置信度衡量规则的可靠性，即在前件 X 出现的前提下，后件 Y 出现的条件概率:\n\n$Confidence (X \\to Y)=\\frac{Support(X \\cup Y)}{Support(X)}=\\frac{ 同时包含 X 和 Y 的事务数 }{ 包含 X 的事务数 }$\n\n若购买牛奶、尿布的事务有 3 个，其中同时购买了啤酒的有 2 个，则置信度 =2 / 3 ≈0.67 (67%)。置信度越接近 1, 说明前件对后件的 "带动" 作用越强。`,
+      content: `置信度衡量规则的可靠性，即在前件 X 出现的前提下，后件 Y 出现的条件概率:\n\n$Confidence (X \\to Y)=\\frac{Support(X \\cup Y)}{Support(X)}=\\frac{ 同时包含 X 和 Y 的事务数 }{ 包含 X 的事务数 }$\n\n若购买牛奶、尿布的事务有 3 个，其中同时购买了啤酒的有 2 个，则置信度 =2 / 3 ≈0.67 (67%)。置信度越接近 1, 说明前件对后件的 "带动" 作用越强。`
     }
     ],
   },
@@ -795,7 +756,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `提升度用于判断两个商品之间是正相关、负相关还是独立:\n\n$Lift(X\\to Y)=\\frac {Confidence(X\\to Y)}{Support(Y)}=\\frac {Support(X\\cup Y)}{Support(X)× Support(Y)}$\n\n- $Lift > 1$ : 正相关，购买 X 会提高购买 Y 的概率 (如啤酒与尿布)\n\n- $Lift =1$ : 独立，两者无关联\n\n- $Lift <1$ : 负相关，购买 X 反而降低购买 Y 的概率\n\n提升度是判断规则是否真正有效的关键指标，它排除了商品本身热门程度带来的干扰。`,
+      content: `提升度用于判断两个商品之间是正相关、负相关还是独立:\n\n$Lift(X\\to Y)=\\frac {Confidence(X\\to Y)}{Support(Y)}=\\frac {Support(X\\cup Y)}{Support(X)× Support(Y)}$\n\n- $Lift > 1$ : 正相关，购买 X 会提高购买 Y 的概率 (如啤酒与尿布)\n\n- $Lift =1$ : 独立，两者无关联\n\n- $Lift <1$ : 负相关，购买 X 反而降低购买 Y 的概率\n\n提升度是判断规则是否真正有效的关键指标，它排除了商品本身热门程度带来的干扰。`
     }
     ],
   },
@@ -804,7 +765,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- **频繁项集**: 支持度不小于最小支持度阈值 (min\\_support) 的项集。例如，设置最小支持度为 0.4, 则出现频率≥40% 的组合才被视为频繁项集。\n\n- **强关联规则**: 从频繁项集中提取出的同时满足最小置信度 (min\\_confidence) 和最低提升度 (min\\_lift) 的规则。`,
+      content: `- **频繁项集**: 支持度不小于最小支持度阈值 (min\\_support) 的项集。例如，设置最小支持度为 0.4, 则出现频率≥40% 的组合才被视为频繁项集。\n\n- **强关联规则**: 从频繁项集中提取出的同时满足最小置信度 (min\\_confidence) 和最低提升度 (min\\_lift) 的规则。`
     }
     ],
   },
@@ -813,7 +774,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Apriori 是最经典的关联规则挖掘算法，其核心思想基于先验原理:\n如果一个项集是频繁的，则它的所有子集也一定是频繁的；反之，如果一个子集是非频繁的，则包含该子集的任何超集都是非频繁的。\n\n利用这一性质，算法通过连接 (join) 和剪枝 (prune) 两个步骤逐层生成候选集:\n\n1. 扫描数据集，得到频繁 1 - 项集 $L_{1}$\n\n2. 由 $L_{k-1}$ 连接生成候选 k - 项集 $C_{k}$\n\n3. 利用先验原理剪枝：删除 $C_{k}$ 中那些含有非频繁子集的候选集\n\n4. 再次扫描数据集，计算 $C_{k}$ 中各候选集的支持度，筛选出频繁 k - 项集 $L_{k}$\n\n5. 重复步骤 2\\~4, 直到无法生成新的频繁项集\n\nApriori 算法的优点是原理简单、易于实现；缺点是需要多次扫描事务数据库，当数据量极大时效率较低。为此，后续出现了 FP-Growth 等不产生候选集的改进算法。`,
+      content: `Apriori 是最经典的关联规则挖掘算法，其核心思想基于先验原理:\n如果一个项集是频繁的，则它的所有子集也一定是频繁的；反之，如果一个子集是非频繁的，则包含该子集的任何超集都是非频繁的。\n\n利用这一性质，算法通过连接 (join) 和剪枝 (prune) 两个步骤逐层生成候选集:\n\n1. 扫描数据集，得到频繁 1 - 项集 $L_{1}$\n\n2. 由 $L_{k-1}$ 连接生成候选 k - 项集 $C_{k}$\n\n3. 利用先验原理剪枝：删除 $C_{k}$ 中那些含有非频繁子集的候选集\n\n4. 再次扫描数据集，计算 $C_{k}$ 中各候选集的支持度，筛选出频繁 k - 项集 $L_{k}$\n\n5. 重复步骤 2\\~4, 直到无法生成新的频繁项集\n\nApriori 算法的优点是原理简单、易于实现；缺点是需要多次扫描事务数据库，当数据量极大时效率较低。为此，后续出现了 FP-Growth 等不产生候选集的改进算法。`
     }
     ],
   },
@@ -822,7 +783,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `在实际工作中，最常用的 Python 工具是 mlxtend 库，它封装了 Apriori 算法和关联规则生成函数。下面给出标准的使用流程。`,
+      content: `在实际工作中，最常用的 Python 工具是 mlxtend 库，它封装了 Apriori 算法和关联规则生成函数。下面给出标准的使用流程。`
     }
     ],
   },
@@ -833,15 +794,13 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "bash",
-        code: `pip install mlxtend`,
-      },
+        code: `pip install mlxtend`      }
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `import pandas as pd\nfrom mlxtend.frequent_patterns import apriori, association_rules\nfrom mlxtend.preprocessing import TransactionEncoder`,
-      },
+        code: `import pandas as pd\nfrom mlxtend.frequent_patterns import apriori, association_rules\nfrom mlxtend.preprocessing import TransactionEncoder`      }
     }
     ],
   },
@@ -850,14 +809,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `数据应为事务列表格式：每个元素是一个列表，代表一次购物中的商品集合。`,
+      content: `数据应为事务列表格式：每个元素是一个列表，代表一次购物中的商品集合。`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `transactions = [\n    [\'milk\', \'bread\', \'butter\'],\n    [\'beer\', \'diapers\', \'chips\'],\n    [\'milk\', \'bread\', \'eggs\'],\n    [\'beer\', \'chips\'],\n    [\'milk\', \'diapers\'],\n    [\'bread\', \'butter\', \'coffee\'],\n    [\'beer\', \'diapers\', \'milk\'],\n    [\'milk\', \'bread\', \'butter\', \'coffee\'],\n    [\'beer\', \'chips\', \'coffee\', \'cookies\'],\n    [\'milk\', \'diapers\', \'bread\']\n]`,
-      },
+        code: `transactions = [\n    ['milk', 'bread', 'butter'],\n    ['beer', 'diapers', 'chips'],\n    ['milk', 'bread', 'eggs'],\n    ['beer', 'chips'],\n    ['milk', 'diapers'],\n    ['bread', 'butter', 'coffee'],\n    ['beer', 'diapers', 'milk'],\n    ['milk', 'bread', 'butter', 'coffee'],\n    ['beer', 'chips', 'coffee', 'cookies'],\n    ['milk', 'diapers', 'bread']\n]`      }
     }
     ],
   },
@@ -866,14 +824,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Apriori 算法要求输入为布尔型 DataFrame (即商品列，交易行为行)。`,
+      content: `Apriori 算法要求输入为布尔型 DataFrame (即商品列，交易行为行)。`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `te = TransactionEncoder()\nte_ary = te.fit(transactions).transform(transactions)\ndf = pd.DataFrame(te_ary, columns=te.columns_)`,
-      },
+        code: `te = TransactionEncoder()\nte_ary = te.fit(transactions).transform(transactions)\ndf = pd.DataFrame(te_ary, columns=te.columns_)`      }
     }
     ],
   },
@@ -882,14 +839,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `设置最小支持度 (例如 0.25, 即 25% 的事务中包含该组合)。`,
+      content: `设置最小支持度 (例如 0.25, 即 25% 的事务中包含该组合)。`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `frequent_itemsets = apriori(df, min_support=0.25, use_colnames=True)`,
-      },
+        code: `frequent_itemsets = apriori(df, min_support=0.25, use_colnames=True)`      }
     }
     ],
   },
@@ -898,18 +854,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `使用 association\\_rules 函数，指定评估指标 (如置信度) 和最小阈值。`,
+      content: `使用 association\\_rules 函数，指定评估指标 (如置信度) 和最小阈值。`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.6)`,
-      },
+        code: `rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.6)`      }
     },
     {
       type: "text",
-      content: `输出结果将包含每一规则的前件 (antecedents)、后件 (consequents)、支持度、置信度、提升度等列。`,
+      content: `输出结果将包含每一规则的前件 (antecedents)、后件 (consequents)、支持度、置信度、提升度等列。`
     }
     ],
   },
@@ -920,12 +875,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `rules.sort_values(by=\'lift\', ascending=False)`,
-      },
+        code: `rules.sort_values(by='lift', ascending=False)`      }
     },
     {
       type: "text",
-      content: `通过调整 min\\_support、min\\_confidence 和 max\\_len 等参数，可以获得不同粒度的规则。`,
+      content: `通过调整 min\\_support、min\\_confidence 和 max\\_len 等参数，可以获得不同粒度的规则。`
     }
     ],
   },
@@ -934,7 +888,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `某文具店收集了顾客购买订单，数据包含订单 ID 和商品名称两列。原始数据有 40055 行，经过去重和分组后得到 9646 个订单 (每个订单可能包含多件商品)。分析目标：发现哪些文具经常一起被购买，从而设计捆绑销售策略。\n\n步骤:\n\n1. 数据预处理：对每个订单的商品名称进行分组聚合，得到每个订单的商品列表。\n\n2. 设置参数：最小支持度 = 0.02 (即组合出现频率超过 2%), 最小置信度 = 0.45, 最小提升度 = 1。\n\n3. 运行 Apriori: 从订单列表中挖掘频繁项集和强关联规则。\n\n4. 结果解读 (部分规则):\n\n    - \\{订书机\\} → \\{中性笔\\}: 支持度 0.03, 置信度 0.52, 提升度 1.3\n\n    - \\{圆珠笔，便利贴\\} → \\{中性笔\\}: 支持度 0.025, 置信度 0.61, 提升度 1.5\n\n说明购买订书机的顾客有 52% 的概率也会购买中性笔 (提升度大于 1, 为正相关); 同时购买圆珠笔和便利贴的顾客更有意愿再购买中性笔。\n\n**商业启示**:\n\n- 可将订书机与中性笔捆绑销售或摆放在相邻货架。\n\n- 设计 "买圆珠笔 \\+ 便利贴，加价换购中性笔" 的促销活动。\n\n- 利用这些规则向老客户进行交叉推荐。`,
+      content: `某文具店收集了顾客购买订单，数据包含订单 ID 和商品名称两列。原始数据有 40055 行，经过去重和分组后得到 9646 个订单 (每个订单可能包含多件商品)。分析目标：发现哪些文具经常一起被购买，从而设计捆绑销售策略。\n\n步骤:\n\n1. 数据预处理：对每个订单的商品名称进行分组聚合，得到每个订单的商品列表。\n\n2. 设置参数：最小支持度 = 0.02 (即组合出现频率超过 2%), 最小置信度 = 0.45, 最小提升度 = 1。\n\n3. 运行 Apriori: 从订单列表中挖掘频繁项集和强关联规则。\n\n4. 结果解读 (部分规则):\n\n    - \\{订书机\\} → \\{中性笔\\}: 支持度 0.03, 置信度 0.52, 提升度 1.3\n\n    - \\{圆珠笔，便利贴\\} → \\{中性笔\\}: 支持度 0.025, 置信度 0.61, 提升度 1.5\n\n说明购买订书机的顾客有 52% 的概率也会购买中性笔 (提升度大于 1, 为正相关); 同时购买圆珠笔和便利贴的顾客更有意愿再购买中性笔。\n\n**商业启示**:\n\n- 可将订书机与中性笔捆绑销售或摆放在相邻货架。\n\n- 设计 "买圆珠笔 + 便利贴，加价换购中性笔" 的促销活动。\n\n- 利用这些规则向老客户进行交叉推荐。`
     }
     ],
   },
@@ -943,18 +897,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `使用经典的 "面包、牛奶、啤酒" 等商品，参考上述代码，设置 min\\_support=0.3,min\\_confidence=0.5, 可能得到如下的强规则:`,
+      content: `使用经典的 "面包、牛奶、啤酒" 等商品，参考上述代码，设置 min\\_support=0.3,min\\_confidence=0.5, 可能得到如下的强规则:`
     },
     {
       type: "table",
       table: {
         headers: [`前件`, `后件`, `支持度`, `置信度`, `提升度`],
-        rows: [[`牛奶`, `面包`, `0.4`, `0.8`, `1.2`], [`面包`, `牛奶`, `0.4`, `0.67`, `1.0`]],
-      },
+        rows: [[`牛奶`, `面包`, `0.4`, `0.8`, `1.2`], [`面包`, `牛奶`, `0.4`, `0.67`, `1.0`]]      }
     },
     {
       type: "text",
-      content: `前者提升度 \\> 1, 说明牛奶对面包有促进作用；后者提升度 = 1, 说明购买面包对牛奶没有额外影响。这样的分析可以帮助超市决定促销时选择哪种商品作为 "诱饵"。`,
+      content: `前者提升度 > 1, 说明牛奶对面包有促进作用；后者提升度 = 1, 说明购买面包对牛奶没有额外影响。这样的分析可以帮助超市决定促销时选择哪种商品作为 "诱饵"。`
     }
     ],
   },
@@ -965,8 +918,7 @@ export const courseContent: Chapter[] = [
       type: "table",
       table: {
         headers: [`场景`, `说明`],
-        rows: [[`货架布局优化`, `将频繁同时购买的商品就近摆放，方便顾客查找，提升连带销售`], [`捆绑促销设计`, `对关联度高的商品组合进行打折或满减，刺激购买量`], [`个性化推荐`, `根据顾客当前购物车中的商品推荐关联商品 (如电商 "购买此商品的顾客还购买了…")`], [`库存管理`, `基于组合销售预测，合理调配相关商品的库存，减少积压或断货`]],
-      },
+        rows: [[`货架布局优化`, `将频繁同时购买的商品就近摆放，方便顾客查找，提升连带销售`], [`捆绑促销设计`, `对关联度高的商品组合进行打折或满减，刺激购买量`], [`个性化推荐`, `根据顾客当前购物车中的商品推荐关联商品 (如电商 "购买此商品的顾客还购买了…")`], [`库存管理`, `基于组合销售预测，合理调配相关商品的库存，减少积压或断货`]]      }
     }
     ],
   },
@@ -975,11 +927,11 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- **参数调优**: 最小支持度设置过高会遗漏低频但有意义的组合，过低则会产生大量噪音规则。通常需要结合业务知识和数据规模多次试验。\n\n- **提升度 \\> 1 才有效**: 不要只看置信度高，有些组合 (如全脂牛奶和酸奶) 置信度可能很高，但提升度接近 1, 说明只是两者都受欢迎，并无真正关联。\n\n- **算法选择**: 对于超大规模数据集，建议使用 FP-Growth 或 Spark 的 MLlib 实现，以提升效率。\n\n- **动态分析**: 购物篮分析应结合时间维度 (如季节、节假日), 因为商品关联可能随时间变化。\n\n通过上述讲解，我们可以看到购物篮分析本质上是通过支持度、置信度、提升度这三个度量从海量交易数据中发现有商业价值的 "如果 - 那么" 规则。掌握 Apriori 算法的原理，并利用 mlxtend 等工具快速实现，是数据分析和商业运营中非常实用的技能。无论是传统零售还是电商，这种分析都能带来直接的收益提升。`,
+      content: `- **参数调优**: 最小支持度设置过高会遗漏低频但有意义的组合，过低则会产生大量噪音规则。通常需要结合业务知识和数据规模多次试验。\n\n- **提升度 > 1 才有效**: 不要只看置信度高，有些组合 (如全脂牛奶和酸奶) 置信度可能很高，但提升度接近 1, 说明只是两者都受欢迎，并无真正关联。\n\n- **算法选择**: 对于超大规模数据集，建议使用 FP-Growth 或 Spark 的 MLlib 实现，以提升效率。\n\n- **动态分析**: 购物篮分析应结合时间维度 (如季节、节假日), 因为商品关联可能随时间变化。\n\n通过上述讲解，我们可以看到购物篮分析本质上是通过支持度、置信度、提升度这三个度量从海量交易数据中发现有商业价值的 "如果 - 那么" 规则。掌握 Apriori 算法的原理，并利用 mlxtend 等工具快速实现，是数据分析和商业运营中非常实用的技能。无论是传统零售还是电商，这种分析都能带来直接的收益提升。`
     },
     {
       type: "note",
-      content: `（注：文档部分内容可能由 AI 生成）`,
+      content: `（注：文档部分内容可能由 AI 生成）`
     }
     ],
   }
@@ -995,7 +947,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `---`,
+      content: `---`
     }
     ],
   },
@@ -1004,7 +956,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `客户聚类分析 (Customer Clustering) 是一种基于无监督学习的数据挖掘技术，其核心思想 是 “物以类聚”—— 将客户按照某些特征 (如消费行为、人口属性、偏好等) 划分为若干个群体，使得同一群体内的客户高度相似，不同群体之间的客户差异明显｡这种分析是客户细分 (Customer Segmentation) 的核心手段，帮助企业实现精准营销、降低获客成本、提升客户 满意度和忠诚度｡\n\n与传统的按年龄、地区等简单规则分组不同，聚类分析能自动发现数据中隐藏的模式，将客户分 为 “高价值忠实客户”“价格敏感型”“潜力新客” 等具有商业意义的群体｡其典型应用场景包 括:\n\n- 会员分层管理：识别重要保持客户、发展客户、潜在客户等｡\n\n- 个性化推荐：为不同聚类群体推荐差异化的产品或服务｡\n\n- 流失预警：通过聚类发现行为异常群体，提前干预｡\n\n- 营销活动优化：针对不同群体设计不同的优惠策略，提高 ROI｡\n\n---`,
+      content: `客户聚类分析 (Customer Clustering) 是一种基于无监督学习的数据挖掘技术，其核心思想 是 “物以类聚”—— 将客户按照某些特征 (如消费行为、人口属性、偏好等) 划分为若干个群体，使得同一群体内的客户高度相似，不同群体之间的客户差异明显｡这种分析是客户细分 (Customer Segmentation) 的核心手段，帮助企业实现精准营销、降低获客成本、提升客户 满意度和忠诚度｡\n\n与传统的按年龄、地区等简单规则分组不同，聚类分析能自动发现数据中隐藏的模式，将客户分 为 “高价值忠实客户”“价格敏感型”“潜力新客” 等具有商业意义的群体｡其典型应用场景包 括:\n\n- 会员分层管理：识别重要保持客户、发展客户、潜在客户等｡\n\n- 个性化推荐：为不同聚类群体推荐差异化的产品或服务｡\n\n- 流失预警：通过聚类发现行为异常群体，提前干预｡\n\n- 营销活动优化：针对不同群体设计不同的优惠策略，提高 ROI｡\n\n---`
     }
     ],
   },
@@ -1013,7 +965,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `聚类 (Clustering) 是将数据集中的对象划分成若干个簇 (Cluster), 使得簇内相似度最大化、簇 间相似度最小化｡它与分类 (Classification) 的关键区别在于：聚类不需要预先标注的标签，完 全是数据驱动的 “自动发现” 过程｡`,
+      content: `聚类 (Clustering) 是将数据集中的对象划分成若干个簇 (Cluster), 使得簇内相似度最大化、簇 间相似度最小化｡它与分类 (Classification) 的关键区别在于：聚类不需要预先标注的标签，完 全是数据驱动的 “自动发现” 过程｡`
     }
     ],
   },
@@ -1022,18 +974,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `在客户分析场景中，聚类要回答以下几个业务问题:`,
+      content: `在客户分析场景中，聚类要回答以下几个业务问题:`
     },
     {
       type: "table",
       table: {
         headers: [`业务问题`, `聚类目标`],
-        rows: [[`企业如何细分客户？`, `找到具有相似消费特征的群体`], [`哪些是重要的保持客户？`, `识别高价值、高忠诚度群体`], [`哪些是发展客户？`, `识别有潜力但尚未充分激活的群体`], [`哪些是潜在客户？`, `识别当前价值低但可能转化的群体`]],
-      },
+        rows: [[`企业如何细分客户？`, `找到具有相似消费特征的群体`], [`哪些是重要的保持客户？`, `识别高价值、高忠诚度群体`], [`哪些是发展客户？`, `识别有潜力但尚未充分激活的群体`], [`哪些是潜在客户？`, `识别当前价值低但可能转化的群体`]]      }
     },
     {
       type: "text",
-      content: `---`,
+      content: `---`
     }
     ],
   },
@@ -1042,7 +993,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `K-Means 是最经典、最常用的客户聚类算法，其优点是运行速度快、可处理大规模数据、易于理 解；缺点是需要预先指定簇数 K、对异常值敏感、不适合发现非凸形状的簇｡\n\n算法步骤 (迭代优化过程):\n\n1. 初始化：随机选择 K 个数据点作为初始质心 (Centroid)｡\n\n2. 分配：计算每个样本到各质心的距离 (通常用欧氏距离), 将其分配到最近的质心所在的簇｡\n\n3. 更新：重新计算每个簇内所有样本的均值，作为新的质心｡\n\n4. 重复：重复步骤 2 和 3, 直到质心不再变化或达到最大迭代次数｡\n\n数学表达：最小化簇内平方和 (Within-Cluster Sum of Squares, WCSS):\n$WCSS =\\sum_{i=1}^{k} \\sum_{x \\in C_{i}}\\left| x-\\mu_{i}\\right| ^{2}$\n其中 $C_{i}$ 是第 i 个簇，$\\mu_{i}$ 是该簇的质心｡`,
+      content: `K-Means 是最经典、最常用的客户聚类算法，其优点是运行速度快、可处理大规模数据、易于理 解；缺点是需要预先指定簇数 K、对异常值敏感、不适合发现非凸形状的簇｡\n\n算法步骤 (迭代优化过程):\n\n1. 初始化：随机选择 K 个数据点作为初始质心 (Centroid)｡\n\n2. 分配：计算每个样本到各质心的距离 (通常用欧氏距离), 将其分配到最近的质心所在的簇｡\n\n3. 更新：重新计算每个簇内所有样本的均值，作为新的质心｡\n\n4. 重复：重复步骤 2 和 3, 直到质心不再变化或达到最大迭代次数｡\n\n数学表达：最小化簇内平方和 (Within-Cluster Sum of Squares, WCSS):\n$WCSS =\\sum_{i=1}^{k} \\sum_{x \\in C_{i}}\\left| x-\\mu_{i}\\right| ^{2}$\n其中 $C_{i}$ 是第 i 个簇，$\\mu_{i}$ 是该簇的质心｡`
     }
     ],
   },
@@ -1053,12 +1004,11 @@ export const courseContent: Chapter[] = [
       type: "table",
       table: {
         headers: [`算法`, `特点`, `适用场景`],
-        rows: [[`HDBSCAN`, `DBSCAN 的升级版，自动识别簇数，高鲁棒性`, `大规模客户数据的高鲁棒性聚类`], [`DBSCAN`, `基于密度的聚类，可识别噪声点`, `数据量适中且希望自动识别噪声点`], [`层次聚类`, `可生成聚类树，直观易解释`, `数据量小且需要直观解释`]],
-      },
+        rows: [[`HDBSCAN`, `DBSCAN 的升级版，自动识别簇数，高鲁棒性`, `大规模客户数据的高鲁棒性聚类`], [`DBSCAN`, `基于密度的聚类，可识别噪声点`, `数据量适中且希望自动识别噪声点`], [`层次聚类`, `可生成聚类树，直观易解释`, `数据量小且需要直观解释`]]      }
     },
     {
       type: "text",
-      content: `选择建议：数据量大 (\\>10 万) 时优先 K-Means; 数据量适中且希望自动识别噪声点可用 DBSCAN; 数据量小且需要直观解释可用层次聚类｡\n\n---`,
+      content: `选择建议：数据量大 (>10 万) 时优先 K-Means; 数据量适中且希望自动识别噪声点可用 DBSCAN; 数据量小且需要直观解释可用层次聚类｡\n\n---`
     }
     ],
   },
@@ -1067,7 +1017,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `数据质量直接决定聚类效果，以下是关键步骤:`,
+      content: `数据质量直接决定聚类效果，以下是关键步骤:`
     }
     ],
   },
@@ -1076,7 +1026,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- 缺失值处理：可采用均值 / 中位数填充、KNN 插值或删除高缺失率列｡例如，文档中使用 KNNImputer 填充信用卡客户数据的缺失值｡\n\n- 异常值处理：使用 Z-score 或 IQR 方法识别并处理极端值，避免扭曲聚类结果｡\n\n- 删除无用列：如客户 ID、时间戳等唯一标识列不能提供聚类信息，应提前移除｡`,
+      content: `- 缺失值处理：可采用均值 / 中位数填充、KNN 插值或删除高缺失率列｡例如，文档中使用 KNNImputer 填充信用卡客户数据的缺失值｡\n\n- 异常值处理：使用 Z-score 或 IQR 方法识别并处理极端值，避免扭曲聚类结果｡\n\n- 删除无用列：如客户 ID、时间戳等唯一标识列不能提供聚类信息，应提前移除｡`
     }
     ],
   },
@@ -1085,14 +1035,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `聚类算法基于距离度量，若特征量纲不同 (如 “年龄” 范围 0-100,“年收入” 范围 0-100 万), 会 导致某些特征主导距离计算｡因此必须进行标准化 (Z-score) 或归一化 (Min-Max)｡\n\n示例代码:`,
+      content: `聚类算法基于距离度量，若特征量纲不同 (如 “年龄” 范围 0-100,“年收入” 范围 0-100 万), 会 导致某些特征主导距离计算｡因此必须进行标准化 (Z-score) 或归一化 (Min-Max)｡\n\n示例代码:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from sklearn.preprocessing import StandardScaler\nscaler = StandardScaler()\nscaled_data = scaler.fit_transform(raw_data)`,
-      },
+        code: `from sklearn.preprocessing import StandardScaler\nscaler = StandardScaler()\nscaled_data = scaler.fit_transform(raw_data)`      }
     }
     ],
   },
@@ -1101,18 +1050,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `RFM 模型是客户价值分析的经典框架，三个核心指标:`,
+      content: `RFM 模型是客户价值分析的经典框架，三个核心指标:`
     },
     {
       type: "table",
       table: {
         headers: [`维度`, `含义`, `业务意义`],
-        rows: [[`R (Recency)`, `最近一次消费时间间隔`, `R 越小，客户越活跃`], [`F (Frequency)`, `一定时期内的消费次数`, `F 越大，客户忠诚度越高`], [`M (Monetary)`, `一定时期内的消费金额`, `M 越大，客户价值越高`]],
-      },
+        rows: [[`R (Recency)`, `最近一次消费时间间隔`, `R 越小，客户越活跃`], [`F (Frequency)`, `一定时期内的消费次数`, `F 越大，客户忠诚度越高`], [`M (Monetary)`, `一定时期内的消费金额`, `M 越大，客户价值越高`]]      }
     },
     {
       type: "text",
-      content: `将 RFM 作为聚类输入特征，可以自动识别出 “高价值忠实客户”(R 小、F 大、M 大)、“即将流失的 重要客户”(R 大、F 大、M 大)、“价格敏感型客户”(R 小、F 大、M 小) 等典型群体｡`,
+      content: `将 RFM 作为聚类输入特征，可以自动识别出 “高价值忠实客户”(R 小、F 大、M 大)、“即将流失的 重要客户”(R 大、F 大、M 大)、“价格敏感型客户”(R 小、F 大、M 小) 等典型群体｡`
     }
     ],
   },
@@ -1121,7 +1069,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- 商业目标驱动：聚类特征应聚焦于要解决的问题｡例如，若关注消费行为，则只选用购买相 关特征，而不将性别、年龄等人口特征作为输入，否则聚类结果会被人口属性主导，失去行为 分析的价值｡\n\n- 避免特征冗余：高相关性的特征会重复加权，应进行相关性分析并剔除或合并｡\n\n- 高维数据降维：当特征维度很高时，可先用 PCA 或 t-SNE 降至 2-3 维再聚类，但需谨慎解释信息 损失｡\n\n---`,
+      content: `- 商业目标驱动：聚类特征应聚焦于要解决的问题｡例如，若关注消费行为，则只选用购买相 关特征，而不将性别、年龄等人口特征作为输入，否则聚类结果会被人口属性主导，失去行为 分析的价值｡\n\n- 避免特征冗余：高相关性的特征会重复加权，应进行相关性分析并剔除或合并｡\n\n- 高维数据降维：当特征维度很高时，可先用 PCA 或 t-SNE 降至 2-3 维再聚类，但需谨慎解释信息 损失｡\n\n---`
     }
     ],
   },
@@ -1130,18 +1078,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `在无监督场景下，常用以下指标评价聚类质量:`,
+      content: `在无监督场景下，常用以下指标评价聚类质量:`
     },
     {
       type: "table",
       table: {
         headers: [`指标`, `计算公式要点`, `最佳值`],
-        rows: [[`轮廓系数 (Silhouette Score)`, `衡量样本与自身簇的紧密度 vs. 与其他簇的分离度，范围 \\[-1,1\\]`, `越接近 1 越好`], [`Davies-Bouldin 指数`, `簇内相似度与簇间差异度的比值`, `越低越好`], [`Calinski-Harabasz 指数`, `簇间离散度与簇内离散度的比值 (方差比)`, `越高越好`], [`惯性 (Inertia)`, `各样本到质心的距离平方和 (即 WCSS)`, `越小越好，但单调递减`]],
-      },
+        rows: [[`轮廓系数 (Silhouette Score)`, `衡量样本与自身簇的紧密度 vs. 与其他簇的分离度，范围 [-1,1]`, `越接近 1 越好`], [`Davies-Bouldin 指数`, `簇内相似度与簇间差异度的比值`, `越低越好`], [`Calinski-Harabasz 指数`, `簇间离散度与簇内离散度的比值 (方差比)`, `越高越好`], [`惯性 (Inertia)`, `各样本到质心的距离平方和 (即 WCSS)`, `越小越好，但单调递减`]]      }
     },
     {
       type: "text",
-      content: `这些指标常配合使用，避免单一指标的偏差｡例如，惯性会随 K 增大而单调递减，不能单独用于选 K｡`,
+      content: `这些指标常配合使用，避免单一指标的偏差｡例如，惯性会随 K 增大而单调递减，不能单独用于选 K｡`
     }
     ],
   },
@@ -1150,7 +1097,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- 肘方法 (Elbow Method): 计算不同 K 值下的 WCSS (惯性), 绘制折线图｡当 K 达到某个值后，WCSS 下降速度明显变缓，形成 “肘点”, 该点即为最佳 K 值｡\n\n- 轮廓系数法：选择使平均轮廓系数最大的 K 值｡\n\n- 业务经验法：根据业务可解释性选择 K 值，通常 3-5 个客户群体在营销中比较容易操作｡\n\n注意：聚类结果没有绝对的 “正确” 标准，最终需要结合商业逻辑来验证，即分出的群体是否 能在业务上被合理解释并指导行动｡\n\n---`,
+      content: `- 肘方法 (Elbow Method): 计算不同 K 值下的 WCSS (惯性), 绘制折线图｡当 K 达到某个值后，WCSS 下降速度明显变缓，形成 “肘点”, 该点即为最佳 K 值｡\n\n- 轮廓系数法：选择使平均轮廓系数最大的 K 值｡\n\n- 业务经验法：根据业务可解释性选择 K 值，通常 3-5 个客户群体在营销中比较容易操作｡\n\n注意：聚类结果没有绝对的 “正确” 标准，最终需要结合商业逻辑来验证，即分出的群体是否 能在业务上被合理解释并指导行动｡\n\n---`
     }
     ],
   },
@@ -1159,7 +1106,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `下面通过一个完整的 Python 示例演示客户聚类的流程｡本示例综合了多个文档中的方法｡`,
+      content: `下面通过一个完整的 Python 示例演示客户聚类的流程｡本示例综合了多个文档中的方法｡`
     }
     ],
   },
@@ -1168,14 +1115,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `我们模拟三类典型客户群体：高价值客户、中等价值客户、低价值客户｡`,
+      content: `我们模拟三类典型客户群体：高价值客户、中等价值客户、低价值客户｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `import numpy as np\nimport pandas as pd\nfrom sklearn.cluster import KMeans\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.metrics import silhouette_score\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# 设置随机种子\nnp.random.seed(42)\n\n# 生成500个样本,每个样本有3个RFM指标\nn = 500\n\n# 群体1:高价值客户(R小,F大,M大)\nhigh = np.random.normal(loc=[5, 40, 8000], scale=[2, 5, 1000], size=(n//3, 3))\n# 群体2:中等价值客户(R中等,F中等,M中等)\nmid = np.random.normal(loc=[20, 15, 3000], scale=[5, 3, 500], size=(n//3, 3))\n# 群体3:低价值客户(R大,F小,M小)\nlow = np.random.normal(loc=[50, 4, 500], scale=[8, 2, 200], size=(n//3, 3))\n\n# 合并并转换为DataFrame\ndata = np.vstack([high, mid, low])\ndf = pd.DataFrame(data, columns=[\'Recency\', \'Frequency\', \'Monetary\'])\nprint(df.head())`,
-      },
+        code: `import numpy as np\nimport pandas as pd\nfrom sklearn.cluster import KMeans\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.metrics import silhouette_score\nimport matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\nimport seaborn as sns\n\n# 设置随机种子\nnp.random.seed(42)\n\n# 生成500个样本,每个样本有3个RFM指标\nn = 500\n\n# 群体1:高价值客户(R小,F大,M大)\nhigh = np.random.normal(loc=[5, 40, 8000], scale=[2, 5, 1000], size=(n//3, 3))\n# 群体2:中等价值客户(R中等,F中等,M中等)\nmid = np.random.normal(loc=[20, 15, 3000], scale=[5, 3, 500], size=(n//3, 3))\n# 群体3:低价值客户(R大,F小,M小)\nlow = np.random.normal(loc=[50, 4, 500], scale=[8, 2, 200], size=(n//3, 3))\n\n# 合并并转换为DataFrame\ndata = np.vstack([high, mid, low])\ndf = pd.DataFrame(data, columns=['Recency', 'Frequency', 'Monetary'])\nprint(df.head())`      }
     }
     ],
   },
@@ -1184,30 +1130,28 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `由于三个特征量纲差异大 (Monetary 达数千，Recency 仅数十), 必须标准化:`,
+      content: `由于三个特征量纲差异大 (Monetary 达数千，Recency 仅数十), 必须标准化:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `scaler = StandardScaler()\nscaled = scaler.fit_transform(df)\nscaled_df = pd.DataFrame(scaled, columns=df.columns)`,
-      },
+        code: `scaler = StandardScaler()\nscaled = scaler.fit_transform(df)\nscaled_df = pd.DataFrame(scaled, columns=df.columns)`      }
     }
     ],
   },
   {
-    title: `6.3 确定最佳 K 值 (肘方法 \\+ 轮廓系数)`,
+    title: `6.3 确定最佳 K 值 (肘方法 + 轮廓系数)`,
     content: [
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 计算不同K值的WCSS和轮廓系数\nwcss = []\nsil_scores = []\nK_range = range(2, 9)\n\nfor k in K_range:\n    kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)\n    kmeans.fit(scaled)\n    wcss.append(kmeans.inertia_)\n    sil_scores.append(silhouette_score(scaled, kmeans.labels_))\n\n# 绘制肘图\nfig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))\nax1.plot(K_range, wcss, \'bo-\')\nax1.set_title(\'Elbow Method\')\nax1.set_xlabel(\'K\')\nax1.set_ylabel(\'WCSS\')\n\nax2.plot(K_range, sil_scores, \'rs-\')\nax2.set_title(\'Silhouette Score\')\nax2.set_xlabel(\'K\')\nax2.set_ylabel(\'Score\')\nplt.tight_layout()\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\n# 计算不同K值的WCSS和轮廓系数\nwcss = []\nsil_scores = []\nK_range = range(2, 9)\n\nfor k in K_range:\n    kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)\n    kmeans.fit(scaled)\n    wcss.append(kmeans.inertia_)\n    sil_scores.append(silhouette_score(scaled, kmeans.labels_))\n\n# 绘制肘图\nfig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))\nax1.plot(K_range, wcss, 'bo-')\nax1.set_title('Elbow Method')\nax1.set_xlabel('K')\nax1.set_ylabel('WCSS')\n\nax2.plot(K_range, sil_scores, 'rs-')\nax2.set_title('Silhouette Score')\nax2.set_xlabel('K')\nax2.set_ylabel('Score')\nplt.tight_layout()\nplt.show()`      }
     },
     {
       type: "text",
-      content: `从图中可观察到 K=3 时肘点明显且轮廓系数最高，因此选择 K=3｡`,
+      content: `从图中可观察到 K=3 时肘点明显且轮廓系数最高，因此选择 K=3｡`
     }
     ],
   },
@@ -1218,8 +1162,7 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `optimal_k = 3\nkmeans = KMeans(n_clusters=optimal_k, random_state=42, n_init=10)\nkmeans.fit(scaled)\ndf[\'Cluster\'] = kmeans.labels_`,
-      },
+        code: `optimal_k = 3\nkmeans = KMeans(n_clusters=optimal_k, random_state=42, n_init=10)\nkmeans.fit(scaled)\ndf['Cluster'] = kmeans.labels_`      }
     }
     ],
   },
@@ -1228,29 +1171,27 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `计算各群体的 RFM 均值，并进行业务解读:`,
+      content: `计算各群体的 RFM 均值，并进行业务解读:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `cluster_summary = df.groupby(\'Cluster\').agg({\n    \'Recency\': \'mean\',\n    \'Frequency\': \'mean\',\n    \'Monetary\': \'mean\'\n}).round(2)\nprint(cluster_summary)`,
-      },
+        code: `cluster_summary = df.groupby('Cluster').agg({\n    'Recency': 'mean',\n    'Frequency': 'mean',\n    'Monetary': 'mean'\n}).round(2)\nprint(cluster_summary)`      }
     },
     {
       type: "text",
-      content: `输出示例 (数值因随机种子而定):`,
+      content: `输出示例 (数值因随机种子而定):`
     },
     {
       type: "table",
       table: {
         headers: [`Cluster`, `Recency`, `Frequency`, `Monetary`],
-        rows: [[`0`, `49.5`, `3.8`, `480`], [`1`, `19.6`, `14.7`, `2950`], [`2`, `4.8`, `39.2`, `7950`]],
-      },
+        rows: [[`0`, `49.5`, `3.8`, `480`], [`1`, `19.6`, `14.7`, `2950`], [`2`, `4.8`, `39.2`, `7950`]]      }
     },
     {
       type: "text",
-      content: `根据 RFM 特征，可定义:\n\n- Cluster 2 → 高价值忠实客户 (R 小、F 大、M 大) → 一对一 VIP 服务、定向推荐高端产品｡\n\n- Cluster 1 → 中等价值潜力客户 (R 中等、F 中等、M 中等) → 推送促销活动、交叉销售｡\n\n- Cluster 0 → 低价值沉睡客户 (R 大、F 小、M 小) → 激活策略 (优惠券、折扣) 或降低营销 投入｡`,
+      content: `根据 RFM 特征，可定义:\n\n- Cluster 2 → 高价值忠实客户 (R 小、F 大、M 大) → 一对一 VIP 服务、定向推荐高端产品｡\n\n- Cluster 1 → 中等价值潜力客户 (R 中等、F 中等、M 中等) → 推送促销活动、交叉销售｡\n\n- Cluster 0 → 低价值沉睡客户 (R 大、F 小、M 小) → 激活策略 (优惠券、折扣) 或降低营销 投入｡`
     }
     ],
   },
@@ -1259,14 +1200,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `用 PCA 降维到 2 维，展示聚类效果:`,
+      content: `用 PCA 降维到 2 维，展示聚类效果:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from sklearn.decomposition import PCA\n\npca = PCA(n_components=2)\npca_coords = pca.fit_transform(scaled)\n\nplt.figure(figsize=(8,6))\nscatter = plt.scatter(pca_coords[:,0], pca_coords[:,1], c=df[\'Cluster\'], cmap=\'viridis\', alpha=0.6)\nplt.xlabel(\'PC1\')\nplt.ylabel(\'PC2\')\nplt.title(\'Customer Clustering Visualization (PCA)\')\nplt.colorbar(scatter)\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nfrom sklearn.decomposition import PCA\n\npca = PCA(n_components=2)\npca_coords = pca.fit_transform(scaled)\n\nplt.figure(figsize=(8,6))\nscatter = plt.scatter(pca_coords[:,0], pca_coords[:,1], c=df['Cluster'], cmap='viridis', alpha=0.6)\nplt.xlabel('PC1')\nplt.ylabel('PC2')\nplt.title('Customer Clustering Visualization (PCA)')\nplt.colorbar(scatter)\nplt.show()`      }
     }
     ],
   },
@@ -1277,21 +1217,20 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `# 完整流程伪代码\n1. 收集客户交易数据\n2. 计算每个客户的R、F、M值\n3. 数据清洗(缺失值、异常值)\n4. 标准化(StandardScaler)\n5. 用肘方法+轮廓系数确定K\n6. 执行KMeans聚类\n7. 分析各簇RFM均值\n8. 为每个簇定义客户类型(高价值/潜力/沉睡等)\n9. 制定差异化营销策略并实施\n10. 跟踪效果并迭代优化`,
-      },
+        code: `# 完整流程伪代码\n1. 收集客户交易数据\n2. 计算每个客户的R、F、M值\n3. 数据清洗(缺失值、异常值)\n4. 标准化(StandardScaler)\n5. 用肘方法+轮廓系数确定K\n6. 执行KMeans聚类\n7. 分析各簇RFM均值\n8. 为每个簇定义客户类型(高价值/潜力/沉睡等)\n9. 制定差异化营销策略并实施\n10. 跟踪效果并迭代优化`      }
     },
     {
       type: "text",
-      content: `---`,
+      content: `---`
     }
     ],
   },
   {
-    title: `7.1 混合策略：RFM \\+ 聚类`,
+    title: `7.1 混合策略：RFM + 聚类`,
     content: [
     {
       type: "text",
-      content: `很多企业的实践中，先用 RFM 模型对客户打分，再将 RFM 得分作为聚类输入｡这种组合能兼顾业 务可解释性与算法自动发现能力｡`,
+      content: `很多企业的实践中，先用 RFM 模型对客户打分，再将 RFM 得分作为聚类输入｡这种组合能兼顾业 务可解释性与算法自动发现能力｡`
     }
     ],
   },
@@ -1300,7 +1239,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `当数据量极大时，可先随机抽样构建小样本，用复杂算法 (如 HDBSCAN) 聚类，再将结果映射到 全量数据；或者使用 Mini-Batch K-Means 加速｡`,
+      content: `当数据量极大时，可先随机抽样构建小样本，用复杂算法 (如 HDBSCAN) 聚类，再将结果映射到 全量数据；或者使用 Mini-Batch K-Means 加速｡`
     }
     ],
   },
@@ -1309,7 +1248,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `客户行为会随时间变化，建议定期重新聚类 (如每月或每季度), 并跟踪客户群体之间的转移 (例 如从 “高价值” 转移到 “沉睡”), 以便及时调整策略｡`,
+      content: `客户行为会随时间变化，建议定期重新聚类 (如每月或每季度), 并跟踪客户群体之间的转移 (例 如从 “高价值” 转移到 “沉睡”), 以便及时调整策略｡`
     }
     ],
   },
@@ -1318,7 +1257,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- 变量选择不当：如将性别、年龄等人口统计变量直接加入聚类，会导致结果反映的是人口结 构而非行为模式｡正确做法是将人口变量用于聚类后的群体描述，而非输入｡\n\n- 忽略数据分布：在标准化之前，应先查看特征分布，对于严重偏态的特征，可先做对数变换 或 Box-Cox 变换｡\n\n- K 值选择过于机械：不能只看统计指标，务必备业务人员共同验证聚类结果是否合理｡\n\n---`,
+      content: `- 变量选择不当：如将性别、年龄等人口统计变量直接加入聚类，会导致结果反映的是人口结 构而非行为模式｡正确做法是将人口变量用于聚类后的群体描述，而非输入｡\n\n- 忽略数据分布：在标准化之前，应先查看特征分布，对于严重偏态的特征，可先做对数变换 或 Box-Cox 变换｡\n\n- K 值选择过于机械：不能只看统计指标，务必备业务人员共同验证聚类结果是否合理｡\n\n---`
     }
     ],
   },
@@ -1327,11 +1266,11 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `客户聚类分析是将海量客户数据转化为可执行洞察的关键技术｡本文从核心概念、算法原理、数 据预处理、效果评估到完整代码案例，系统性地展示了如何利用 K-Means 和 RFM 模型进行客户分 群｡实际应用中，建议根据数据规模、业务需求选择最合适的算法 (大数据量用 K-Means, 不规 则形状用 DBSCAN, 需要可解释性用层次聚类), 并始终以业务价值作为评价聚类好坏的最终标 准｡\n\n通过聚类，企业能够从 “一刀切” 的营销转向 “千人千面” 的精细化运营，真正实现数据驱动的 客户管理｡未来，随着深度学习与图神经网络的发展，自动特征提取和动态聚类将成为新的趋势，但 RFM\\+K-Means 这套经典组合在绝大多数场景下依然是快速见效的首选方案｡`,
+      content: `客户聚类分析是将海量客户数据转化为可执行洞察的关键技术｡本文从核心概念、算法原理、数 据预处理、效果评估到完整代码案例，系统性地展示了如何利用 K-Means 和 RFM 模型进行客户分 群｡实际应用中，建议根据数据规模、业务需求选择最合适的算法 (大数据量用 K-Means, 不规 则形状用 DBSCAN, 需要可解释性用层次聚类), 并始终以业务价值作为评价聚类好坏的最终标 准｡\n\n通过聚类，企业能够从 “一刀切” 的营销转向 “千人千面” 的精细化运营，真正实现数据驱动的 客户管理｡未来，随着深度学习与图神经网络的发展，自动特征提取和动态聚类将成为新的趋势，但 RFM+K-Means 这套经典组合在绝大多数场景下依然是快速见效的首选方案｡`
     },
     {
       type: "note",
-      content: `（注：文档部分内容可能由 AI 生成）`,
+      content: `（注：文档部分内容可能由 AI 生成）`
     }
     ],
   }
@@ -1347,7 +1286,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- **探索性分析：**快速发现数据模式､异常､分布特征｡\n\n- **解释性沟通：**以直观图形向非技术受众传达见解｡\n\n- **辅助决策：**把抽象数字转化为可感知的视觉信息｡`,
+      content: `- **探索性分析：**快速发现数据模式､异常､分布特征｡\n\n- **解释性沟通：**以直观图形向非技术受众传达见解｡\n\n- **辅助决策：**把抽象数字转化为可感知的视觉信息｡`
     }
     ],
   },
@@ -1356,18 +1295,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `视觉编码是将数据映射为图形元素的关键过程，主要通道包括:`,
+      content: `视觉编码是将数据映射为图形元素的关键过程，主要通道包括:`
     },
     {
       type: "table",
       table: {
         headers: [`通道`, `适合数据类型`, `例子`],
-        rows: [[`位置`, `所有类型`, `散点图上的坐标`], [`长度`, `数量型`, `柱状图的高度`], [`角度 / 面积`, `数量型`, `饼图､气泡图`], [`颜色 (色相 / 饱和度 / 亮度)`, `类别型 / 数量型`, `热力图､分组颜色`], [`形状`, `类别型`, `不同符号表示分组`]],
-      },
+        rows: [[`位置`, `所有类型`, `散点图上的坐标`], [`长度`, `数量型`, `柱状图的高度`], [`角度 / 面积`, `数量型`, `饼图､气泡图`], [`颜色 (色相 / 饱和度 / 亮度)`, `类别型 / 数量型`, `热力图､分组颜色`], [`形状`, `类别型`, `不同符号表示分组`]]      }
     },
     {
       type: "text",
-      content: `原则：人类对位置､长度最敏感，对面积､颜色渐变的判断较弱｡优先使用高精度通道 (如位置､长度)｡`,
+      content: `原则：人类对位置､长度最敏感，对面积､颜色渐变的判断较弱｡优先使用高精度通道 (如位置､长度)｡`
     }
     ],
   },
@@ -1378,8 +1316,7 @@ export const courseContent: Chapter[] = [
       type: "table",
       table: {
         headers: [`你想展现什么`, `推荐图表`],
-        rows: [[`类别间的比较`, `柱状图 (分组､堆叠)､条形图`], [`趋势变化`, `折线图､面积图`], [`数据分布`, `直方图､核密度图､箱线图､小提琴图`], [`变量关系`, `散点图､气泡图､相关矩阵热力图`], [`构成比例`, `堆叠柱状图､饼图 (慎用，尽量用条形图或环形图)`], [`地理空间`, `地图､点图､等值区域图`]],
-      },
+        rows: [[`类别间的比较`, `柱状图 (分组､堆叠)､条形图`], [`趋势变化`, `折线图､面积图`], [`数据分布`, `直方图､核密度图､箱线图､小提琴图`], [`变量关系`, `散点图､气泡图､相关矩阵热力图`], [`构成比例`, `堆叠柱状图､饼图 (慎用，尽量用条形图或环形图)`], [`地理空间`, `地图､点图､等值区域图`]]      }
     }
     ],
   },
@@ -1388,7 +1325,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- 数据 - 墨水比：去除多余背景线､3D 效果､装饰性元素，让数据占据主要视觉空间｡\n\n- 明确标签：坐标轴､图例､标题必须清晰，避免歧义｡\n\n- 合理用色：分类用离散色板 (如 Set2), 连续用顺序色板 (如 Viridis), 注意色盲友好 (如使用 ColorBrewer)｡\n\n- 避免误导：坐标轴从 0 开始 (柱状图), 不随意截断；尺度统一｡`,
+      content: `- 数据 - 墨水比：去除多余背景线､3D 效果､装饰性元素，让数据占据主要视觉空间｡\n\n- 明确标签：坐标轴､图例､标题必须清晰，避免歧义｡\n\n- 合理用色：分类用离散色板 (如 Set2), 连续用顺序色板 (如 Viridis), 注意色盲友好 (如使用 ColorBrewer)｡\n\n- 避免误导：坐标轴从 0 开始 (柱状图), 不随意截断；尺度统一｡`
     }
     ],
   },
@@ -1397,7 +1334,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `现代可视化库 (如 ggplot2､Seaborn､Plotnine) 都基于图形语法，核心要素包括:\n\n- 数据：原始 DataFrame｡\n\n- 映射 (Aesthetics): 将列映射到 x､y､颜色､大小等｡\n\n- 几何对象 (Geometry): 点､线､柱､面等｡\n\n- 分面 (Facet): 按类别拆分子图｡\n\n- 统计变换 (Stat): 求和､均值､密度估计等｡\n\n- 主题 (Theme): 样式､字体､背景｡\n\n理解图形语法能让你从 “记住函数” 升级为 “组合元素” 来创造图表｡`,
+      content: `现代可视化库 (如 ggplot2､Seaborn､Plotnine) 都基于图形语法，核心要素包括:\n\n- 数据：原始 DataFrame｡\n\n- 映射 (Aesthetics): 将列映射到 x､y､颜色､大小等｡\n\n- 几何对象 (Geometry): 点､线､柱､面等｡\n\n- 分面 (Facet): 按类别拆分子图｡\n\n- 统计变换 (Stat): 求和､均值､密度估计等｡\n\n- 主题 (Theme): 样式､字体､背景｡\n\n理解图形语法能让你从 “记住函数” 升级为 “组合元素” 来创造图表｡`
     }
     ],
   },
@@ -1406,7 +1343,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Python 生态中最常用的三个库，分别代表不同层次的抽象:`,
+      content: `Python 生态中最常用的三个库，分别代表不同层次的抽象:`
     }
     ],
   },
@@ -1415,14 +1352,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `语法模式：面向对象 (fig, ax = plt.subplots ()) 或 pyplot 接口｡`,
+      content: `语法模式：面向对象 (fig, ax = plt.subplots ()) 或 pyplot 接口｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `import matplotlib.pyplot as plt\n\n# 数据\nx = [\'A\', \'B\', \'C\', \'D\']\ny = [10, 24, 18, 30]\n\n# 创建画布与坐标轴\nfig, ax = plt.subplots()\n\n# 绘制柱状图\nax.bar(x, y, color=[\'#4C72B0\', \'#DD8452\', \'#55A868\', \'#C44E52\'])\n\n# 标签与标题\nax.set_title(\'类别销售额\', fontsize=14)\nax.set_xlabel(\'类别\')\nax.set_ylabel(\'销售额 (万元)\')\n\n# 显示\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\n\n# 数据\nx = ['A', 'B', 'C', 'D']\ny = [10, 24, 18, 30]\n\n# 创建画布与坐标轴\nfig, ax = plt.subplots()\n\n# 绘制柱状图\nax.bar(x, y, color=['#4C72B0', '#DD8452', '#55A868', '#C44E52'])\n\n# 标签与标题\nax.set_title('类别销售额', fontsize=14)\nax.set_xlabel('类别')\nax.set_ylabel('销售额 (万元)')\n\n# 显示\nplt.show()`      }
     }
     ],
   },
@@ -1431,14 +1367,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `语法模式：直接使用 sns.\\<图表类型\\>(data=df, x=..., y=..., hue=...), 自动处理分组､颜色､统计变换｡`,
+      content: `语法模式：直接使用 sns.<图表类型>(data=df, x=..., y=..., hue=...), 自动处理分组､颜色､统计变换｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `import seaborn as sns\nimport pandas as pd\n\n# 加载示例数据\ntips = sns.load_dataset(\'tips\')\n\n# 绘制箱线图:不同日期的总账单分布,并按性别分色\nsns.boxplot(data=tips, x=\'day\', y=\'total_bill\', hue=\'sex\',\npalette=\'Set2\')\nplt.title(\'不同日期小费总账单分布\')\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nimport seaborn as sns\nimport pandas as pd\n\n# 加载示例数据\ntips = sns.load_dataset('tips')\n\n# 绘制箱线图:不同日期的总账单分布,并按性别分色\nsns.boxplot(data=tips, x='day', y='total_bill', hue='sex',\npalette='Set2')\nplt.title('不同日期小费总账单分布')\nplt.show()`      }
     }
     ],
   },
@@ -1447,14 +1382,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `语法模式 (Plotly Express 高级接口) 与 Seaborn 类似，但生成交互图表｡`,
+      content: `语法模式 (Plotly Express 高级接口) 与 Seaborn 类似，但生成交互图表｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `import plotly.express as px\n\n# 加载鸢尾花数据\ndf = px.data.iris()\n\n# 散点图:花萼长宽关系,按种类着色\nfig = px.scatter(df, x=\'sepal_width\', y=\'sepal_length\',\ncolor=\'species\', size=\'petal_length\',\nhover_data=[\'petal_width\'],\ntitle=\'鸢尾花萼片长宽关系\')\n\nfig.show() # 默认在浏览器/ notebook 中渲染`,
-      },
+        code: `import plotly.express as px\n\n# 加载鸢尾花数据\ndf = px.data.iris()\n\n# 散点图:花萼长宽关系,按种类着色\nfig = px.scatter(df, x='sepal_width', y='sepal_length',\ncolor='species', size='petal_length',\nhover_data=['petal_width'],\ntitle='鸢尾花萼片长宽关系')\n\nfig.show() # 默认在浏览器/ notebook 中渲染`      }
     }
     ],
   },
@@ -1463,7 +1397,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `假设我们有一组某超市的销售数据，包含 月份､销售额 和 利润，想完成三项任务:\n\n1. 查看每月销售额趋势 (折线图)\n\n2. 比较各产品类别利润分布 (箱线图)\n\n3. 探索销售额与利润率的关系 (散点图)`,
+      content: `假设我们有一组某超市的销售数据，包含 月份､销售额 和 利润，想完成三项任务:\n\n1. 查看每月销售额趋势 (折线图)\n\n2. 比较各产品类别利润分布 (箱线图)\n\n3. 探索销售额与利润率的关系 (散点图)`
     }
     ],
   },
@@ -1474,8 +1408,7 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `import pandas as pd\n\ndata = pd.DataFrame({\n\'月份\': [\'Jan\', \'Feb\', \'Mar\', \'Apr\', \'May\', \'Jun\'],\n\'销售额\': [120, 135, 110, 150, 170, 190],\n\'利润\': [30, 35, 28, 40, 45, 50],\n\'类别\': [\'食品\',\'食品\',\'饮料\',\'饮料\',\'日用品\',\'日用品\']\n})`,
-      },
+        code: `import pandas as pd\n\ndata = pd.DataFrame({\n'月份': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],\n'销售额': [120, 135, 110, 150, 170, 190],\n'利润': [30, 35, 28, 40, 45, 50],\n'类别': ['食品','食品','饮料','饮料','日用品','日用品']\n})`      }
     }
     ],
   },
@@ -1486,8 +1419,7 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `import matplotlib.pyplot as plt\n\nplt.figure(figsize=(8, 4))\nplt.plot(data[\'月份\'], data[\'销售额\'], marker=\'o\', linewidth=2, color=\'#2E86AB\')\nplt.plot(data[\'月份\'], data[\'利润\'], marker=\'s\', linewidth=2,\ncolor=\'#A23B72\')\n\nplt.title(\'月度销售趋势\')\nplt.xlabel(\'月份\')\nplt.ylabel(\'金额 (万元)\')\nplt.legend([\'销售额\', \'利润\'])\n\nplt.grid(axis=\'y\', linestyle=\'--\', alpha=0.6)\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\n\nplt.figure(figsize=(8, 4))\nplt.plot(data['月份'], data['销售额'], marker='o', linewidth=2, color='#2E86AB')\nplt.plot(data['月份'], data['利润'], marker='s', linewidth=2,\ncolor='#A23B72')\n\nplt.title('月度销售趋势')\nplt.xlabel('月份')\nplt.ylabel('金额 (万元)')\nplt.legend(['销售额', '利润'])\n\nplt.grid(axis='y', linestyle='--', alpha=0.6)\nplt.show()`      }
     }
     ],
   },
@@ -1496,14 +1428,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `由于数据太少 (每个类别仅 2 行), 实际中需要更多样本｡这里为了展示语法，改用 Seaborn 内置的 tips 数据集:`,
+      content: `由于数据太少 (每个类别仅 2 行), 实际中需要更多样本｡这里为了展示语法，改用 Seaborn 内置的 tips 数据集:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `import seaborn as sns\nimport matplotlib.pyplot as plt\n\ntips = sns.load_dataset(\'tips\')\n\nsns.boxplot(data=tips, x=\'day\', y=\'total_bill\', hue=\'sex\',\npalette=\'muted\', linewidth=1.5)\nplt.title(\'不同日子的账单金额分布(按性别)\')\n\nplt.show()`,
-      },
+        code: `import seaborn as sns\nimport matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\n\ntips = sns.load_dataset('tips')\n\nsns.boxplot(data=tips, x='day', y='total_bill', hue='sex',\npalette='muted', linewidth=1.5)\nplt.title('不同日子的账单金额分布(按性别)')\n\nplt.show()`      }
     }
     ],
   },
@@ -1512,18 +1443,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `先计算利润率，再绘图:`,
+      content: `先计算利润率，再绘图:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `import plotly.express as px\n\ndata[\'利润率\'] = (data[\'利润\'] / data[\'销售额\']) * 100\n\nfig = px.scatter(data, x=\'销售额\', y=\'利润率\',\ncolor=\'类别\',\nhover_name=\'月份\',\ntitle=\'销售额与利润率关系\',\nlabels={\'利润率\': \'利润率 (%)\'})\nfig.show()`,
-      },
+        code: `import plotly.express as px\n\ndata['利润率'] = (data['利润'] / data['销售额']) * 100\n\nfig = px.scatter(data, x='销售额', y='利润率',\ncolor='类别',\nhover_name='月份',\ntitle='销售额与利润率关系',\nlabels={'利润率': '利润率 (%)'})\nfig.show()`      }
     },
     {
       type: "text",
-      content: `这个例子同时使用了三个视觉通道 (x, y, 颜色，大小), 展示不同类别､不同月份的聚类情况｡`,
+      content: `这个例子同时使用了三个视觉通道 (x, y, 颜色，大小), 展示不同类别､不同月份的聚类情况｡`
     }
     ],
   },
@@ -1534,16 +1464,15 @@ export const courseContent: Chapter[] = [
       type: "table",
       table: {
         headers: [`层面`, `核心内容`],
-        rows: [[`知识点`, `视觉编码原理､图表选择､设计原则､图形语法`], [`语法`, `Matplotlib (精细控制)､Seaborn (统计图形 \\+ 美观)､Plotly (交互)`], [`实践`, `明确目标 → 选图 → 编码映射 → 修饰 → 输出`]],
-      },
+        rows: [[`知识点`, `视觉编码原理､图表选择､设计原则､图形语法`], [`语法`, `Matplotlib (精细控制)､Seaborn (统计图形 + 美观)､Plotly (交互)`], [`实践`, `明确目标 → 选图 → 编码映射 → 修饰 → 输出`]]      }
     },
     {
       type: "text",
-      content: `你可以根据需求选择适合的库：快速分析用 Seaborn, 精细化报告用 Matplotlib, 分享用 Plotly｡理解背后的 “图形语法” 后，任何新库都能快速上手｡`,
+      content: `你可以根据需求选择适合的库：快速分析用 Seaborn, 精细化报告用 Matplotlib, 分享用 Plotly｡理解背后的 “图形语法” 后，任何新库都能快速上手｡`
     },
     {
       type: "note",
-      content: `（注：文档部分内容可能由 AI 生成）`,
+      content: `（注：文档部分内容可能由 AI 生成）`
     }
     ],
   }
@@ -1559,7 +1488,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `数据可视化是数据分析流程中连接数据与决策的桥梁，它通过图形化手段将抽象的数字转化为直观的趋势､模式和异常，从而大幅提升信息传递效率｡在 Python 生态中，由 Matplotlib､ Seaborn､Plotly 等组成的可视化工具链，能覆盖从静态报告到交互式仪表盘的各类需求｡下面将从核心知识点､基本语法和综合举例三个方面系统讲解｡\n\n---`,
+      content: `数据可视化是数据分析流程中连接数据与决策的桥梁，它通过图形化手段将抽象的数字转化为直观的趋势､模式和异常，从而大幅提升信息传递效率｡在 Python 生态中，由 Matplotlib､ Seaborn､Plotly 等组成的可视化工具链，能覆盖从静态报告到交互式仪表盘的各类需求｡下面将从核心知识点､基本语法和综合举例三个方面系统讲解｡\n\n---`
     }
     ],
   },
@@ -1568,7 +1497,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- **Matplotlib**:Python 可视化的基础库，提供高度灵活的绘图 API, 支持几乎所有的 2D 图形和部分 3D 图形，适合需要精细控制每个像素的场景｡\n\n- **Seaborn**: 基于 Matplotlib 的高级封装，内置美观的默认样式和统计图表类型 (如热力图､箱线图､分类散点图), 能用简洁代码生成专业的统计图形｡\n\n- **Plotly**: 专为交互式可视化设计，生成的图表可缩放､悬停提示､下载，适合 Web 嵌入和探索性数据分析｡\n\n- **Pandas 内置绘图**: 基于 Matplotlib 的轻量封装，直接在 DataFrame 上调用\`.plot()\`即可快速绘图，适合数据探索阶段的快速预览｡`,
+      content: `- **Matplotlib**:Python 可视化的基础库，提供高度灵活的绘图 API, 支持几乎所有的 2D 图形和部分 3D 图形，适合需要精细控制每个像素的场景｡\n\n- **Seaborn**: 基于 Matplotlib 的高级封装，内置美观的默认样式和统计图表类型 (如热力图､箱线图､分类散点图), 能用简洁代码生成专业的统计图形｡\n\n- **Plotly**: 专为交互式可视化设计，生成的图表可缩放､悬停提示､下载，适合 Web 嵌入和探索性数据分析｡\n\n- **Pandas 内置绘图**: 基于 Matplotlib 的轻量封装，直接在 DataFrame 上调用\`.plot()\`即可快速绘图，适合数据探索阶段的快速预览｡`
     }
     ],
   },
@@ -1577,7 +1506,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `选择合适的图表是有效表达的关键:\n\n- 折线图：展示时间序列或连续数据的趋势变化｡\n\n- 柱状图 / 条形图：比较不同类别的数值大小｡\n\n- 散点图：揭示两个连续变量之间的相关关系｡\n\n- 饼图：显示各部分占总体的比例 (类别不宜过多)\n\n- 箱线图：展示数据分布的四分位数､异常值\n\n- 热力图：用颜色矩阵反映多变量之间的相关性或频率`,
+      content: `选择合适的图表是有效表达的关键:\n\n- 折线图：展示时间序列或连续数据的趋势变化｡\n\n- 柱状图 / 条形图：比较不同类别的数值大小｡\n\n- 散点图：揭示两个连续变量之间的相关关系｡\n\n- 饼图：显示各部分占总体的比例 (类别不宜过多)\n\n- 箱线图：展示数据分布的四分位数､异常值\n\n- 热力图：用颜色矩阵反映多变量之间的相关性或频率`
     }
     ],
   },
@@ -1586,7 +1515,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `高质量的可视化必须基于干净的数据｡关键步骤包括:\n\n- 缺失值处理：使用\`fillna()\`填充或\`dropna()\`删除｡\n\n- 重复值处理：使用\`drop_duplicates()\`去重｡\n\n- 异常值处理：通过条件筛选或分位数截断避免图表失真｡\n\n- 类型转换与归一化：用\`astype()\`转换数据类型，用\`MinMaxScaler\`将数值缩放到统一范围，便于对比｡`,
+      content: `高质量的可视化必须基于干净的数据｡关键步骤包括:\n\n- 缺失值处理：使用\`fillna()\`填充或\`dropna()\`删除｡\n\n- 重复值处理：使用\`drop_duplicates()\`去重｡\n\n- 异常值处理：通过条件筛选或分位数截断避免图表失真｡\n\n- 类型转换与归一化：用\`astype()\`转换数据类型，用\`MinMaxScaler\`将数值缩放到统一范围，便于对比｡`
     }
     ],
   },
@@ -1595,7 +1524,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- 添加标签和标题:\`plt.xlabel/ylabel/title\`使图表自解释\n\n- 使用网格和图例:\`plt.grid()\`和\`plt.legend()\`提升可读性\n\n- 调整颜色和样式：通过\`plt.style.use(\'seaborn\')\`或自定义配色增强美观度｡\n\n- 保存高清图:\`plt.savefig(\'figure.png\', dpi=300)\`用于报告或分享\n\n---`,
+      content: `- 添加标签和标题:\`plt.xlabel/ylabel/title\`使图表自解释\n\n- 使用网格和图例:\`plt.grid()\`和\`plt.legend()\`提升可读性\n\n- 调整颜色和样式：通过\`plt.style.use('seaborn')\`或自定义配色增强美观度｡\n\n- 保存高清图:\`plt.savefig('figure.png', dpi=300)\`用于报告或分享\n\n---`
     }
     ],
   },
@@ -1606,12 +1535,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `import matplotlib.pyplot as plt\nimport numpy as np\n\nx = np.linspace(0, 10, 100)\ny = np.sin(x)\n\n# 折线图(MATLAB风格)\nplt.plot(x, y, color=\'blue\', linestyle=\'--\', marker=\'o\', label=\'sin(x)\')\n\nplt.xlabel(\'X轴\')\nplt.ylabel(\'Y轴\')\nplt.title(\'正弦波\')\nplt.legend()\nplt.grid(alpha=0.3)\nplt.show()\n\n# 保存图片\nplt.savefig(\'sin_wave.png\', dpi=300)`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\nimport numpy as np\n\nx = np.linspace(0, 10, 100)\ny = np.sin(x)\n\n# 折线图(MATLAB风格)\nplt.plot(x, y, color='blue', linestyle='--', marker='o', label='sin(x)')\n\nplt.xlabel('X轴')\nplt.ylabel('Y轴')\nplt.title('正弦波')\nplt.legend()\nplt.grid(alpha=0.3)\nplt.show()\n\n# 保存图片\nplt.savefig('sin_wave.png', dpi=300)`      }
     },
     {
       type: "text",
-      content: `面向对象接口:\`fig, ax = plt.subplots(); ax.plot(x, y)\`提供更灵活的子图控制｡\n常用图表:\`plt.bar()\`､\`plt.scatter()\`､\`plt.hist()\`､\`plt.pie()\``,
+      content: `面向对象接口:\`fig, ax = plt.subplots(); ax.plot(x, y)\`提供更灵活的子图控制｡\n常用图表:\`plt.bar()\`､\`plt.scatter()\`､\`plt.hist()\`､\`plt.pie()\``
     }
     ],
   },
@@ -1622,12 +1550,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `import seaborn as sns\nimport pandas as pd\n\n# 加载内置数据集\ntips = sns.load_dataset(\'tips\')\n\n# 散点图(自动添加回归线)\nsns.regplot(x=\'total_bill\', y=\'tip\', data=tips)\nplt.title(\'消费与小费关系\')\nplt.show()\n\n# 箱线图\nsns.boxplot(x=\'day\', y=\'total_bill\', hue=\'smoker\', data=tips)\nplt.show()\n\n# 热力图(相关性矩阵)\nsns.heatmap(tips.corr(), annot=True, cmap=\'coolwarm\')\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nimport seaborn as sns\nimport pandas as pd\n\n# 加载内置数据集\ntips = sns.load_dataset('tips')\n\n# 散点图(自动添加回归线)\nsns.regplot(x='total_bill', y='tip', data=tips)\nplt.title('消费与小费关系')\nplt.show()\n\n# 箱线图\nsns.boxplot(x='day', y='total_bill', hue='smoker', data=tips)\nplt.show()\n\n# 热力图(相关性矩阵)\nsns.heatmap(tips.corr(), annot=True, cmap='coolwarm')\nplt.show()`      }
     },
     {
       type: "text",
-      content: `核心优势：自动处理统计变换､美观的默认配色､支持\`hue\`分色`,
+      content: `核心优势：自动处理统计变换､美观的默认配色､支持\`hue\`分色`
     }
     ],
   },
@@ -1638,12 +1565,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `import plotly.express as px\n\n# 散点图(交互式)\ndf = px.data.iris()\nfig = px.scatter(df, x=\'sepal_width\', y=\'sepal_length\', color=\'species\', title=\'鸢尾花数据\')\nfig.show()\n\n# 折线图\nfig = px.line(x=[1,2,3,4], y=[10,11,12,13], markers=True)\nfig.show()`,
-      },
+        code: `import plotly.express as px\n\n# 散点图(交互式)\ndf = px.data.iris()\nfig = px.scatter(df, x='sepal_width', y='sepal_length', color='species', title='鸢尾花数据')\nfig.show()\n\n# 折线图\nfig = px.line(x=[1,2,3,4], y=[10,11,12,13], markers=True)\nfig.show()`      }
     },
     {
       type: "text",
-      content: `交互特性：悬停显示数值､缩放､拖拽；适合嵌入 Jupyter Notebook 或 Dash 应用`,
+      content: `交互特性：悬停显示数值､缩放､拖拽；适合嵌入 Jupyter Notebook 或 Dash 应用`
     }
     ],
   },
@@ -1654,12 +1580,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `# 快速绘制DataFrame\ndf = pd.DataFrame({\'A\': [1,2,3], \'B\': [4,5,6]})\ndf.plot(kind=\'line\', title=\'快速折线图\')\nplt.show()\n\n# 直方图\ndf[\'A\'].hist(bins=5)\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\n# 快速绘制DataFrame\ndf = pd.DataFrame({'A': [1,2,3], 'B': [4,5,6]})\ndf.plot(kind='line', title='快速折线图')\nplt.show()\n\n# 直方图\ndf['A'].hist(bins=5)\nplt.show()`      }
     },
     {
       type: "text",
-      content: `本质是 Matplotlib 的简单封装，适合 EDA 阶段的快速可视化\n\n---`,
+      content: `本质是 Matplotlib 的简单封装，适合 EDA 阶段的快速可视化\n\n---`
     }
     ],
   },
@@ -1668,7 +1593,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `以下用一个电商销售数据集的典型分析流程，演示如何综合运用上述知识｡`,
+      content: `以下用一个电商销售数据集的典型分析流程，演示如何综合运用上述知识｡`
     }
     ],
   },
@@ -1679,12 +1604,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `import pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# 读取数据(假设有sales_data.csv)\ndf = pd.read_csv(\'sales_data.csv\')\n# 处理缺失值(若存在)\ndf.dropna(inplace=True)\n# 将日期列转为时间类型并提取月份\ndf[\'日期\'] = pd.to_datetime(df[\'日期\'])\ndf[\'月份\'] = df[\'日期\'].dt.to_period(\'M\').astype(str)`,
-      },
+        code: `import pandas as pd\nimport matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\nimport seaborn as sns\n\n# 读取数据(假设有sales_data.csv)\ndf = pd.read_csv('sales_data.csv')\n# 处理缺失值(若存在)\ndf.dropna(inplace=True)\n# 将日期列转为时间类型并提取月份\ndf['日期'] = pd.to_datetime(df['日期'])\ndf['月份'] = df['日期'].dt.to_period('M').astype(str)`      }
     },
     {
       type: "text",
-      content: `此过程参考了的数据清洗方法和的日期处理技巧｡`,
+      content: `此过程参考了的数据清洗方法和的日期处理技巧｡`
     }
     ],
   },
@@ -1695,12 +1619,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `monthly = df.groupby(\'月份\')[\'销售额\'].sum().reset_index()\n\nplt.figure(figsize=(10,5))\nplt.plot(monthly[\'月份\'], monthly[\'销售额\'], marker=\'o\', color=\'#2E86AB\')\nplt.title(\'2024年月度销售额趋势\', fontsize=14)\nplt.xlabel(\'月份\')\nplt.ylabel(\'销售额(元)\')\nplt.xticks(rotation=45)\nplt.grid(alpha=0.3)\nplt.tight_layout()\nplt.savefig(\'monthly_trend.png\', dpi=300)\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nmonthly = df.groupby('月份')['销售额'].sum().reset_index()\n\nplt.figure(figsize=(10,5))\nplt.plot(monthly['月份'], monthly['销售额'], marker='o', color='#2E86AB')\nplt.title('2024年月度销售额趋势', fontsize=14)\nplt.xlabel('月份')\nplt.ylabel('销售额(元)')\nplt.xticks(rotation=45)\nplt.grid(alpha=0.3)\nplt.tight_layout()\nplt.savefig('monthly_trend.png', dpi=300)\nplt.show()`      }
     },
     {
       type: "text",
-      content: `此图可直观判断销售高峰与低谷｡`,
+      content: `此图可直观判断销售高峰与低谷｡`
     }
     ],
   },
@@ -1711,12 +1634,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `category_sales = df.groupby(\'产品类别\')[\'销售额\'].sum().sort_values(ascending=False).reset_index()\n\nplt.figure(figsize=(8,5))\nsns.barplot(x=\'产品类别\', y=\'销售额\', data=category_sales, palette=\'viridis\')\nplt.title(\'各产品类别销售额对比\')\nplt.xlabel(\'产品类别\')\nplt.ylabel(\'销售额\')\n# 在柱子上标注数值\nfor i, v in enumerate(category_sales[\'销售额\']):\n    plt.text(i, v+200, f\'{v:,}\', ha=\'center\')\nplt.tight_layout()\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\ncategory_sales = df.groupby('产品类别')['销售额'].sum().sort_values(ascending=False).reset_index()\n\nplt.figure(figsize=(8,5))\nsns.barplot(x='产品类别', y='销售额', data=category_sales, palette='viridis')\nplt.title('各产品类别销售额对比')\nplt.xlabel('产品类别')\nplt.ylabel('销售额')\n# 在柱子上标注数值\nfor i, v in enumerate(category_sales['销售额']):\n    plt.text(i, v+200, f'{v:,}', ha='center')\nplt.tight_layout()\nplt.show()`      }
     },
     {
       type: "text",
-      content: `使用 Seaborn 自动提供美观配色，并添加数值标签增强可读性｡`,
+      content: `使用 Seaborn 自动提供美观配色，并添加数值标签增强可读性｡`
     }
     ],
   },
@@ -1727,12 +1649,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `plt.figure(figsize=(7,5))\nsns.regplot(x=\'广告费用\', y=\'销售额\', data=df, scatter_kws={\'alpha\':0.6}, line_kws={\'color\':\'red\'})\nplt.title(\'广告费用 vs 销售额(含回归线)\')\nplt.xlabel(\'广告费用(元)\')\nplt.ylabel(\'销售额(元)\')\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nplt.figure(figsize=(7,5))\nsns.regplot(x='广告费用', y='销售额', data=df, scatter_kws={'alpha':0.6}, line_kws={'color':'red'})\nplt.title('广告费用 vs 销售额(含回归线)')\nplt.xlabel('广告费用(元)')\nplt.ylabel('销售额(元)')\nplt.show()`      }
     },
     {
       type: "text",
-      content: `通过回归线可快速判断两者是否线性相关`,
+      content: `通过回归线可快速判断两者是否线性相关`
     }
     ],
   },
@@ -1743,12 +1664,11 @@ export const courseContent: Chapter[] = [
       type: "code",
       code: {
         language: "python",
-        code: `plt.figure(figsize=(6,5))\n# 选取数值列\nnum_cols = [\'销售额\', \'订单量\', \'广告费用\']\nsns.heatmap(df[num_cols].corr(), annot=True, cmap=\'coolwarm\', fmt=\'.2f\')\nplt.title(\'数值变量相关性热力图\')\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nplt.figure(figsize=(6,5))\n# 选取数值列\nnum_cols = ['销售额', '订单量', '广告费用']\nsns.heatmap(df[num_cols].corr(), annot=True, cmap='coolwarm', fmt='.2f')\nplt.title('数值变量相关性热力图')\nplt.show()`      }
     },
     {
       type: "text",
-      content: `颜色深浅与数值共同揭示变量间的关联强度｡`,
+      content: `颜色深浅与数值共同揭示变量间的关联强度｡`
     }
     ],
   },
@@ -1757,11 +1677,11 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `以上例子展示了从数据清洗到多图组合的完整链路｡实际工作中，可根据分析目标自由组合图表类型，例如用箱线图检查销售额的异常分布，或用 Plotly 制作交互式仪表盘供团队协作｡Python 可视化生态的灵活性使得我们既能用几行代码快速出图，也能通过精细调参产出出版级图表｡\n\n通过掌握上述核心知识点､语法和典型举例，你可以系统性地利用 Python 进行高效的数据分析与可视化，从而更好地从数据中提取价值｡`,
+      content: `以上例子展示了从数据清洗到多图组合的完整链路｡实际工作中，可根据分析目标自由组合图表类型，例如用箱线图检查销售额的异常分布，或用 Plotly 制作交互式仪表盘供团队协作｡Python 可视化生态的灵活性使得我们既能用几行代码快速出图，也能通过精细调参产出出版级图表｡\n\n通过掌握上述核心知识点､语法和典型举例，你可以系统性地利用 Python 进行高效的数据分析与可视化，从而更好地从数据中提取价值｡`
     },
     {
       type: "note",
-      content: `（注：文档部分内容可能由 AI 生成）`,
+      content: `（注：文档部分内容可能由 AI 生成）`
     }
     ],
   }
@@ -1777,25 +1697,23 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Matplotlib 是 Python 的第三方绘图库，仅需几行代码，就能够生成各种格式的图形 (如：折线图､散点图､柱状图等等)｡使用 Matplotlib 生成的图形质量较高，甚至可以达到出版级别｡\n\n#### 执行步骤\n\n第一步：打开开始菜单中 “命令提示符”(快捷键 win\\+R)\n第二步：在命令提示符中输入如下代码`,
+      content: `Matplotlib 是 Python 的第三方绘图库，仅需几行代码，就能够生成各种格式的图形 (如：折线图､散点图､柱状图等等)｡使用 Matplotlib 生成的图形质量较高，甚至可以达到出版级别｡\n\n#### 执行步骤\n\n第一步：打开开始菜单中 “命令提示符”(快捷键 win+R)\n第二步：在命令提示符中输入如下代码`
     },
     {
       type: "code",
       code: {
         language: "Plain Text",
-        code: `pip3 install matplotlib`,
-      },
+        code: `pip3 install matplotlib`      }
     },
     {
       type: "text",
-      content: `#### 引入规则\n\nMatplotlib 最核心的模块是 pyplot 模块，几乎所有的 2D 图形都是通过该模块绘制，pyplot 模块约定别名为 plt｡pyplot 模块引入规则:`,
+      content: `#### 引入规则\n\nMatplotlib 最核心的模块是 pyplot 模块，几乎所有的 2D 图形都是通过该模块绘制，pyplot 模块约定别名为 plt｡pyplot 模块引入规则:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from matplotlib import pyplot as plt`,
-      },
+        code: `from matplotlib import pyplot as plt`      }
     }
     ],
   },
@@ -1804,128 +1722,117 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `#### 设置字体\n\nmatplotlib 默认情况不支持中文，可以使用以下简单的方法来解决｡ 函数语法如下:`,
+      content: `#### 设置字体\n\nmatplotlib 默认情况不支持中文，可以使用以下简单的方法来解决｡ 函数语法如下:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `plt.rcParams[\'font.family\']=[\'Microsoft YaHei\']`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nplt.rcParams['font.family']=['Microsoft YaHei']`      }
     },
     {
       type: "text",
-      content: `因为 matplotlib 默认字体中是没有中文的，所以当我们使用中文做图形标签时，将会无法显示，会显示□□｡解决这个问题需要在代码中加入如上语句｡\n\n#### 创建画布\n\n\`figure()\`函数：构建一张新的空白画布 (返回一个 figure 对象), 函数语法如下:`,
+      content: `因为 matplotlib 默认字体中是没有中文的，所以当我们使用中文做图形标签时，将会无法显示，会显示□□｡解决这个问题需要在代码中加入如上语句｡\n\n#### 创建画布\n\n\`figure()\`函数：构建一张新的空白画布 (返回一个 figure 对象), 函数语法如下:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `plt.figure(num=None,figsize=None,dpi=None,facecolor=None,edgecolor=None,frameon=True,FigureClass=Figure,clear=False,**kwargs)`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nplt.figure(num=None,figsize=None,dpi=None,facecolor=None,edgecolor=None,frameon=True,FigureClass=Figure,clear=False,**kwargs)`      }
     },
     {
       type: "text",
-      content: `figure () 函数常用参数：`,
+      content: `figure () 函数常用参数：`
     },
     {
       type: "table",
       table: {
         headers: [`常用参数`, `说明`],
-        rows: [[`num`, `图像编号或名称，数字为编号，字符串为名称，是图形的唯一标识符`], [`figsize`, `指定 figure 的宽和高，单位为英寸`], [`dpi`, `指定绘图对象的分辨率`], [`facecolor`, `背景颜色，默认白色`]],
-      },
+        rows: [[`num`, `图像编号或名称，数字为编号，字符串为名称，是图形的唯一标识符`], [`figsize`, `指定 figure 的宽和高，单位为英寸`], [`dpi`, `指定绘图对象的分辨率`], [`facecolor`, `背景颜色，默认白色`]]      }
     },
     {
       type: "text",
-      content: `**例 4-1-1**: 创建一个编号为 “1”､宽度为 9､高度均为 5､分辨率为 100 的画布｡`,
+      content: `**例 4-1-1**: 创建一个编号为 “1”､宽度为 9､高度均为 5､分辨率为 100 的画布｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from matplotlib import pyplot as plt \nplt.figure(num="1",figsize=(9,5),dpi=100)`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nfrom matplotlib import pyplot as plt \nplt.figure(num="1",figsize=(9,5),dpi=100)`      }
     },
     {
       type: "text",
-      content: `运行结果如下:`,
+      content: `运行结果如下:`
     },
     {
       type: "code",
       code: {
         language: "Plain Text",
-        code: `<Figure size 900x500 with 0 Axes>`,
-      },
+        code: `<Figure size 900x500 with 0 Axes>`      }
     },
     {
       type: "text",
-      content: `分辨率，又称解析度､解像度，可以细分为显示分辨率､图像分辨率､打印分辨率和扫描分辨率等｡通常情况下，图像的分辨率越高，所包含的像素就越多，图像就越清晰，印刷的质量也就越好｡同时，它也会增加文件占用的存储空间｡Figure size 900x500 则表明系统后台已建立一张分辨率为 900×500 的画布\n\n#### 创建子图\n\n\`subplot()\`函数：创建子图 (即创建一个 n 行 m 列的 axes 对象), 并选择绘图区域｡\n语法:`,
+      content: `分辨率，又称解析度､解像度，可以细分为显示分辨率､图像分辨率､打印分辨率和扫描分辨率等｡通常情况下，图像的分辨率越高，所包含的像素就越多，图像就越清晰，印刷的质量也就越好｡同时，它也会增加文件占用的存储空间｡Figure size 900x500 则表明系统后台已建立一张分辨率为 900×500 的画布\n\n#### 创建子图\n\n\`subplot()\`函数：创建子图 (即创建一个 n 行 m 列的 axes 对象), 并选择绘图区域｡\n语法:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `plt.subplot(nrows,ncols,index)`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nplt.subplot(nrows,ncols,index)`      }
     },
     {
       type: "text",
-      content: `- nrows､ncols: 子图的行数和列数，表示绘图区域被分为 n 行 m 列；\n\n- index: 子图索引，表示当前绘图区，子图按照从左到右､从上往下的顺序进行索引编号，编号从 1 开始\n\n**例 4-1-2**: 在例 4-1-1 创建的画布上创建 2 行 3 列的子图｡`,
+      content: `- nrows､ncols: 子图的行数和列数，表示绘图区域被分为 n 行 m 列；\n\n- index: 子图索引，表示当前绘图区，子图按照从左到右､从上往下的顺序进行索引编号，编号从 1 开始\n\n**例 4-1-2**: 在例 4-1-1 创建的画布上创建 2 行 3 列的子图｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from matplotlib import pyplot as plt \nplt.figure(num="1",figsize=(9,5),dpi=100) \nplt.subplot(2,3,1) \nplt.subplot(2,3,3) \nplt.subplot(2,3,5)`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nfrom matplotlib import pyplot as plt \nplt.figure(num="1",figsize=(9,5),dpi=100) \nplt.subplot(2,3,1) \nplt.subplot(2,3,3) \nplt.subplot(2,3,5)`      }
     },
     {
       type: "text",
-      content: `运行结果\n注意：使用 subplot 可以规划 figure 划分 n 个子图，但每条 subplot 命令只会创建一个子图｡\n\n#### 添加画布内容\n\n添加画布内容是绘图的主体部分，首先，要确定 x､y 轴的数据及绘图类型，在 Matplotlib 中，大部分图形样式的绘制方法都存在于 pyplot 模块中，较常用图形如表所示:`,
+      content: `运行结果\n注意：使用 subplot 可以规划 figure 划分 n 个子图，但每条 subplot 命令只会创建一个子图｡\n\n#### 添加画布内容\n\n添加画布内容是绘图的主体部分，首先，要确定 x､y 轴的数据及绘图类型，在 Matplotlib 中，大部分图形样式的绘制方法都存在于 pyplot 模块中，较常用图形如表所示:`
     },
     {
       type: "table",
       table: {
         headers: [`图形`, `说明`, `图形`, `说明`],
-        rows: [[`plt.plot()`, `折线图`, `plt.pie()`, `饼状图`], [`plt.scatter()`, `散点图`, `plt.area()`, `面积图`], [`plt.bar()`, `柱状图`, `plt.stackplot()`, `堆叠图`], [`plt.hist()`, `直方图`, `plt.boxplot()`, `箱线图`]],
-      },
+        rows: [[`plt.plot()`, `折线图`, `plt.pie()`, `饼状图`], [`plt.scatter()`, `散点图`, `plt.area()`, `面积图`], [`plt.bar()`, `柱状图`, `plt.stackplot()`, `堆叠图`], [`plt.hist()`, `直方图`, `plt.boxplot()`, `箱线图`]]      }
     },
     {
       type: "text",
-      content: `确定 x､y 轴的数据及绘图类型后，即可设置图形的标题，x､y 轴的标签､刻度､范围等，最后添加图例｡ 各类标签及图例常用函数如表所示:`,
+      content: `确定 x､y 轴的数据及绘图类型后，即可设置图形的标题，x､y 轴的标签､刻度､范围等，最后添加图例｡ 各类标签及图例常用函数如表所示:`
     },
     {
       type: "table",
       table: {
         headers: [`函数`, `说明`, `函数`, `说明`],
-        rows: [[`plt.title()`, `设置图像标题`, `plt.xlim()`, `设置 x 轴范围`], [`plt.xlabel()`, `设置 x 轴名称`, `plt.ylim()`, `设置 y 轴范围`], [`plt.ylabel()`, `设置 y 轴名称`, `plt.xticks()`, `设置 x 轴刻度`], [`plt.legend()`, `设置图例`, `plt.yticks()`, `设置 y 轴刻度`]],
-      },
+        rows: [[`plt.title()`, `设置图像标题`, `plt.xlim()`, `设置 x 轴范围`], [`plt.xlabel()`, `设置 x 轴名称`, `plt.ylim()`, `设置 y 轴范围`], [`plt.ylabel()`, `设置 y 轴名称`, `plt.xticks()`, `设置 x 轴刻度`], [`plt.legend()`, `设置图例`, `plt.yticks()`, `设置 y 轴刻度`]]      }
     },
     {
       type: "text",
-      content: `#### 保存与显示图形`,
+      content: `#### 保存与显示图形`
     },
     {
       type: "table",
       table: {
         headers: [`函数`, `说明`],
-        rows: [[`plt.savefig()`, `保存绘制的图形`], [`plt.show()`, `显示图形`]],
-      },
+        rows: [[`plt.savefig()`, `保存绘制的图形`], [`plt.show()`, `显示图形`]]      }
     },
     {
       type: "text",
-      content: `保存与显示函数：`,
+      content: `保存与显示函数：`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `import matplotlib.pyplot as plt \n""" 一些画图代码 """ \n# 语法\nplt.savefig("filename.png") \nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei'] \n""" 一些画图代码 """ \n# 语法\nplt.savefig("filename.png") \nplt.show()`      }
     },
     {
       type: "text",
-      content: `如果需要保存图片，必须在\`plt.show()\`之前调用\`plt.savefig()\`, 这是由于调用\`plt.show()\`后会创建一个新的空白图片，在其后调用\`plt.savefig()\`将会保存新的空白图片｡`,
+      content: `如果需要保存图片，必须在\`plt.show()\`之前调用\`plt.savefig()\`, 这是由于调用\`plt.show()\`后会创建一个新的空白图片，在其后调用\`plt.savefig()\`将会保存新的空白图片｡`
     }
     ],
   },
@@ -1934,18 +1841,17 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `**例 4-1-3**: 甲公司 2020 年 1-5 月份销售额依次为 45000 元､38000 元､54000 元､55000 元､48000 元，使用 pyplot 模块绘制 1-5 月销售额柱状图`,
+      content: `**例 4-1-3**: 甲公司 2020 年 1-5 月份销售额依次为 45000 元､38000 元､54000 元､55000 元､48000 元，使用 pyplot 模块绘制 1-5 月销售额柱状图`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from matplotlib import pyplot as plt \n# 步骤一:创建画布 \nplt.figure(figsize=(5,3),dpi=120)\n\n# 步骤二:创建绘图区(只有一个绘图区时可省略) \nplt.subplot(1,1,1)\n\n# 步骤三:指定数据和图形(x轴为月份,y轴为销售额) \nx = [1,2,3,4,5] \ny = [45000,38000,54000,55000,48000] \nplt.bar(x,y,width=0.5)\n\n# 步骤四:添加标签 \nplt.xlabel(\'月\') \nplt.ylabel(\'销售额\') \nplt.title(\'1-5月销售额\')\n\n# 步骤五:保存图形 \nplt.savefig(\'1-5月销售额.png\')\n\n# 步骤六:显示图形 \nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nfrom matplotlib import pyplot as plt \n# 步骤一:创建画布 \nplt.figure(figsize=(5,3),dpi=120)\n\n# 步骤二:创建绘图区(只有一个绘图区时可省略) \nplt.subplot(1,1,1)\n\n# 步骤三:指定数据和图形(x轴为月份,y轴为销售额) \nx = [1,2,3,4,5] \ny = [45000,38000,54000,55000,48000] \nplt.bar(x,y,width=0.5)\n\n# 步骤四:添加标签 \nplt.xlabel('月') \nplt.ylabel('销售额') \nplt.title('1-5月销售额')\n\n# 步骤五:保存图形 \nplt.savefig('1-5月销售额.png')\n\n# 步骤六:显示图形 \nplt.show()`      }
     },
     {
       type: "text",
-      content: `运行结果：1-5 月销售额柱状图`,
+      content: `运行结果：1-5 月销售额柱状图`
     }
     ],
   },
@@ -1954,91 +1860,83 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `折线图是最基本的图形，由线条组成｡\`plot()\`函数用于绘制折线图｡\n语法:`,
+      content: `折线图是最基本的图形，由线条组成｡\`plot()\`函数用于绘制折线图｡\n语法:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `plt.plot(x, y, scalex=True, scaley=True, data=None, **kwargs)`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nplt.plot(x, y, scalex=True, scaley=True, data=None, **kwargs)`      }
     },
     {
       type: "text",
-      content: `折线图 plot () 函数常用参数：`,
+      content: `折线图 plot () 函数常用参数：`
     },
     {
       type: "table",
       table: {
         headers: [`**常用参数**`, `**说明**`],
-        rows: [[`x,y`, `表示 x、y 轴数据，接收数组、列表、元组等`], [`scalex,scaley`, `是否自动缩放 x、y 轴，默认为 True`], [`data`, `可索引对象 (如:dict、DataFrame), 如果给定 data, 则只需提供在 x、y 中绘制的标签名称，如以 DataFrame 中的列作为 x、y 轴数据`], [`color(c)`, `设置折线颜色，接收字符串`], [`marker`, `设置线条上标记点的样式，默认 None, 接收字符串`], [`linestyle(ls)`, `设置线型的样式，默认实线 \'-\', 接收字符串`], [`linewidth(lw)`, `设置线型的宽度，接收数值`], [`alpha`, `设置线型的透明度，0.0-1.0 之间`], [`label`, `图例内容，接收字符串`]],
-      },
+        rows: [[`x,y`, `表示 x、y 轴数据，接收数组、列表、元组等`], [`scalex,scaley`, `是否自动缩放 x、y 轴，默认为 True`], [`data`, `可索引对象 (如:dict、DataFrame), 如果给定 data, 则只需提供在 x、y 中绘制的标签名称，如以 DataFrame 中的列作为 x、y 轴数据`], [`color(c)`, `设置折线颜色，接收字符串`], [`marker`, `设置线条上标记点的样式，默认 None, 接收字符串`], [`linestyle(ls)`, `设置线型的样式，默认实线 '-', 接收字符串`], [`linewidth(lw)`, `设置线型的宽度，接收数值`], [`alpha`, `设置线型的透明度，0.0-1.0 之间`], [`label`, `图例内容，接收字符串`]]      }
     },
     {
       type: "text",
-      content: `#### 常用参数详情\n\n##### 颜色参数`,
+      content: `#### 常用参数详情\n\n##### 颜色参数`
     },
     {
       type: "table",
       table: {
         headers: [`**color 参数设置**`, `**颜色**`, `**对应十六进制颜色码**`],
-        rows: [[`color=\'b\'`, `蓝 (blue)`, `color=\'\\#0000FF\'`], [`color=\'g\'`, `绿 (green)`, `color=\'\\#008000\'`], [`color=\'r\'`, `红 (red)`, `color=\'\\#FF0000\'`], [`color=\'w\'`, `白 (white)`, `color=\'\\#FFFFFF\'`], [`color=\'m\'`, `洋红 (magenta)`, `color=\'\\#FF00FF\'`], [`color=\'y\'`, `黄 (yellow)`, `color=\'\\#FFFF00\'`], [`color=\'k\'`, `黑 (black)`, `color=\'\\#000000\'`], [`color=\'c\'`, `青 (cyan)`, `color=\'\\#00FFFF\'`]],
-      },
+        rows: [[`color='b'`, `蓝 (blue)`, `color='#0000FF'`], [`color='g'`, `绿 (green)`, `color='#008000'`], [`color='r'`, `红 (red)`, `color='#FF0000'`], [`color='w'`, `白 (white)`, `color='#FFFFFF'`], [`color='m'`, `洋红 (magenta)`, `color='#FF00FF'`], [`color='y'`, `黄 (yellow)`, `color='#FFFF00'`], [`color='k'`, `黑 (black)`, `color='#000000'`], [`color='c'`, `青 (cyan)`, `color='#00FFFF'`]]      }
     },
     {
       type: "text",
-      content: `##### 线型参数`,
+      content: `##### 线型参数`
     },
     {
       type: "table",
       table: {
         headers: [`**linestyle 参数设置**`, `**线型**`],
-        rows: [[`linestyle=\'-\'`, `默认实线`], [`linestyle=\'--\'`, `虚线`], [`linestyle=\'-.\'`, `点划线`], [`linestyle=\':\'`, `点状线`]],
-      },
+        rows: [[`linestyle='-'`, `默认实线`], [`linestyle='--'`, `虚线`], [`linestyle='-.'`, `点划线`], [`linestyle=':'`, `点状线`]]      }
     },
     {
       type: "text",
-      content: `##### 标记点参数`,
+      content: `##### 标记点参数`
     },
     {
       type: "table",
       table: {
         headers: [`**marker 参数设置**`, `**标记点**`, `**marker 参数设置**`, `**标记点**`],
-        rows: [[`marker=\'.\'`, `实心点`, `marker=\'\\+\'`, `加号`], [`marker=\'s\'`, `正方形`, `marker=\'v\'`, `一角朝下三角形`], [`marker=\'o\'`, `圆圈`, `marker=\'^\'`, `一角朝上三角形`], [`marker=\'\\*\'`, `星号`, `marker=\'D\'`, `菱形`], [`marker=\'p\'`, `五边形`, `marker=\'H\'`, `六边形`]],
-      },
+        rows: [[`marker='.'`, `实心点`, `marker='+'`, `加号`], [`marker='s'`, `正方形`, `marker='v'`, `一角朝下三角形`], [`marker='o'`, `圆圈`, `marker='^'`, `一角朝上三角形`], [`marker='*'`, `星号`, `marker='D'`, `菱形`], [`marker='p'`, `五边形`, `marker='H'`, `六边形`]]      }
     },
     {
       type: "text",
-      content: `#### 绘制折线图示例\n\n**例 4-1-4**: 读取 data.xlsx 文件，根据 “资产负债表项目” 和 “利润表项目” 计算各期毛利率､营业净利率､权益净利率､总资产净利率，并筛选 2020 年相关指标｡`,
+      content: `#### 绘制折线图示例\n\n**例 4-1-4**: 读取 data.xlsx 文件，根据 “资产负债表项目” 和 “利润表项目” 计算各期毛利率､营业净利率､权益净利率､总资产净利率，并筛选 2020 年相关指标｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 引入pandas\nimport pandas as pd\n# 读取资产负债表项目 \ndf1 = pd.read_excel(r\'https://keyun-oss.acctedu.com/app/bigdata/basics/data.xlsx\',sheet_name = 0)\n# 读取利润表项目\ndf2 = pd.read_excel(r\'https://keyun-oss.acctedu.com/app/bigdata/basics/data.xlsx\',sheet_name = 1)\n# 调用merge函数连接df1､df2\ndf3 = pd.merge(df1,df2)\n# 指标计算 \ndf3[\'权益净利率\'] = df3[\'净利润\']/df3[\'平均所有者权益\'] \ndf3[\'毛利率\'] = (df3[\'营业收入\']-df3[\'营业成本\'])/df3[\'营业收入\'] \ndf3[\'营业净利率\'] = df3[\'净利润\']/df3[\'营业收入\'] \ndf3[\'总资产净利率\'] = df3 [\'净利润\']/(df3[\'平均流动资产\']+df3[\'平均非流动资产\'])\n# 创建df_2020(2020年财务指标统计) \ndf_2020 = df3.loc[df3[\'年\']==2020,[\'年\',\'月\',\'营业收入\',\'毛利率\',\'营业净利率\',\'权益净利率\',\'总资产净利率\']]\ndf_2020`,
-      },
+        code: `# 引入pandas\nimport pandas as pd\n# 读取资产负债表项目 \ndf1 = pd.read_excel(r'https://keyun-oss.acctedu.com/app/bigdata/basics/data.xlsx',sheet_name = 0)\n# 读取利润表项目\ndf2 = pd.read_excel(r'https://keyun-oss.acctedu.com/app/bigdata/basics/data.xlsx',sheet_name = 1)\n# 调用merge函数连接df1､df2\ndf3 = pd.merge(df1,df2)\n# 指标计算 \ndf3['权益净利率'] = df3['净利润']/df3['平均所有者权益'] \ndf3['毛利率'] = (df3['营业收入']-df3['营业成本'])/df3['营业收入'] \ndf3['营业净利率'] = df3['净利润']/df3['营业收入'] \ndf3['总资产净利率'] = df3 ['净利润']/(df3['平均流动资产']+df3['平均非流动资产'])\n# 创建df_2020(2020年财务指标统计) \ndf_2020 = df3.loc[df3['年']==2020,['年','月','营业收入','毛利率','营业净利率','权益净利率','总资产净利率']]\ndf_2020`      }
     },
     {
       type: "text",
-      content: `注意：URL 地址可以单独定义为变量，方便切换不同数据源｡Pandas 中 Merge 函数可以简单的将同索引数据合并在一起｡但如果数据索引不一致，则需要用到 DataFrame 中的 set\\_index 函数重新设置索引｡\n\n运行结果：2020 年财务指标数据`,
+      content: `注意：URL 地址可以单独定义为变量，方便切换不同数据源｡Pandas 中 Merge 函数可以简单的将同索引数据合并在一起｡但如果数据索引不一致，则需要用到 DataFrame 中的 set\\_index 函数重新设置索引｡\n\n运行结果：2020 年财务指标数据`
     },
     {
       type: "table",
       table: {
         headers: ['', `年`, `月`, `营业收入`, `毛利率`, `营业净利率`, `权益净利率`, `总资产净利率`],
-        rows: [[`12`, `2020`, `1`, `345700`, `0.3846`, `0.1950`, `0.029588`, `0.012658`], [`13`, `2020`, `2`, `388000`, `0.3720`, `0.1910`, `0.031702`, `0.013714`], [`14`, `2020`, `3`, `354780`, `0.3846`, `0.1984`, `0.029403`, `0.012913`], [`15`, `2020`, `4`, `372300`, `0.3750`, `0.1927`, `0.029267`, `0.013395`], [`16`, `2020`, `5`, `322000`, `0.4555`, `0.2706`, `0.034562`, `0.016008`], [`17`, `2020`, `6`, `384200`, `0.3815`, `0.1959`, `0.029158`, `0.013480`], [`18`, `2020`, `7`, `401200`, `0.3631`, `0.1744`, `0.026531`, `0.010587`], [`19`, `2020`, `8`, `424000`, `0.3715`, `0.1865`, `0.029282`, `0.011728`], [`20`, `2020`, `9`, `392000`, `0.3855`, `0.1997`, `0.028331`, `0.011453`], [`21`, `2020`, `10`, `354820`, `0.3776`, `0.1945`, `0.024487`, `0.010089`], [`22`, `2020`, `11`, `343500`, `0.3550`, `0.1729`, `0.020724`, `0.008573`], [`23`, `2020`, `12`, `401200`, `0.3418`, `0.1560`, `0.021464`, `0.008931`]],
-      },
+        rows: [[`12`, `2020`, `1`, `345700`, `0.3846`, `0.1950`, `0.029588`, `0.012658`], [`13`, `2020`, `2`, `388000`, `0.3720`, `0.1910`, `0.031702`, `0.013714`], [`14`, `2020`, `3`, `354780`, `0.3846`, `0.1984`, `0.029403`, `0.012913`], [`15`, `2020`, `4`, `372300`, `0.3750`, `0.1927`, `0.029267`, `0.013395`], [`16`, `2020`, `5`, `322000`, `0.4555`, `0.2706`, `0.034562`, `0.016008`], [`17`, `2020`, `6`, `384200`, `0.3815`, `0.1959`, `0.029158`, `0.013480`], [`18`, `2020`, `7`, `401200`, `0.3631`, `0.1744`, `0.026531`, `0.010587`], [`19`, `2020`, `8`, `424000`, `0.3715`, `0.1865`, `0.029282`, `0.011728`], [`20`, `2020`, `9`, `392000`, `0.3855`, `0.1997`, `0.028331`, `0.011453`], [`21`, `2020`, `10`, `354820`, `0.3776`, `0.1945`, `0.024487`, `0.010089`], [`22`, `2020`, `11`, `343500`, `0.3550`, `0.1729`, `0.020724`, `0.008573`], [`23`, `2020`, `12`, `401200`, `0.3418`, `0.1560`, `0.021464`, `0.008931`]]      }
     },
     {
       type: "text",
-      content: `**例 4-1-5**: 根据例 4-1-4 中 2020 年 “毛利率” 和 “营业净利率” 指标绘制折线图｡`,
+      content: `**例 4-1-5**: 根据例 4-1-4 中 2020 年 “毛利率” 和 “营业净利率” 指标绘制折线图｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 创建画布 \nplt.figure(figsize=(8,4),dpi=100)\n# 指定数据 \nplt.plot(df_2020[\'月\'],df_2020[\'毛利率\'],label=\'毛利率\', linewidth=2,marker=\'s\') \nplt.plot(df_2020[\'月\'],df_2020[\'营业净利率\'],label=\'营业净利率\', linewidth=2,marker=\'s\')\n# 设置标签､标题 \nplt.xlabel(\'月\') \nplt.ylabel(\'比率\') \nplt.title(\'2020毛利率&营业净利率\') \nplt.xticks(df_2020[\'月\']) \nplt.legend()\n# 显示图形 \nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\n# 创建画布 \nplt.figure(figsize=(8,4),dpi=100)\n# 指定数据 \nplt.plot(df_2020['月'],df_2020['毛利率'],label='毛利率', linewidth=2,marker='s') \nplt.plot(df_2020['月'],df_2020['营业净利率'],label='营业净利率', linewidth=2,marker='s')\n# 设置标签､标题 \nplt.xlabel('月') \nplt.ylabel('比率') \nplt.title('2020毛利率&营业净利率') \nplt.xticks(df_2020['月']) \nplt.legend()\n# 显示图形 \nplt.show()`      }
     }
     ],
   },
@@ -2047,40 +1945,37 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `柱状图也称为条形图，是一种以长方形长度为变量的表达图形的统计报告图，由一系列高度不等的纵向条纹表示数据分布的情况，用来比较两个或者两个以上的数值｡\n\n\`bar()\`函数：绘制柱状图。语法:`,
+      content: `柱状图也称为条形图，是一种以长方形长度为变量的表达图形的统计报告图，由一系列高度不等的纵向条纹表示数据分布的情况，用来比较两个或者两个以上的数值｡\n\n\`bar()\`函数：绘制柱状图。语法:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `plt.bar(x,height, width =0.8 , bottom=None, *, align=\'center\', data=None,**kwargs)`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nplt.bar(x,height, width =0.8 , bottom=None, *, align='center', data=None,**kwargs)`      }
     },
     {
       type: "text",
-      content: `柱状图 bar () 函数常用参数：`,
+      content: `柱状图 bar () 函数常用参数：`
     },
     {
       type: "table",
       table: {
         headers: [`常用参数`, `说明`],
-        rows: [[`x`, `x 轴数据，接收数组、列表、元组等`], [`height`, `柱状的高度，即 y 轴数值，接收数组、列表、元组等`], [`width`, `柱状的宽度，默认 0.8`], [`bottom`, `设置 y 边界坐标轴起点`], [`align`, `柱状与 x 坐标的对齐方式，默认值 \'center\', 表示居中位置，align=\'edge\' 表示边缘位置`], [`data`, `可索引对象 (如:dict、DataFrame)`], [`color、edgecolor(ec)`, `柱状填充颜色、图形边缘颜色`], [`alpha`, `设置柱状的透明度，0.0-1.0 之间`], [`label`, `图例内容，接收字符串`]],
-      },
+        rows: [[`x`, `x 轴数据，接收数组、列表、元组等`], [`height`, `柱状的高度，即 y 轴数值，接收数组、列表、元组等`], [`width`, `柱状的宽度，默认 0.8`], [`bottom`, `设置 y 边界坐标轴起点`], [`align`, `柱状与 x 坐标的对齐方式，默认值 'center', 表示居中位置，align='edge' 表示边缘位置`], [`data`, `可索引对象 (如:dict、DataFrame)`], [`color、edgecolor(ec)`, `柱状填充颜色、图形边缘颜色`], [`alpha`, `设置柱状的透明度，0.0-1.0 之间`], [`label`, `图例内容，接收字符串`]]      }
     },
     {
       type: "text",
-      content: `说明：绘制垂直方向的柱形图可以用\`barh()\`函数，\`barh()\`函数比\`bar()\`函数名称重多了一个 h, 是英文单词 horizontal (水平) 的首字母。\n\n#### 绘制柱状图示例\n\n**例 4-1-6**: 根据例 4-1-4 中 2020 年 “权益净利率” 和 “总资产净利率” 指标绘制柱状图，图形并列显示｡`,
+      content: `说明：绘制垂直方向的柱形图可以用\`barh()\`函数，\`barh()\`函数比\`bar()\`函数名称重多了一个 h, 是英文单词 horizontal (水平) 的首字母。\n\n#### 绘制柱状图示例\n\n**例 4-1-6**: 根据例 4-1-4 中 2020 年 “权益净利率” 和 “总资产净利率” 指标绘制柱状图，图形并列显示｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 创建画布 \nplt.figure(figsize=(8,4),dpi=100)\n# 指定数据 \nplt.bar(df_2020[\'月\']-0.2,df_2020[\'权益净利率\'],label=\'权益净利率\', width=0.4) # x-0.2:防止图形重合 \nplt.bar(df_2020[\'月\']+0.2,df_2020[\'总资产净利率\'],label=\'总资产净利率\', width=0.4) # x+0.2:防止图形重合\n# 设置标签､标题 \nplt.xlabel(\'月\') \nplt.ylabel(\'比率\') \nplt.title(\'2020权益净利率&总资产净利率\') \nplt.xticks(df_2020[\'月\']) \nplt.legend()\n# 显示图形 \nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\n# 创建画布 \nplt.figure(figsize=(8,4),dpi=100)\n# 指定数据 \nplt.bar(df_2020['月']-0.2,df_2020['权益净利率'],label='权益净利率', width=0.4) # x-0.2:防止图形重合 \nplt.bar(df_2020['月']+0.2,df_2020['总资产净利率'],label='总资产净利率', width=0.4) # x+0.2:防止图形重合\n# 设置标签､标题 \nplt.xlabel('月') \nplt.ylabel('比率') \nplt.title('2020权益净利率&总资产净利率') \nplt.xticks(df_2020['月']) \nplt.legend()\n# 显示图形 \nplt.show()`      }
     },
     {
       type: "text",
-      content: `运行结果：2020 权益净利率 \\& 总资产净利率柱状图`,
+      content: `运行结果：2020 权益净利率 & 总资产净利率柱状图`
     }
     ],
   },
@@ -2089,29 +1984,27 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `饼图用于表示不同分类的占比情况，通过弧度大小来对比各种分类，饼图通过将一个圆饼按照分类的占比分成多个区块，整个圆饼代表数据的总量，每个区块 (圆弧) 表示该分类占总体比例大小｡\n\n饼图 pie () 函数常用参数：`,
+      content: `饼图用于表示不同分类的占比情况，通过弧度大小来对比各种分类，饼图通过将一个圆饼按照分类的占比分成多个区块，整个圆饼代表数据的总量，每个区块 (圆弧) 表示该分类占总体比例大小｡\n\n饼图 pie () 函数常用参数：`
     },
     {
       type: "table",
       table: {
         headers: [`常用参数`, `说明`],
-        rows: [[`x`, `绘图数据，饼图每一部分的比例，接收数组、列表、元组，如果 sum (x)\\>1 则使用 sum (x) 归一化 (即计算各项百分比)`], [`explode`, `指定每一部分偏移中心的距离 (以半径为 1, 按占半径的比例设置), 接收列表或元组`], [`labels`, `设置标签，接收列表或元组`], [`colors`, `设置饼图颜色，接收列表或元组`], [`autopct`, `设置饼图每一部分百分数格式，如:\'%.2f%\'(百分数保留 2 位小数)`], [`shadow`, `是否显示阴影，默认 False`], [`radius`, `设置饼图半径，默认值为 1`], [`labeldistance`, `标签位置相对于半径的比例，默认值为 1.1`], [`pctdistance`, `饼图百分数显示位置相对于半径的比例，默认值为 0.6`]],
-      },
+        rows: [[`x`, `绘图数据，饼图每一部分的比例，接收数组、列表、元组，如果 sum (x)>1 则使用 sum (x) 归一化 (即计算各项百分比)`], [`explode`, `指定每一部分偏移中心的距离 (以半径为 1, 按占半径的比例设置), 接收列表或元组`], [`labels`, `设置标签，接收列表或元组`], [`colors`, `设置饼图颜色，接收列表或元组`], [`autopct`, `设置饼图每一部分百分数格式，如:'%.2f%'(百分数保留 2 位小数)`], [`shadow`, `是否显示阴影，默认 False`], [`radius`, `设置饼图半径，默认值为 1`], [`labeldistance`, `标签位置相对于半径的比例，默认值为 1.1`], [`pctdistance`, `饼图百分数显示位置相对于半径的比例，默认值为 0.6`]]      }
     },
     {
       type: "text",
-      content: `#### 绘制饼状图示例\n\n**例 4-1-7**: 根据例 4-1-4 中 2020 年 “营业收入” 指标绘制饼图｡`,
+      content: `#### 绘制饼状图示例\n\n**例 4-1-7**: 根据例 4-1-4 中 2020 年 “营业收入” 指标绘制饼图｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 创建画布 \nplt.figure(figsize=(5,5),dpi=100) \n# 指定数据 \nplt.pie(df_2020[\'营业收入\'],labels=df_2020[\'月\'],autopct=\'%.2f%%\') \n# 设置标题 \nplt.title(\'2020营业收入\') \n# 显示图形 \nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\n# 创建画布 \nplt.figure(figsize=(5,5),dpi=100) \n# 指定数据 \nplt.pie(df_2020['营业收入'],labels=df_2020['月'],autopct='%.2f%%') \n# 设置标题 \nplt.title('2020营业收入') \n# 显示图形 \nplt.show()`      }
     },
     {
       type: "text",
-      content: `运行结果：2020 营业收入饼图`,
+      content: `运行结果：2020 营业收入饼图`
     }
     ],
   },
@@ -2120,51 +2013,47 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `**例 4-1-8**: 将多个图形组合在一起。`,
+      content: `**例 4-1-8**: 将多个图形组合在一起。`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 创建画布 \nplt.figure(figsize=(12,9)) \n# 创建折线图绘图区并绘制图形 \nplt.subplot(2,1,1) \nplt.plot(df_2020[\'月\'],df_2020[\'毛利率\'],label=\'毛利率\', linewidth=2,marker=\'s\') \nplt.plot(df_2020[\'月\'],df_2020[\'营业净利率\'],label=\'营业净利率\', linewidth=2,marker=\'s\') \nplt.xlabel(\'月\') \nplt.ylabel(\'比率\') \nplt.title(\'2020财务指标对比\') \nplt.xticks(df_2020[\'月\']) \nplt.legend()\n\nplt.subplot(2,1,2)\nplt.bar(df_2020[\'月\']-0.2,df_2020[\'权益净利率\'],label=\'权益净利率\', width=0.4)\nplt.bar(df_2020[\'月\']+0.2,df_2020[\'总资产净利率\'],label=\'总资产净利率\', width=0.4)\nplt.xlabel(\'月\')\nplt.ylabel(\'比率\')\nplt.xticks(df_2020[\'月\'])\nplt.legend()\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\n# 创建画布 \nplt.figure(figsize=(12,9)) \n# 创建折线图绘图区并绘制图形 \nplt.subplot(2,1,1) \nplt.plot(df_2020['月'],df_2020['毛利率'],label='毛利率', linewidth=2,marker='s') \nplt.plot(df_2020['月'],df_2020['营业净利率'],label='营业净利率', linewidth=2,marker='s') \nplt.xlabel('月') \nplt.ylabel('比率') \nplt.title('2020财务指标对比') \nplt.xticks(df_2020['月']) \nplt.legend()\n\nplt.subplot(2,1,2)\nplt.bar(df_2020['月']-0.2,df_2020['权益净利率'],label='权益净利率', width=0.4)\nplt.bar(df_2020['月']+0.2,df_2020['总资产净利率'],label='总资产净利率', width=0.4)\nplt.xlabel('月')\nplt.ylabel('比率')\nplt.xticks(df_2020['月'])\nplt.legend()\nplt.show()`      }
     },
     {
       type: "text",
-      content: `#### subplots () 函数\n\n\`subplots()\`函数：快速创建多子图环境，将画布分为 n 行 m 列的绘图空间，返回一个 figure 和多个 axes (列表), 需要两个变量分别接收，选择区域时使用子图的列表索引进行访问，子图索引从 0 开始｡\n\n语法:`,
+      content: `#### subplots () 函数\n\n\`subplots()\`函数：快速创建多子图环境，将画布分为 n 行 m 列的绘图空间，返回一个 figure 和多个 axes (列表), 需要两个变量分别接收，选择区域时使用子图的列表索引进行访问，子图索引从 0 开始｡\n\n语法:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `plt.subplots(nrows,ncols,sharex=False,sharey=False,squeeze=True,subplot_kw=None, gridspec_kw=None,**fig_kw)`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nplt.subplots(nrows,ncols,sharex=False,sharey=False,squeeze=True,subplot_kw=None, gridspec_kw=None,**fig_kw)`      }
     },
     {
       type: "text",
-      content: `- nrows､ncols: 子图的行数和列数，表示绘图区域被分为 n 行 m 列；\n\n- sharex､sharey: 是否共享 x 轴或 y 轴，默认 False 代表子图的 x､y 轴独立；\n\n- \\*\\*fig\\_kw:figure 函数的参数都可以使用，如 figsize｡\n\n**例 4-1-9**: 使用 subplots () 函数将例 4-1-5 绘制的折线图和例 4-1-6 绘制的柱状图组合在一起｡`,
+      content: `- nrows､ncols: 子图的行数和列数，表示绘图区域被分为 n 行 m 列；\n\n- sharex､sharey: 是否共享 x 轴或 y 轴，默认 False 代表子图的 x､y 轴独立；\n\n- **fig\\_kw:figure 函数的参数都可以使用，如 figsize｡\n\n**例 4-1-9**: 使用 subplots () 函数将例 4-1-5 绘制的折线图和例 4-1-6 绘制的柱状图组合在一起｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 创建子图,共享x､y轴\nfig,ax = plt.subplots(2,1,sharex=True,figsize=(12,9))\n# 绘制折线图\nax[0].plot(df_2020[\'月\'],df_2020[\'毛利率\'],label=\'毛利率\', linewidth=2,marker=\'s\')\nax[0].plot(df_2020[\'月\'],df_2020[\'营业净利率\'],label=\'营业净利率\', linewidth=2,marker=\'s\')\nax[0].set_title(\'2020财务指标对比\')\nax[0].legend()\n\n# 绘制柱状图\nax[1].bar(df_2020[\'月\']-0.2,df_2020[\'权益净利率\'],label=\'权益净利率\', width=0.4)\nax[1].bar(df_2020[\'月\']+0.2,df_2020[\'总资产净利率\'],label=\'总资产净利率\', width=0.4)\nplt.show()`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\n# 创建子图,共享x､y轴\nfig,ax = plt.subplots(2,1,sharex=True,figsize=(12,9))\n# 绘制折线图\nax[0].plot(df_2020['月'],df_2020['毛利率'],label='毛利率', linewidth=2,marker='s')\nax[0].plot(df_2020['月'],df_2020['营业净利率'],label='营业净利率', linewidth=2,marker='s')\nax[0].set_title('2020财务指标对比')\nax[0].legend()\n\n# 绘制柱状图\nax[1].bar(df_2020['月']-0.2,df_2020['权益净利率'],label='权益净利率', width=0.4)\nax[1].bar(df_2020['月']+0.2,df_2020['总资产净利率'],label='总资产净利率', width=0.4)\nplt.show()`      }
     },
     {
       type: "text",
-      content: `#### subplot () 与 subplots () 对比`,
+      content: `#### subplot () 与 subplots () 对比`
     },
     {
       type: "table",
       table: {
         headers: [`subplot () 函数`, `subplots () 函数`],
-        rows: [[`需要先创建画布，再创建子图，并且每次只能返回一个坐标对象，绘图时，每次都要调用 subplot 指定位置｡`, `在创建画布时，会一次性建立所有子图 axes, 后续直接调用 axes 对象即可，使用该方法可以直接规划画布 (指定画布大小等)｡`]],
-      },
+        rows: [[`需要先创建画布，再创建子图，并且每次只能返回一个坐标对象，绘图时，每次都要调用 subplot 指定位置｡`, `在创建画布时，会一次性建立所有子图 axes, 后续直接调用 axes 对象即可，使用该方法可以直接规划画布 (指定画布大小等)｡`]]      }
     },
     {
       type: "text",
-      content: `注意：\`plt.subplot(2,1,1)\`会将原始的图像切割成 2 个子图像，是 2 行 1 列，并将现在的操作位置转到第一个子图上，这样便实现了绘制子图的方法。在确定子图编号时 subplot () 从 1 开始，subplots () 从 0 开始。`,
+      content: `注意：\`plt.subplot(2,1,1)\`会将原始的图像切割成 2 个子图像，是 2 行 1 列，并将现在的操作位置转到第一个子图上，这样便实现了绘制子图的方法。在确定子图编号时 subplot () 从 1 开始，subplots () 从 0 开始。`
     }
     ],
   },
@@ -2173,62 +2062,57 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Pandas 提供了\`plot()\`绘图函数，可以绘制多种图形样式，相比于 Matplotlib, 可以直接对 DataFrame 调用该函数，并且函数中集成了 x､y 轴数据､图形标题､图例､样式等参数，代码比 Matplotlib 简洁许多｡\n\n注意：使用 Pandas 作图内部依赖于 Matplotlib, 因此在使用 plot () 之前，必须引入 Matplotlib 库。\n\nplot () 函数语法:`,
+      content: `Pandas 提供了\`plot()\`绘图函数，可以绘制多种图形样式，相比于 Matplotlib, 可以直接对 DataFrame 调用该函数，并且函数中集成了 x､y 轴数据､图形标题､图例､样式等参数，代码比 Matplotlib 简洁许多｡\n\n注意：使用 Pandas 作图内部依赖于 Matplotlib, 因此在使用 plot () 之前，必须引入 Matplotlib 库。\n\nplot () 函数语法:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `DataFrame.plot(x=None,y=None,kind=\'line\',ax=None,subplots=False,sharex=None,sharey=False,layout=None,figsize=None,use_index=True,title=None,grid=None,legend=True,style=None,logx=False,logy=False,loglog=False,xticks=None,yticks=None,xlim=None,ylim=None,rot=None,secondary_y=False,sort_columns=False,**kwargs)`,
-      },
+        code: `DataFrame.plot(x=None,y=None,kind='line',ax=None,subplots=False,sharex=None,sharey=False,layout=None,figsize=None,use_index=True,title=None,grid=None,legend=True,style=None,logx=False,logy=False,loglog=False,xticks=None,yticks=None,xlim=None,ylim=None,rot=None,secondary_y=False,sort_columns=False,**kwargs)`      }
     },
     {
       type: "text",
-      content: `plot () 绘图函数常用参数：`,
+      content: `plot () 绘图函数常用参数：`
     },
     {
       type: "table",
       table: {
         headers: [`参数`, `说明`],
-        rows: [[`x`, `指定 x 轴上显示的数据列，默认使用行索引`], [`y`, `指定 y 轴上显示的数据列，默认所有数值型数据列`], [`kind`, `绘图类型，默认为折线图 "line", 可选参数有: "barh"(水平条形图)、"hist"(直方图)、"kde"(密度估计图)、"area"(面积图)、scatter"(散点图)、"hexbin" (蜂巢图)`], [`ax`, `选择子绘图区域，默认 None`], [`subplots`, `是否按列绘制子图，默认 False`], [`sharex`, `共享 x 轴，如果 ax=None 则默认为 True, 否则为 False`], [`sharey`, `共享 y 轴，默认为 False`], [`layout`, `子图的行列布局，元组形式 (行，列)`], [`figsize`, `图形尺寸大小，元组形式 (宽度，高度)`], [`use\\_index`, `用索引做 x 轴，默认为 True`], [`title`, `图形的标题，字符串或列表，若传递字符串则在图顶；传递列表且含有子图，则依次在每个子图顶部打印`], [`grid`, `图表是否有网格，默认 None`], [`legend`, `子图的图例显示，默认为 True, 可选 \'reverse\', 颠倒图例顺序`], [`style`, `对每列折线图设置线的样式，列表或字典`], [`logx`, `设置 x 轴刻度是否取对数，默认 False`], [`logy`, `设置 y 轴刻度是否取对数，默认 False`], [`loglog`, `同时设置 x、y 轴刻度是否取对数，默认 False`], [`xticks`, `设置 x 轴刻度，使用序列形式 (如列表)`], [`yticks`, `设置 y 轴刻度，使用序列形式 (如列表)`], [`xlim`, `设置 x 轴的数值范围，使用列表或元组形式`], [`ylim`, `设置 y 轴的数值范围，使用列表或元组形式`], [`rot`, `设置轴标签 (轴刻度) 的显示旋转度数，默认 None`], [`secondary\\_y`, `设置第二个 y 轴 (右 y 轴), 默认 False, 也可以列表或元组形式指定列`], [`sort\\_columns`, `对列名称进行排序以确定绘图顺序，默认为 False 不排序`], [`\\*\\*kwargs`, `在 matplotlib 绘图方法中相关参数都可以在此函数中使用，如 color、linestyle、linewidth、marker 等`]],
-      },
+        rows: [[`x`, `指定 x 轴上显示的数据列，默认使用行索引`], [`y`, `指定 y 轴上显示的数据列，默认所有数值型数据列`], [`kind`, `绘图类型，默认为折线图 "line", 可选参数有: "barh"(水平条形图)、"hist"(直方图)、"kde"(密度估计图)、"area"(面积图)、scatter"(散点图)、"hexbin" (蜂巢图)`], [`ax`, `选择子绘图区域，默认 None`], [`subplots`, `是否按列绘制子图，默认 False`], [`sharex`, `共享 x 轴，如果 ax=None 则默认为 True, 否则为 False`], [`sharey`, `共享 y 轴，默认为 False`], [`layout`, `子图的行列布局，元组形式 (行，列)`], [`figsize`, `图形尺寸大小，元组形式 (宽度，高度)`], [`use\\_index`, `用索引做 x 轴，默认为 True`], [`title`, `图形的标题，字符串或列表，若传递字符串则在图顶；传递列表且含有子图，则依次在每个子图顶部打印`], [`grid`, `图表是否有网格，默认 None`], [`legend`, `子图的图例显示，默认为 True, 可选 'reverse', 颠倒图例顺序`], [`style`, `对每列折线图设置线的样式，列表或字典`], [`logx`, `设置 x 轴刻度是否取对数，默认 False`], [`logy`, `设置 y 轴刻度是否取对数，默认 False`], [`loglog`, `同时设置 x、y 轴刻度是否取对数，默认 False`], [`xticks`, `设置 x 轴刻度，使用序列形式 (如列表)`], [`yticks`, `设置 y 轴刻度，使用序列形式 (如列表)`], [`xlim`, `设置 x 轴的数值范围，使用列表或元组形式`], [`ylim`, `设置 y 轴的数值范围，使用列表或元组形式`], [`rot`, `设置轴标签 (轴刻度) 的显示旋转度数，默认 None`], [`secondary\\_y`, `设置第二个 y 轴 (右 y 轴), 默认 False, 也可以列表或元组形式指定列`], [`sort\\_columns`, `对列名称进行排序以确定绘图顺序，默认为 False 不排序`], [`**kwargs`, `在 matplotlib 绘图方法中相关参数都可以在此函数中使用，如 color、linestyle、linewidth、marker 等`]]      }
     },
     {
       type: "text",
-      content: `#### pandas 作图示例\n\n**例 4-1-10**: 根据例 4-1-4 中 2020 年毛利率､营业净利率､权益净利率､总资产净利率指标进行可视化展示，绘制折线图，并针对权益净利率､总资产净利率指标设置右 y 轴｡`,
+      content: `#### pandas 作图示例\n\n**例 4-1-10**: 根据例 4-1-4 中 2020 年毛利率､营业净利率､权益净利率､总资产净利率指标进行可视化展示，绘制折线图，并针对权益净利率､总资产净利率指标设置右 y 轴｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 折线图 \ndf_2020.plot(\'月\',[\'毛利率\',\'营业净利率\',\'权益净利率\',\'总资产净利率\'], secondary_y=[\'权益净利率\',\'总资产净利率\'],linewidth=2, marker=\'s\',title=\'2020年盈利能力指标统计\',figsize=(12,5));`,
-      },
+        code: `# 折线图 \ndf_2020.plot('月',['毛利率','营业净利率','权益净利率','总资产净利率'], secondary_y=['权益净利率','总资产净利率'],linewidth=2, marker='s',title='2020年盈利能力指标统计',figsize=(12,5));`      }
     },
     {
       type: "text",
-      content: `运行结果：2020 年盈利能力指标统计折线图\n\n**例 4-1-11**: 根据例 4-1-4 中 2020 年权益净利率､总资产净利率指标绘制柱状图｡`,
+      content: `运行结果：2020 年盈利能力指标统计折线图\n\n**例 4-1-11**: 根据例 4-1-4 中 2020 年权益净利率､总资产净利率指标绘制柱状图｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 柱状图 \ndf_2020.plot(\'月\',[\'权益净利率\',\'总资产净利率\'],kind=\'bar\', title=\'2020年权益净利率&总资产净利率\', figsize=(12,4),rot=0);`,
-      },
+        code: `# 柱状图 \ndf_2020.plot('月',['权益净利率','总资产净利率'],kind='bar', title='2020年权益净利率&总资产净利率', figsize=(12,4),rot=0);`      }
     },
     {
       type: "text",
-      content: `运行结果：2020 年权益净利率 \\& 总资产净利率柱状图\n\n**例 4-1-12**: 根据例 4-1-10 和例 4-1-11 可视化结果，绘制组合图形｡`,
+      content: `运行结果：2020 年权益净利率 & 总资产净利率柱状图\n\n**例 4-1-12**: 根据例 4-1-10 和例 4-1-11 可视化结果，绘制组合图形｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 创建子图\nfig,ax = plt.subplots(2,1,figsize=(12,10))\n# 绘制“2020年盈利能力指标统计”\ndf_2020.plot(\'月\',[\'毛利率\',\'营业净利率\',\'权益净利率\',\'总资产净利率\'],\nsecondary_y=[\'权益净利率\',\'总资产净利率\'],linewidth=2,\nmarker=\'s\',title=\'2020年盈利能力指标统计\',ax=ax[0])\n# 绘制“2020年权益净利率&总资产净利率”\ndf_2020.plot(\'月\',[\'权益净利率\',\'总资产净利率\'],\nkind=\'bar\',ax=ax[1],rot=0,\ntitle=\'2020年权益净利率&总资产净利率\');`,
-      },
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\n# 创建子图\nfig,ax = plt.subplots(2,1,figsize=(12,10))\n# 绘制“2020年盈利能力指标统计”\ndf_2020.plot('月',['毛利率','营业净利率','权益净利率','总资产净利率'],\nsecondary_y=['权益净利率','总资产净利率'],linewidth=2,\nmarker='s',title='2020年盈利能力指标统计',ax=ax[0])\n# 绘制“2020年权益净利率&总资产净利率”\ndf_2020.plot('月',['权益净利率','总资产净利率'],\nkind='bar',ax=ax[1],rot=0,\ntitle='2020年权益净利率&总资产净利率');`      }
     },
     {
       type: "text",
-      content: `运行结果：组合图形展示`,
+      content: `运行结果：组合图形展示`
     }
     ],
   },
@@ -2237,7 +2121,7 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `- matplotlib 绘图流程：创建画布→选定子图绘制图形→添加图例→保存图形→显示图形\n\n- figure: 创建空白画布，一个画布中包含一个或多个坐标系 (Axes), 每个 Axes 都是一个绘图区域\n\n- subplot: 创建子图并选择绘图区域\n\n- subplots: 快速创建多子图环境，需要两个变量分别接收\n\n- 其他常用函数:title、label、tick、legend 等\n\n- 常用绘图函数:plot、bar、pie 等\n\n- 作图函数 - plot: Pandas 快速作图函数，通过参数可绘制各种图形\n\nmatplotlib 官网:[https://matplotlib.org](https://matplotlib.org)\n\n---`,
+      content: `- matplotlib 绘图流程：创建画布→选定子图绘制图形→添加图例→保存图形→显示图形\n\n- figure: 创建空白画布，一个画布中包含一个或多个坐标系 (Axes), 每个 Axes 都是一个绘图区域\n\n- subplot: 创建子图并选择绘图区域\n\n- subplots: 快速创建多子图环境，需要两个变量分别接收\n\n- 其他常用函数:title、label、tick、legend 等\n\n- 常用绘图函数:plot、bar、pie 等\n\n- 作图函数 - plot: Pandas 快速作图函数，通过参数可绘制各种图形\n\nmatplotlib 官网:[https://matplotlib.org](https://matplotlib.org)\n\n---`
     }
     ],
   },
@@ -2246,14 +2130,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Echarts (Enterprise Charts, 即商业级数据图表), 是一个由百度开源的数据可视化库，凭借着良好的交互性､精巧的图表设计，得到了众多开发者的认可｡Echarts 除了支持常规的折线图､柱状图､饼图等基本图形外，还支持树形图､地理图､3D 图以及组合图形｡\n\nPyecharts 支持图表类型有很多种，包括基本图表､直角坐标系图表､树型图表､地理图表､3D 图表､组合图表等｡\n\n安装 Pyecharts 库，执行步骤如下:\n第一步：打开 “命令提示符”(快捷键 win\\+R)\n第二步：在命令提示符中输入代码:`,
+      content: `Echarts (Enterprise Charts, 即商业级数据图表), 是一个由百度开源的数据可视化库，凭借着良好的交互性､精巧的图表设计，得到了众多开发者的认可｡Echarts 除了支持常规的折线图､柱状图､饼图等基本图形外，还支持树形图､地理图､3D 图以及组合图形｡\n\nPyecharts 支持图表类型有很多种，包括基本图表､直角坐标系图表､树型图表､地理图表､3D 图表､组合图表等｡\n\n安装 Pyecharts 库，执行步骤如下:\n第一步：打开 “命令提示符”(快捷键 win+R)\n第二步：在命令提示符中输入代码:`
     },
     {
       type: "code",
       code: {
         language: "Plain Text",
-        code: `pip3 install Pyecharts`,
-      },
+        code: `pip3 install Pyecharts`      }
     }
     ],
   },
@@ -2262,36 +2145,33 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Pyecharts 的使用流程：\n\n1. 初始化具体类型图表\n\n2. 使用 add () 方法添加数据及配置项\n\n3. 使用 render () 生成图形 (.html 文件)\n\n4. 使用 render\\_notebook () 在 notebook 中展示图形\n\n图表类引入:`,
+      content: `Pyecharts 的使用流程：\n\n1. 初始化具体类型图表\n\n2. 使用 add () 方法添加数据及配置项\n\n3. 使用 render () 生成图形 (.html 文件)\n\n4. 使用 render\\_notebook () 在 notebook 中展示图形\n\n图表类引入:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from pyecharts.charts import 图表类名`,
-      },
+        code: `from pyecharts.charts import 图表类名`      }
     },
     {
       type: "text",
-      content: `**例 4-2-1**: 甲公司 2020 年 1-5 月份收入金额依次为 45000 元､38000 元､54000 元､55000 元､48000 元，成本金额依次为 31500 元､28500 元､38880 元､40700 元､35520 元｡使用 Pyecharts 绘制 1-5 月收入成本对比图 (图表类型为柱状图)｡`,
+      content: `**例 4-2-1**: 甲公司 2020 年 1-5 月份收入金额依次为 45000 元､38000 元､54000 元､55000 元､48000 元，成本金额依次为 31500 元､28500 元､38880 元､40700 元､35520 元｡使用 Pyecharts 绘制 1-5 月收入成本对比图 (图表类型为柱状图)｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 初始化图表类型 \nfrom pyecharts.charts import Bar \nbar1 = Bar()\n# 添加数据 \nbar1.add_xaxis([\'1月\',\'2月\',\'3月\',\'4月\',\'5月\']) \nbar1.add_yaxis(\'收入\',[45000,38000,54000,55000,48000]) \nbar1.add_yaxis(\'成本\',[31500,28500,38880,40700,35520])\n# 生成html文件 \nbar1.render(\'收入&成本对比.html\')\n# 展示图形 \nbar1.render_notebook()`,
-      },
+        code: `# 初始化图表类型 \nfrom pyecharts.charts import Bar \nbar1 = Bar()\n# 添加数据 \nbar1.add_xaxis(['1月','2月','3月','4月','5月']) \nbar1.add_yaxis('收入',[45000,38000,54000,55000,48000]) \nbar1.add_yaxis('成本',[31500,28500,38880,40700,35520])\n# 生成html文件 \nbar1.render('收入&成本对比.html')\n# 展示图形 \nbar1.render_notebook()`      }
     },
     {
       type: "text",
-      content: `Pyecharts 还支持链式调用:`,
+      content: `Pyecharts 还支持链式调用:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from pyecharts.charts import Bar \nbar1 = (Bar() \n.add_xaxis([\'1月\',\'2月\',\'3月\',\'4月\',\'5月\']) \n.add_yaxis(\'收入\',[45000,38000,54000,55000,48000]) \n.add_yaxis(\'成本\',[31500,28500,38880,40700,35520]) \n)\n# 展示图形 \nbar1.render_notebook()`,
-      },
+        code: `from pyecharts.charts import Bar \nbar1 = (Bar() \n.add_xaxis(['1月','2月','3月','4月','5月']) \n.add_yaxis('收入',[45000,38000,54000,55000,48000]) \n.add_yaxis('成本',[31500,28500,38880,40700,35520]) \n)\n# 展示图形 \nbar1.render_notebook()`      }
     }
     ],
   },
@@ -2300,84 +2180,77 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Pyecharts 提供了丰富的配置项，包括全局配置项和系列配置项:\n\n- \`set_global_opts()\`: 全局配置项，可配置标题､图例､坐标轴､工具箱等；\n\n- \`set_series_opts()\`: 系列配置项，可配置图元样式､文字样式､标签样式､点线样式等｡\n\n配置项引入方法:`,
+      content: `Pyecharts 提供了丰富的配置项，包括全局配置项和系列配置项:\n\n- \`set_global_opts()\`: 全局配置项，可配置标题､图例､坐标轴､工具箱等；\n\n- \`set_series_opts()\`: 系列配置项，可配置图元样式､文字样式､标签样式､点线样式等｡\n\n配置项引入方法:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from pyecharts import options as opts`,
-      },
+        code: `from pyecharts import options as opts`      }
     },
     {
       type: "text",
-      content: `#### 初始化配置\n\n初始化配置:`,
+      content: `#### 初始化配置\n\n初始化配置:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `init_opts = opts.InitOpts()`,
-      },
+        code: `init_opts = opts.InitOpts()`      }
     },
     {
       type: "text",
-      content: `opts.InitOpts () 常用参数：`,
+      content: `opts.InitOpts () 常用参数：`
     },
     {
       type: "table",
       table: {
         headers: [`常用参数`, `说明`],
-        rows: [[`width`, `str, 图表画布宽度 (像素 px) , 如: width= \'900px\'`], [`height`, `str, 图表画布高度 (像素 px) , 如: height= \'500px\'`], [`chart\\_id`, `str, 图表 ID, 图表唯一标识`], [`theme`, `图表主题`]],
-      },
+        rows: [[`width`, `str, 图表画布宽度 (像素 px) , 如: width= '900px'`], [`height`, `str, 图表画布高度 (像素 px) , 如: height= '500px'`], [`chart\\_id`, `str, 图表 ID, 图表唯一标识`], [`theme`, `图表主题`]]      }
     },
     {
       type: "text",
-      content: `#### 定制主题\n\n主题类型引入方法:`,
+      content: `#### 定制主题\n\n主题类型引入方法:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `from pyecharts.globals import ThemeType`,
-      },
+        code: `from pyecharts.globals import ThemeType`      }
     },
     {
       type: "text",
-      content: `设置主题方法:`,
+      content: `设置主题方法:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `theme = ThemeType.主题风格`,
-      },
+        code: `theme = ThemeType.主题风格`      }
     },
     {
       type: "text",
-      content: `pyecharts 内置主题：`,
+      content: `pyecharts 内置主题：`
     },
     {
       type: "table",
       table: {
         headers: [`BUILTIN\\_THEMES`, `INFOGRAPHIC`, `ROMA`, `WALDEN`],
-        rows: [[`CHALK`, `LIGHT`, `ROMANTIC`, `WESTEROS`], [`DARK`, `MACARONS`, `SHINE`, `WHITE`], [`ESSOS`, `PURPLE\\_PASSION`, `VINTAGE`, `WONDERLAND`]],
-      },
+        rows: [[`CHALK`, `LIGHT`, `ROMANTIC`, `WESTEROS`], [`DARK`, `MACARONS`, `SHINE`, `WHITE`], [`ESSOS`, `PURPLE\\_PASSION`, `VINTAGE`, `WONDERLAND`]]      }
     },
     {
       type: "text",
-      content: `**例 4-2-2**: 在例 4-2-1 图形的基础上，配置宽度为 800Px, 高度为 450px, 主题为 “DARK”｡`,
+      content: `**例 4-2-2**: 在例 4-2-1 图形的基础上，配置宽度为 800Px, 高度为 450px, 主题为 “DARK”｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 引入表格类型､配置项､主题类型 \nfrom pyecharts.charts import Bar \nfrom pyecharts import options as opts \nfrom pyecharts.globals import ThemeType\n# 初始化配置,设置主题风格 \nbar1 = Bar(init_opts=opts.InitOpts(width=\'800px\',height=\'450px\', theme=ThemeType.DARK))\n# 添加数据 \nbar1.add_xaxis([\'1月\',\'2月\',\'3月\',\'4月\',\'5月\']) \nbar1.add_yaxis(\'收入\',[45000,38000,54000,55000,48000]) \nbar1.add_yaxis(\'成本\',[31500,28500,38880,40700,35520])\n# 展示图形 \nbar1.render_notebook()`,
-      },
+        code: `# 引入表格类型､配置项､主题类型 \nfrom pyecharts.charts import Bar \nfrom pyecharts import options as opts \nfrom pyecharts.globals import ThemeType\n# 初始化配置,设置主题风格 \nbar1 = Bar(init_opts=opts.InitOpts(width='800px',height='450px', theme=ThemeType.DARK))\n# 添加数据 \nbar1.add_xaxis(['1月','2月','3月','4月','5月']) \nbar1.add_yaxis('收入',[45000,38000,54000,55000,48000]) \nbar1.add_yaxis('成本',[31500,28500,38880,40700,35520])\n# 展示图形 \nbar1.render_notebook()`      }
     },
     {
       type: "text",
-      content: `运行结果：深色主题的收入成本对比柱状图`,
+      content: `运行结果：深色主题的收入成本对比柱状图`
     }
     ],
   },
@@ -2386,135 +2259,123 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `#### 标题配置项\n\n调用标题配置项:`,
+      content: `#### 标题配置项\n\n调用标题配置项:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `title_opts = opts.TitleOpts()`,
-      },
+        code: `title_opts = opts.TitleOpts()`      }
     },
     {
       type: "text",
-      content: `标题配置项 opts.TitleOpts () 常用参数：`,
+      content: `标题配置项 opts.TitleOpts () 常用参数：`
     },
     {
       type: "table",
       table: {
         headers: [`常用参数`, `说明`],
-        rows: [[`title`, `主标题文本，支持使用 \\\\n 换行`], [`subtitle`, `副标题文本，支持使用 \\\\n 换行`], [`pos\\_left`, `标题组件离容器左侧的距离，可以是具体数值，也可以是百分比，还可以是 \'left\', \'center\', \'right\', 组件会根据相应的位置自动对齐`], [`pos\\_right`, `标题组件离容器右侧的距离`], [`pos\\_top`, `标题组件离容器上侧的距离，可以是具体数值，也可以是百分比，还可以是 \'top\',\'middle\',\'bottom\', 组件会根据相应的位置自动对齐`], [`pos\\_bottom`, `标题组件离容器下侧的距离`]],
-      },
+        rows: [[`title`, `主标题文本，支持使用 \\\\n 换行`], [`subtitle`, `副标题文本，支持使用 \\\\n 换行`], [`pos\\_left`, `标题组件离容器左侧的距离，可以是具体数值，也可以是百分比，还可以是 'left', 'center', 'right', 组件会根据相应的位置自动对齐`], [`pos\\_right`, `标题组件离容器右侧的距离`], [`pos\\_top`, `标题组件离容器上侧的距离，可以是具体数值，也可以是百分比，还可以是 'top','middle','bottom', 组件会根据相应的位置自动对齐`], [`pos\\_bottom`, `标题组件离容器下侧的距离`]]      }
     },
     {
       type: "text",
-      content: `注意：TitleOpts () 函数的各个参数要以 “,” 分割，可以加入适当换行符和注释方便阅读，最后 “)” 前不要有 “,”。\n\n**例 4-2-3**: 在例 4-2-2 图形的基础上，设置主标题为 “收入 \\& 成本对比”, 副标题为 “2020 年 1-5 月”｡`,
+      content: `注意：TitleOpts () 函数的各个参数要以 “,” 分割，可以加入适当换行符和注释方便阅读，最后 “)” 前不要有 “,”。\n\n**例 4-2-3**: 在例 4-2-2 图形的基础上，设置主标题为 “收入 & 成本对比”, 副标题为 “2020 年 1-5 月”｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 引入表格类型､配置项､主题类型 \nfrom pyecharts.charts import Bar \nfrom pyecharts import options as opts \nfrom pyecharts.globals import ThemeType\n# 初始化配置 \nbar1 = Bar(init_opts=opts.InitOpts(width=\'800px\',height=\'450px\', theme=ThemeType.DARK))\n# 添加数据 \nbar1.add_xaxis([\'1月\',\'2月\',\'3月\',\'4月\',\'5月\']) \nbar1.add_yaxis(\'收入\',[45000,38000,54000,55000,48000]) \nbar1.add_yaxis(\'成本\',[31500,28500,38880,40700,35520])\n# 设置全局配置项 \nbar1.set_global_opts(title_opts = opts.TitleOpts(title= \'收入&成本对比\',subtitle=\'2020年1-5月\'))\n# 展示图形 \nbar1.render_notebook()`,
-      },
+        code: `# 引入表格类型､配置项､主题类型 \nfrom pyecharts.charts import Bar \nfrom pyecharts import options as opts \nfrom pyecharts.globals import ThemeType\n# 初始化配置 \nbar1 = Bar(init_opts=opts.InitOpts(width='800px',height='450px', theme=ThemeType.DARK))\n# 添加数据 \nbar1.add_xaxis(['1月','2月','3月','4月','5月']) \nbar1.add_yaxis('收入',[45000,38000,54000,55000,48000]) \nbar1.add_yaxis('成本',[31500,28500,38880,40700,35520])\n# 设置全局配置项 \nbar1.set_global_opts(title_opts = opts.TitleOpts(title= '收入&成本对比',subtitle='2020年1-5月'))\n# 展示图形 \nbar1.render_notebook()`      }
     },
     {
       type: "text",
-      content: `运行结果：带标题的收入成本对比柱状图\n\n#### 图例配置项\n\n调用图例配置项:`,
+      content: `运行结果：带标题的收入成本对比柱状图\n\n#### 图例配置项\n\n调用图例配置项:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `legend_opts = opts.LegendOpts()`,
-      },
+        code: `legend_opts = opts.LegendOpts()`      }
     },
     {
       type: "text",
-      content: `图例配置项 LegendOpts () 常用参数：`,
+      content: `图例配置项 LegendOpts () 常用参数：`
     },
     {
       type: "table",
       table: {
         headers: [`常用参数`, `说明`],
-        rows: [[`type\\_`, `图例的类型，可选，默认 \'plain\': 代表普通图例，\'scroll\': 代表可滚动翻页的图例。`], [`selected\\_mode`, `图例选择的模式，控制是否可以通过点击图例改变系列的显示状态。 默认开启图例选择，可以设成 False 关闭，也可设成\'single\' 或者 \'multiple\' 使用单选或者多选模式。`], [`is\\_show`, `是否显示图例组件，默认为 True`], [`pos\\_left/pos\\_right`, `图例组件离容器左 / 右侧的距离`], [`pos\\_top/pos\\_bottom`, `图例组件离容器上 / 下侧的距离`], [`orient`, `图例列表的布局朝向，默认 \'horizontal\' 水平，可选:\'vertical\' 垂直`]],
-      },
+        rows: [[`type\\_`, `图例的类型，可选，默认 'plain': 代表普通图例，'scroll': 代表可滚动翻页的图例。`], [`selected\\_mode`, `图例选择的模式，控制是否可以通过点击图例改变系列的显示状态。 默认开启图例选择，可以设成 False 关闭，也可设成'single' 或者 'multiple' 使用单选或者多选模式。`], [`is\\_show`, `是否显示图例组件，默认为 True`], [`pos\\_left/pos\\_right`, `图例组件离容器左 / 右侧的距离`], [`pos\\_top/pos\\_bottom`, `图例组件离容器上 / 下侧的距离`], [`orient`, `图例列表的布局朝向，默认 'horizontal' 水平，可选:'vertical' 垂直`]]      }
     },
     {
       type: "text",
-      content: `**例 4-2-4**: 在例 4-2-3 图形的基础上，将图例垂直排布｡`,
+      content: `**例 4-2-4**: 在例 4-2-3 图形的基础上，将图例垂直排布｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 引入表格类型､配置项､主题类型 \nfrom pyecharts.charts import Bar \nfrom pyecharts import options as opts \nfrom pyecharts.globals import ThemeType \n# 初始化配置 \nbar1 = Bar(init_opts=opts.InitOpts(width=\'800px\',height=\'450px\', theme=ThemeType.DARK)) \n# 添加数据 \nbar1.add_xaxis([\'1月\',\'2月\',\'3月\',\'4月\',\'5月\']) \nbar1.add_yaxis(\'收入\',[45000,38000,54000,55000,48000]) \nbar1.add_yaxis(\'成本\',[31500,28500,38880,40700,35520])\n# 设置全局配置项 \nbar1.set_global_opts(title_opts = opts.TitleOpts(title= \'收入&成本对比\',subtitle=\'2020年1-5月\'), legend_opts = opts.LegendOpts(orient=\'vertical\'))\n# 展示图形 \nbar1.render_notebook()`,
-      },
+        code: `# 引入表格类型､配置项､主题类型 \nfrom pyecharts.charts import Bar \nfrom pyecharts import options as opts \nfrom pyecharts.globals import ThemeType \n# 初始化配置 \nbar1 = Bar(init_opts=opts.InitOpts(width='800px',height='450px', theme=ThemeType.DARK)) \n# 添加数据 \nbar1.add_xaxis(['1月','2月','3月','4月','5月']) \nbar1.add_yaxis('收入',[45000,38000,54000,55000,48000]) \nbar1.add_yaxis('成本',[31500,28500,38880,40700,35520])\n# 设置全局配置项 \nbar1.set_global_opts(title_opts = opts.TitleOpts(title= '收入&成本对比',subtitle='2020年1-5月'), legend_opts = opts.LegendOpts(orient='vertical'))\n# 展示图形 \nbar1.render_notebook()`      }
     },
     {
       type: "text",
-      content: `运行结果：图例垂直排布的收入成本对比柱状图\n\n#### 坐标轴配置项\n\n调用 x､y 轴配置项:`,
+      content: `运行结果：图例垂直排布的收入成本对比柱状图\n\n#### 坐标轴配置项\n\n调用 x､y 轴配置项:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `xaxis_opts = opts.AxisOpts() \nyaxis_opts = opts.AxisOpts()`,
-      },
+        code: `xaxis_opts = opts.AxisOpts() \nyaxis_opts = opts.AxisOpts()`      }
     },
     {
       type: "text",
-      content: `坐标轴配置项 AxisOpts () 常用参数：`,
+      content: `坐标轴配置项 AxisOpts () 常用参数：`
     },
     {
       type: "table",
       table: {
         headers: [`常用参数`, `说明`],
-        rows: [[`name`, `坐标轴名称`], [`is\\_show`, `是否显示坐标轴，默认为 True`], [`is\\_inverse`, `是否反向坐标轴，默认为 False`], [`name\\_location`, `坐标轴名称显示位置，可选:\'start\',\'middle\',\'center\',\'end\', 默认 \'end\'`], [`name\\_gap`, `坐标轴名称与轴线之间的距离，默认 15`], [`name\\_rotate`, `坐标轴名称旋转角度值，解决坐标轴名称过长的问题`], [`axislabel\\_opts`, `坐标轴标签配置项。如：设置坐标轴标签旋转角度值，解决坐标轴标签名称过长的问题:axislabel\\_opts=opts.LabelOpts (rotate=-30)`]],
-      },
+        rows: [[`name`, `坐标轴名称`], [`is\\_show`, `是否显示坐标轴，默认为 True`], [`is\\_inverse`, `是否反向坐标轴，默认为 False`], [`name\\_location`, `坐标轴名称显示位置，可选:'start','middle','center','end', 默认 'end'`], [`name\\_gap`, `坐标轴名称与轴线之间的距离，默认 15`], [`name\\_rotate`, `坐标轴名称旋转角度值，解决坐标轴名称过长的问题`], [`axislabel\\_opts`, `坐标轴标签配置项。如：设置坐标轴标签旋转角度值，解决坐标轴标签名称过长的问题:axislabel\\_opts=opts.LabelOpts (rotate=-30)`]]      }
     },
     {
       type: "text",
-      content: `**例 4-2-5**: 在例 4-2-4 图形的基础上，分别设置 x 轴和 y 轴标签为 “月份”､“金额 (元)”, 并根据图形调整标签位置｡`,
+      content: `**例 4-2-5**: 在例 4-2-4 图形的基础上，分别设置 x 轴和 y 轴标签为 “月份”､“金额 (元)”, 并根据图形调整标签位置｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 引入表格类型､配置项､主题类型\nfrom pyecharts.charts import Bar \nfrom pyecharts import options as opts\nfrom pyecharts.globals import ThemeType\n# 初始化配置\nbar1 = Bar(init_opts=opts.InitOpts(width=\'800px\',height=\'450px\',\ntheme=ThemeType.DARK))\n# 添加数据 \nbar1.add_xaxis([\'1月\',\'2月\',\'3月\',\'4月\',\'5月\'])\nbar1.add_yaxis(\'收入\',[45000,38000,54000,55000,48000])\nbar1.add_yaxis(\'成本\',[31500,28500,38880,40700,35520])\n# 设置全局配置项 \nbar1.set_global_opts(title_opts = opts.TitleOpts(title= \'收入&成本对比\',subtitle=\'2020年1-5月\'), \nlegend_opts =opts.LegendOpts(orient=\'vertical\'),\nxaxis_opts=opts.AxisOpts(name=\'月份\'), \nyaxis_opts=opts.AxisOpts(name=\'金额(元)\',\nname_location=\'center\',\nname_gap=50))\n# 展示图形 \nbar1.render_notebook()`,
-      },
+        code: `# 引入表格类型､配置项､主题类型\nfrom pyecharts.charts import Bar \nfrom pyecharts import options as opts\nfrom pyecharts.globals import ThemeType\n# 初始化配置\nbar1 = Bar(init_opts=opts.InitOpts(width='800px',height='450px',\ntheme=ThemeType.DARK))\n# 添加数据 \nbar1.add_xaxis(['1月','2月','3月','4月','5月'])\nbar1.add_yaxis('收入',[45000,38000,54000,55000,48000])\nbar1.add_yaxis('成本',[31500,28500,38880,40700,35520])\n# 设置全局配置项 \nbar1.set_global_opts(title_opts = opts.TitleOpts(title= '收入&成本对比',subtitle='2020年1-5月'), \nlegend_opts =opts.LegendOpts(orient='vertical'),\nxaxis_opts=opts.AxisOpts(name='月份'), \nyaxis_opts=opts.AxisOpts(name='金额(元)',\nname_location='center',\nname_gap=50))\n# 展示图形 \nbar1.render_notebook()`      }
     },
     {
       type: "text",
-      content: `运行结果：带坐标轴名称的收入成本对比柱状图\n\n#### 工具箱配置\n\n调用工具箱配置:`,
+      content: `运行结果：带坐标轴名称的收入成本对比柱状图\n\n#### 工具箱配置\n\n调用工具箱配置:`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `toolbox_opts = opts.ToolboxOpts()`,
-      },
+        code: `toolbox_opts = opts.ToolboxOpts()`      }
     },
     {
       type: "text",
-      content: `工具箱配置 ToolboxOpts () 常用参数：`,
+      content: `工具箱配置 ToolboxOpts () 常用参数：`
     },
     {
       type: "table",
       table: {
         headers: [`常用参数`, `说明`],
-        rows: [[`is\\_show`, `是否显示工具栏组件，默认 False`], [`orient`, `工具栏的布局朝向，可选：默认 \'horizontal\' 水平，\'vertical\' 垂直`], [`pos\\_left`, `图例组件离容器左侧的距离`], [`pos\\_right`, `图例组件离容器右侧的距离`], [`pos\\_top`, `图例组件离容器上侧的距离`], [`pos\\_bottom`, `图例组件离容器下侧的距离`]],
-      },
+        rows: [[`is\\_show`, `是否显示工具栏组件，默认 False`], [`orient`, `工具栏的布局朝向，可选：默认 'horizontal' 水平，'vertical' 垂直`], [`pos\\_left`, `图例组件离容器左侧的距离`], [`pos\\_right`, `图例组件离容器右侧的距离`], [`pos\\_top`, `图例组件离容器上侧的距离`], [`pos\\_bottom`, `图例组件离容器下侧的距离`]]      }
     },
     {
       type: "text",
-      content: `**例 4-2-6**: 在例 4-2-5 图形的基础上，添加一个工具箱｡`,
+      content: `**例 4-2-6**: 在例 4-2-5 图形的基础上，添加一个工具箱｡`
     },
     {
       type: "code",
       code: {
         language: "python",
-        code: `# 引入表格类型､配置项､主题类型 \nfrom pyecharts.charts import Bar \nfrom pyecharts import options as opts \nfrom pyecharts.globals import ThemeType\n# 初始化配置 \nbar1 = Bar(init_opts=opts.InitOpts(width=\'800px\',height=\'450px\', theme=ThemeType.DARK))\n# 添加数据 \nbar1.add_xaxis([\'1月\',\'2月\',\'3月\',\'4月\',\'5月\']) \nbar1.add_yaxis(\'收入\',[45000,38000,54000,55000,48000]) \nbar1.add_yaxis(\'成本\',[31500,28500,38880,40700,35520])\n# 设置全局配置项\nbar1.set_global_opts(title_opts = opts.TitleOpts(title= \'收入&成本对比\',subtitle=\'2020年1-5月\'), \nlegend_opts =opts.LegendOpts(orient=\'vertical\'), \nxaxis_opts=opts.AxisOpts(name=\'月份\'), \nyaxis_opts=opts.AxisOpts(name=\'金额(元)\'),\ntoolbox_opts=opts.ToolboxOpts(is_show=True))\n# 展示图形 \nbar1.render_notebook()`,
-      },
+        code: `# 引入表格类型､配置项､主题类型 \nfrom pyecharts.charts import Bar \nfrom pyecharts import options as opts \nfrom pyecharts.globals import ThemeType\n# 初始化配置 \nbar1 = Bar(init_opts=opts.InitOpts(width='800px',height='450px', theme=ThemeType.DARK))\n# 添加数据 \nbar1.add_xaxis(['1月','2月','3月','4月','5月']) \nbar1.add_yaxis('收入',[45000,38000,54000,55000,48000]) \nbar1.add_yaxis('成本',[31500,28500,38880,40700,35520])\n# 设置全局配置项\nbar1.set_global_opts(title_opts = opts.TitleOpts(title= '收入&成本对比',subtitle='2020年1-5月'), \nlegend_opts =opts.LegendOpts(orient='vertical'), \nxaxis_opts=opts.AxisOpts(name='月份'), \nyaxis_opts=opts.AxisOpts(name='金额(元)'),\ntoolbox_opts=opts.ToolboxOpts(is_show=True))\n# 展示图形 \nbar1.render_notebook()`      }
     }
     ],
   },
@@ -2523,14 +2384,13 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `常用系列配置项：`,
+      content: `常用系列配置项：`
     },
     {
       type: "table",
       table: {
         headers: [`常用系列配置项`, `说明`],
-        rows: [[`标签配置项`, `调用配置: label\\_opts=opts.LabelOpts (), 可设置标签的字体、大小、位置、旋转角度等，常用参数:is\\_show (是否显示标签)`], [`线样式配置项`, `调用配置:linestyle\\_opts=opts.LineStyleOpts (), 可设置线条的宽度、透明度、颜色等，常用参数: width (调整线条宽度)`], [`区域填充样式配置项`, `调用配置:areastyle\\_opts=opts.AreaStyleOpts (), 可设置区域填充的透明度、颜色等，常用参数: opacity (设置透明度，0-1 的数字，可通过该参数绘制面积图)`]],
-      },
+        rows: [[`标签配置项`, `调用配置: label\\_opts=opts.LabelOpts (), 可设置标签的字体、大小、位置、旋转角度等，常用参数:is\\_show (是否显示标签)`], [`线样式配置项`, `调用配置:linestyle\\_opts=opts.LineStyleOpts (), 可设置线条的宽度、透明度、颜色等，常用参数: width (调整线条宽度)`], [`区域填充样式配置项`, `调用配置:areastyle\\_opts=opts.AreaStyleOpts (), 可设置区域填充的透明度、颜色等，常用参数: opacity (设置透明度，0-1 的数字，可通过该参数绘制面积图)`]]      }
     }
     ],
   },
@@ -2539,22 +2399,1125 @@ export const courseContent: Chapter[] = [
     content: [
     {
       type: "text",
-      content: `Pyecharts 本质上是将 Echarts 的配置项由 Python dict 序列化为 JSON 格式，所以 Pyecharts 支持什么格式的数据类型取决于 JSON 支持什么数据类型，Python 中对 JSON 的格式转换如表所示:`,
+      content: `Pyecharts 本质上是将 Echarts 的配置项由 Python dict 序列化为 JSON 格式，所以 Pyecharts 支持什么格式的数据类型取决于 JSON 支持什么数据类型，Python 中对 JSON 的格式转换如表所示:`
     },
     {
       type: "table",
       table: {
         headers: [`Python`, `JSON`],
-        rows: [[`int, float`, `number`], [`str`, `string`], [`bool`, `boolean`], [`dict`, `object (JSON 对象)`], [`list`, `array`]],
-      },
+        rows: [[`int, float`, `number`], [`str`, `string`], [`bool`, `boolean`], [`dict`, `object (JSON 对象)`], [`list`, `array`]]      }
     },
     {
       type: "text",
-      content: `将数据传入 Pyecharts 时，需要先将数据格式转换成上述 Python 原生的数据类型才可使用。`,
+      content: `将数据传入 Pyecharts 时，需要先将数据格式转换成上述 Python 原生的数据类型才可使用。`
     },
     {
       type: "note",
-      content: `（注：文档部分内容可能由 AI 生成）`,
+      content: `（注：文档部分内容可能由 AI 生成）`
+    }
+    ],
+  }
+    ],
+  },
+  {
+    id: 'ab-testing',
+    title: `A_B测试分析`,
+    subtitle: `A/B测试分析核心知识点、语法与案例分析`,
+    sections: [
+  {
+    title: `一、A/B 测试的核心概念与本质`,
+    content: [
+    {
+      type: "text",
+      content: `A/B 测试 (也称对照实验、分割测试) 是一种通过随机分流比较两个版本优劣的受控实验方法。其本质是让一部分用户看到原始版本 (A 组 / 对照组), 另一部分用户看到修改版本 (B 组 / 实验组), 然后基于统计假设检验判断版本间的差异是否真实存在。\n\n核心思想在于：用数据替代直觉，用随机化消除偏差。它源自罗纳德・费雪爵士在农业实验中的统计方法，后由谷歌等公司广泛应用于互联网产品优化。`
+    }
+    ],
+  },
+  {
+    title: `1. 假设检验`,
+    content: [
+    {
+      type: "text",
+      content: `每次 A/B 测试都需要构建一对假设:\n\n- 原假设 $H_{0}$:A、B 版本无差异 (观测差异仅由随机误差引起)\n\n- 备择假设 $H_{1}$:A、B 版本存在真实差异 (通常是我们希望证明的方向)\n\n通过计算 p 值来判断：若 p 值小于预设的显著性水平 α(通常取 0.05), 则拒绝原假设，认为差异在统计上显著。\n\n注意:p 值代表 "在原假设为真的前提下，观测到当前结果或更极端结果的概率"。$p<0.05$意味着差异仅有不到 5% 的概率由随机因素造成。`
+    }
+    ],
+  },
+  {
+    title: `2. 两类错误`,
+    content: [
+    {
+      type: "text",
+      content: `- 第一类错误 (假阳性): 原假设为真却错误拒绝 (误以为有效)。α 就是控制这类错误的上限。\n\n- 第二类错误 (假阴性): 原假设为假却未能拒绝 (漏掉真正有效的改动)。统计功效 (1-β) 就是正确检测出真实差异的概率，通常要求达到 80% 或 90%。`
+    }
+    ],
+  },
+  {
+    title: `3. 样本量计算`,
+    content: [
+    {
+      type: "text",
+      content: `样本量不足是 A/B 测试最常见的失败原因之一。所需样本量取决于四个因素:`
+    },
+    {
+      type: "table",
+      table: {
+        headers: [`参数`, `典型值`, `含义`],
+        rows: [[`显著性水平 α`, `0.05`, `第一类错误容忍度`], [`统计功效 1-β`, `0.8`, `检测出真实差异的能力`], [`基线转化率 Pₐ`, `历史数据`, `A 组当前表现`]]      }
+    },
+    {
+      type: "text",
+      content: `公式逻辑：MDE 越小、α 越低、功效越高，所需样本量越大。也可以使用 Python 的 statsmodels.stats.power 或在线计算器快速估算。`
+    }
+    ],
+  },
+  {
+    title: `4. 指标分类`,
+    content: [
+    {
+      type: "text",
+      content: `- 核心指标：直接衡量实验成败，必须与业务目标对齐 (如转化率、点击率)\n\n- 护栏指标：监控实验是否损害其他方面 (如页面加载时长、跳出率、投诉率)\n\n- 主要指标 vs 次要指标：主要指标用于最终决策，次要指标提供辅助洞察`
+    }
+    ],
+  },
+  {
+    title: `三、标准 A/B 测试流程 (七步法)`,
+    content: [
+    {
+      type: "text",
+      content: `一个严谨的 A/B 测试应遵循以下步骤，缺一不可:\n\n1. 确定目标：明确要优化的业务指标 (例如 "提高注册转化率")\n\n2. 提出假设：清晰表述改动、预期效果及理由。例如:"将注册按钮从蓝色改为红色，能因视觉紧迫感提升 5% 的点击率"\n\n3. 设计实验版本：严格遵循单一变量原则，一次只改变一个因素，否则无法归因\n\n4. 计算所需样本量：基于上述四个参数估算最小样本量，避免过早下结论\n\n5. 随机分流：使用一致性哈希 (如基于用户 ID 的 hash) 确保同一用户始终进入同一组，且两组用户特征在统计上均衡\n\n6. 运行实验并收集数据：至少覆盖一个完整业务周期 (通常 1–2 周), 消除星期效应和节假日影响\n\n7. 统计检验与决策：计算 p 值、置信区间，结合统计显著性和业务意义判断是否全量上线`
+    }
+    ],
+  },
+  {
+    title: `四、常见陷阱与对策`,
+    content: [
+    {
+      type: "table",
+      table: {
+        headers: [`陷阱`, `说明`, `对策`],
+        rows: [[`提前偷看`, `实验未结束频繁查看结果，增加假阳性风险`, `设定固定周期，或使用序列概率比检验 SPRT`], [`新奇效应 / 学习效应`, `用户因新鲜感短期行为异常，长期回归`, `延长实验周期至 2\\~4 周，复测验证`], [`样本量不足`, `无法检测到真实差异 (假阴性)`, `提前用功效分析计算所需样本量`], [`分流不一致`, `用户跨设备进入不同组，污染结果`, `使用全局统一的 User ID 作为分流键`], [`多重指标 p-hacking`, `跑完数据后挑选有利指标宣称成功`, `实验前锁定核心指标和护栏指标`], [`忽略辛普森悖论`, `整体显著但各层反向，或反之`, `进行分层分析，检查各子群一致性`]]      }
+    }
+    ],
+  },
+  {
+    title: `五、语法与 Python 代码示例`,
+    content: [
+    {
+      type: "text",
+      content: `下面以最常见的转化率类指标 (0/1 数据) 为例，演示完整的假设检验语法。包含两种场景：Z 检验 (大样本比例) 和 t 检验 (连续值)。`
+    }
+    ],
+  },
+  {
+    title: `场景：新推荐算法 CTR 对比`,
+    content: [
+    {
+      type: "text",
+      content: `假设我们想验证新推荐算法 (B 组) 是否比旧算法 (A 组) 有更高的点击率。两组数据如下 (虚构):`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `import numpy as np\nfrom scipy import stats\n\n# 模拟点击数据(1=点击,0=未点击)\nA_clicks = np.random.binomial(1, 0.12, size=20000) # 旧算法:基准转化率12%\nB_clicks = np.random.binomial(1, 0.13, size=20000) # 新算法:目标13%\n\n# 计算统计量\nctr_A = A_clicks.mean()\nctr_B = B_clicks.mean()\nprint(f"A组转化率: {ctr_A:.4f}, B组转化率: {ctr_B:.4f}")\n\n# 双样本Z检验(大样本比例适用)\nfrom statsmodels.stats.proportion import proportions_ztest\ncount = np.array([A_clicks.sum(), B_clicks.sum()])\nnobs = np.array([len(A_clicks), len(B_clicks)])\nz_stat, p_value = proportions_ztest(count, nobs, alternative='two-sided')\nprint(f"Z统计量: {z_stat:.4f}, p值: {p_value:.4f}")\n\n# 解读:若p_value < 0.05,拒绝原假设,认为两组有显著差异\nif p_value < 0.05:\n    print("✅ 差异显著,新算法效果更优(或更差,需看转化率方向)")\nelse:\n    print("❌ 无统计显著差异")`      }
+    },
+    {
+      type: "text",
+      content: `#### Z 检验输出示例:`
+    },
+    {
+      type: "code",
+      code: {
+        language: "Plain Text",
+        code: `A组转化率: 0.1208, B组转化率: 0.1294\nZ统计量: 2.6411, p值: 0.0083`      }
+    },
+    {
+      type: "text",
+      content: `由于 $p<0.05$, 说明新算法确实带来了显著提升。\n\n#### 语法说明\n\n\`proportions_ztest(count, nobs, alternative)\`: 适用于转化率、点击率等比例指标。\`alternative\`可选\`'two-sided'\`(双尾)、\`'larger'\`(单尾 B>A)、\`'smaller'\`。\n\n若检验连续值指标 (如平均停留时长、客单价), 应使用\`ttest_ind\`(两独立样本 t 检验)。`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `# t检验示例\nrevenue_A = np.random.normal(100, 20, 500) # 旧版:均值100\nrevenue_B = np.random.normal(105, 20, 500) # 新版:均值105\nt_stat, p_value = stats.ttest_ind(revenue_B, revenue_A, alternative='greater')\nprint(f"t统计量: {t_stat:.4f}, p值: {p_value:.4f}")`      }
+    },
+    {
+      type: "text",
+      content: `注意:\`ttest_ind\`默认双尾检验，若需单尾，需将 p 值除以 2 并判断方向。\n\n对于非正态分布数据，可使用\`mannwhitneyu\`(曼 - 惠特尼 U 检验)。`
+    }
+    ],
+  },
+  {
+    title: `案例 1: 奥巴马竞选筹款页优化`,
+    content: [
+    {
+      type: "text",
+      content: `2008 年总统大选中，奥巴马团队通过 A/B 测试发现:\n\n- A 版本：奥巴马单人照片 + 按钮文案 "Sign Up"\n\n- B 版本：奥巴马全家福照片 + 按钮文案 "Learn More"\n\n结果 B 版本的注册转化率提升 40.6%, 带来数千万美元额外捐款。`
+    }
+    ],
+  },
+  {
+    title: `案例 2: 电商 App UI 优化`,
+    content: [
+    {
+      type: "text",
+      content: `某电商 App 将 100 万用户随机分为两组:\n\n- A 组 (50 万人): 看到原有商品页面\n\n- B 组 (50 万人): 看到重新设计的页面 (不同布局和按钮颜色)\n\n测试结果显示 B 组购买转化率显著高于 A 组，于是将新版本推广至全量用户。`
+    }
+    ],
+  },
+  {
+    title: `案例 3: 新闻网站付费墙策略`,
+    content: [
+    {
+      type: "text",
+      content: `一家新闻网站希望在 "计量付费"(每月免费 5 篇) 和 "免费增值"(部分内容免费，深度内容付费) 两种模式中做选择。经过数月的 A/B 测试，比较付费转化率、用户流失率和总收入，最终确定了最优模式。`
+    }
+    ],
+  },
+  {
+    title: `七、总结`,
+    content: [
+    {
+      type: "text",
+      content: `A/B 测试分析的核心要点可概括为:\n\n1. 因果推断的黄金标准：通过随机化和对照组隔离实验效果\n\n2. 统计基础不可忽视：深入理解假设检验、p 值、功效和样本量计算，避免 "只看均值不看显著" 的常见错误\n\n3. 严谨流程是保障：从假设提出到分流设计再到数据分析，每一步都有章可循\n\n4. 知其然更知其所以然：工具代码 (如 Python 的 proportions\\_ztest、ttest\\_ind) 只是手段，核心是用科学的实验设计获得可信的业务洞察\n\nA/B 测试并非万能 —— 它更适合可量化的短期效果，对于长期品牌影响或颠覆性创新，仍需结合定性研究和长期跟踪。但掌握好这套方法论，无疑能让产品决策从 "拍脑袋" 升级为 "数据驱动"。`
+    },
+    {
+      type: "note",
+      content: `（注：文档部分内容可能由 AI 生成）`
+    }
+    ],
+  }
+    ],
+  },
+  {
+    id: 'time-series',
+    title: `时间序列分析`,
+    subtitle: `时间序列分析核心知识点、语法与举例`,
+    sections: [
+  {
+    title: `1.1 什么是时间序列`,
+    content: [
+    {
+      type: "text",
+      content: `时间序列是按时间先后顺序记录的观测值序列，例如每日股价、月销售额、年气温等。其核心特征是时间依赖性 —— 当前值往往与过去值相关。时间序列既可以是连续的 (如温度)，也可以是离散的 (如订单量)。`
+    }
+    ],
+  },
+  {
+    title: `1.2 时间序列的组成部分`,
+    content: [
+    {
+      type: "text",
+      content: `一个时间序列通常可分解为四种要素:`
+    },
+    {
+      type: "table",
+      table: {
+        headers: [`组成`, `描述`, `示例`],
+        rows: [[`趋势 (T)`, `长期持续上升或下降的走向`, `股票市场长期增长`], [`季节变动 (S)`, `固定周期内重复的模式 (一年内)`, `冬季保暖用品销量上升`], [`循环波动 (C)`, `非固定长度的周期性涨落`, `经济繁荣与衰退交替`], [`不规则波动 (I)`, `随机、不可预测的波动`, `突发灾害引起的异常值`]]      }
+    },
+    {
+      type: "text",
+      content: `传统分析常采用 **加法模型** ($Y=T+S+C+I$) 或 **乘法模型** ($Y=T ×S ×C ×I$)，乘法模型适用于波动幅度随趋势变化的情形。`
+    }
+    ],
+  },
+  {
+    title: `1.3 平稳性与白噪声`,
+    content: [
+    {
+      type: "text",
+      content: `平稳性是时间序列建模的重要前提。平稳序列的均值、方差和自协方差不随时间变化。平稳性检验常用 ADF 检验 (原假设：序列非平稳) 和 KPSS 检验 (原假设：序列平稳)。若 p 值小于 0.05，则拒绝原假设。\n\n白噪声是完全随机的平稳序列，均值为零，方差恒定，无任何模式可提取。如果数据经检验为白噪声，则无法进行有效预测。`
+    }
+    ],
+  },
+  {
+    title: `1.4 自相关与偏自相关`,
+    content: [
+    {
+      type: "text",
+      content: `自相关函数 (ACF) 衡量序列与其滞后值的相关性，可识别季节性 (如第 12、24 月出现尖峰)。\n偏自相关函数 (PACF) 排除中间滞后变量的干扰后，直接反映特定滞后阶的相关性。\n两者结合可判断 ARIMA 模型的阶数 (p、q)。`
+    }
+    ],
+  },
+  {
+    title: `1.5 常用预测模型`,
+    content: [
+    {
+      type: "table",
+      table: {
+        headers: [`模型`, `说明`, `适用场景`],
+        rows: [[`AR (自回归)`, `用过去 p 个值线性预测当前值`, `有自相关性的平稳序列`], [`MA (移动平均)`, `用过去 q 个预测误差修正当前值`, `有短时冲击的序列`], [`ARMA`, `AR + MA 组合`, `平稳序列`], [`ARIMA`, `ARMA + 差分 (使非平稳变得平稳)`, `非平稳序列，含趋势`], [`SARIMA`, `ARIMA + 季节性差分`, `含季节性模式的数据`]]      }
+    },
+    {
+      type: "text",
+      content: `ARIMA 模型记为 ARIMA (p,d,q)，其中 d 为差分阶数。模型选择可通过 AIC/BIC 准则优化。`
+    }
+    ],
+  },
+  {
+    title: `2.1 Python 语法 (基于 pandas、statsmodels)`,
+    content: [
+    {
+      type: "text",
+      content: `#### 数据准备与可视化`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `import pandas as pd\nimport matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\n\n# 读取数据,解析日期并设为索引\ndf = pd.read_csv('data.csv', parse_dates=['date'], index_col='date')\n\n# 快速绘图\ndf['value'].plot(title='Time Series')\nplt.show()`      }
+    },
+    {
+      type: "text",
+      content: `#### 重采样与滚动统计`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `# 月汇总(原数据为日频)\ndf_monthly = df.resample('M').mean()\n\n# 7日滚动均值\ndf['rolling_mean'] = df['value'].rolling(window=7).mean()`      }
+    },
+    {
+      type: "text",
+      content: `#### 季节分解`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from statsmodels.tsa.seasonal import seasonal_decompose\n\nresult = seasonal_decompose(df['value'], model='additive', period=12)\nresult.plot()`      }
+    },
+    {
+      type: "text",
+      content: `#### 平稳性检验`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from statsmodels.tsa.stattools import adfuller\n\np_value = adfuller(df['value'])\nprint('ADF p-value:', p_value)`      }
+    },
+    {
+      type: "text",
+      content: `#### ARIMA 建模与预测`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from statsmodels.tsa.arima.model import ARIMA\n\nmodel = ARIMA(df['value'], order=(1,1,1))\nmodel_fit = model.fit()\nforecast = model_fit.forecast(steps=10)\nprint(forecast)`      }
+    }
+    ],
+  },
+  {
+    title: `2.2 R 语法 (基于 ts、forecast 包)`,
+    content: [
+    {
+      type: "text",
+      content: `#### 创建时间序列对象`
+    },
+    {
+      type: "code",
+      code: {
+        language: "r",
+        code: `library(forecast)\nsales <- c(18,33,22,4,23,44,55,12,22,30,11,52)\nts_sales <- ts(sales, start=c(2020,1), frequency=12)\nplot(ts_sales)`      }
+    },
+    {
+      type: "text",
+      content: `#### 分解季节序列`
+    },
+    {
+      type: "code",
+      code: {
+        language: "r",
+        code: `fit <- stl(ts_sales, s.window="periodic")\nplot(fit)`      }
+    },
+    {
+      type: "text",
+      content: `#### ARIMA 自动选阶与预测`
+    },
+    {
+      type: "code",
+      code: {
+        language: "r",
+        code: `fit_arima <- auto.arima(ts_sales)\nforecast(fit_arima, h=6) %>% plot()`      }
+    }
+    ],
+  },
+  {
+    title: `三、完整案例：月度药物销量分析`,
+    content: [
+    {
+      type: "text",
+      content: `以下使用 中提供的药物销售数据 (1991‑1999 年月度销量) 演示从预处理到预测的全流程。`
+    }
+    ],
+  },
+  {
+    title: `3.1 数据加载与可视化`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `import pandas as pd\nimport matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\n\ndata = {\n'date': pd.date_range(start='1991-07-01', end='1999-01-01', freq='MS'),\n'value': [8.275117, 8.260441, 8.596156, 10.558939, 1]\n}\ndf = pd.DataFrame(data).set_index('date')\ndf.plot(figsize=(10,4), title='Drug Sales Time Series')`      }
+    },
+    {
+      type: "text",
+      content: `从图中可明显看到逐年增长趋势和每年 2 月左右销量骤降的季节性模式。`
+    }
+    ],
+  },
+  {
+    title: `3.2 季节分解`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from statsmodels.tsa.seasonal import seasonal_decompose\n\nresult = seasonal_decompose(df['value'], model='multiplicative', period=12)\nresult.plot()`      }
+    },
+    {
+      type: "text",
+      content: `乘法分解的残差更接近随机噪声，说明乘法模型更适合该数据。`
+    }
+    ],
+  },
+  {
+    title: `3.3 平稳性检验与差分`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from statsmodels.tsa.stattools import adfuller\n\n# 原序列检验\nprint('Original p-value:', adfuller(df['value']))\n\n# 一阶差分\ndf_diff = df['value'].diff().dropna()\nprint('Differenced p-value:', adfuller(df_diff))`      }
+    },
+    {
+      type: "text",
+      content: `若原序列 p 值大于 0.05 (非平稳)，差分后可变得平稳。`
+    }
+    ],
+  },
+  {
+    title: `3.4 ARIMA 建模`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from statsmodels.tsa.arima.model import ARIMA\n\nmodel = ARIMA(df['value'], order=(1,1,1), seasonal_order=(1,1,1,12)) # SARIMA\nmodel_fit = model.fit()\nprint(model_fit.summary())`      }
+    }
+    ],
+  },
+  {
+    title: `3.5 预测与评估`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\\nforecast = model_fit.forecast(steps=12)\nplt.plot(df.index, df['value'], label='Actual')\nplt.plot(forecast.index, forecast, label='Forecast', color='red')\nplt.legend()`      }
+    },
+    {
+      type: "text",
+      content: `预测后续 12 个月销量，并可与真实值对比计算 RMSE、MAPE 等指标。`
+    }
+    ],
+  },
+  {
+    title: `四、总结与注意事项`,
+    content: [
+    {
+      type: "text",
+      content: `1. 预处理是基础：缺失值处理 (前向填充、插值)、异常值剔除、频率统一 (重采样) 对后续建模影响很大。\n\n2. 平稳性是关键：非平稳序列必须先通过差分或变换平稳化，否则模型无效。\n\n3. 模型选择需验证：依据 ACF/PACF 图或信息准则 (AIC) 确定 ARIMA 阶数，避免过拟合。\n\n4. 评估指标：常用 MAE、RMSE、MAPE 等，需根据业务场景选择 (如 MAPE 适用于相对误差评估)。\n\n5. 工具灵活搭配：Python 的 pandas+statsmodels 适合数据预处理与统计建模；对于复杂周期性数据，还可尝试 Meta 的 Prophet 或深度学习 LSTM。\n\n时间序列分析是一门理论与实践并重的学科，掌握核心概念与编程实现后，可将其灵活应用于销售预测、金融风控、异常检测等多种业务场景。建议在实际分析中反复迭代模型，结合业务经验优化预测效果。`
+    },
+    {
+      type: "note",
+      content: `（注：文档部分内容可能由 AI 生成）`
+    }
+    ],
+  }
+    ],
+  },
+  {
+    id: 'feature-engineering',
+    title: `特征工程`,
+    subtitle: `特征工程核心知识点、语法与举例`,
+    sections: [
+  {
+    title: `1. 缺失值处理`,
+    content: [
+    {
+      type: "text",
+      content: `缺失值是常见问题，处理策略包括删除、填充 (均值 / 中位数 / 众数 / 常数) 或插值｡注意：缺失本 身有时也是重要信号，可创建是否缺失的指示列｡\n\nPython 语法:`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `import pandas as pd\nfrom sklearn.impute import SimpleImputer\n\n# pandas填充\ndf.fillna({'age': df['age'].mean(), 'gender': 'unknown'}, inplace=True)\n\n# sklearn填充(返回数组)\nimputer = SimpleImputer(strategy='median')\ndf[['age']] = imputer.fit_transform(df[['age']])\n\n# 缺失指示列\ndf['age_missing'] = df['age'].isna().astype(int)`      }
+    }
+    ],
+  },
+  {
+    title: `2. 异常值处理`,
+    content: [
+    {
+      type: "text",
+      content: `常用方法包括 Z-score (>3)､IQR (1.5 倍四分位距)､Winsorization 截断或基于模型的方法 (IsolationForest)｡\n\nIQR 方法示例:`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `Q1 = df['x'].quantile(0.25)\nQ3 = df['x'].quantile(0.75)\nIQR = Q3 - Q1\nlower = Q1 - 1.5 * IQR\nupper = Q3 + 1.5 * IQR\ndf['x_clipped'] = df['x'].clip(lower, upper)`      }
+    }
+    ],
+  },
+  {
+    title: `二、类别变量编码`,
+    content: [
+    {
+      type: "text",
+      content: `机器学习模型通常需要数值输入，因此类别变量需要转换为常见编码方式:`
+    },
+    {
+      type: "table",
+      table: {
+        headers: [`方法`, `适用场景`, `Python 函数`],
+        rows: [[`独热编码`, `低基数无序类别`, `pd.get\\_dummies () 或 sklearn.preprocessing. OneHotEncoder`], [`标签编码`, `有序类别`, `sklearn.preprocessing. LabelEncoder`], [`频率编码`, `高基数类别，保留频次信息`, `df['col'].map(df['col' ].value\\_counts())`], [`目标编码`, `利用目标变量均值编码 (需防泄露)`, `category\\_encoders.Targ etEncoder`]]      }
+    },
+    {
+      type: "text",
+      content: `示例：独热编码`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `# pandas方式\ndf = pd.get_dummies(df, columns=['gender'])\n\n# sklearn方式(适合Pipeline)\nfrom sklearn.preprocessing import OneHotEncoder\nencoder = OneHotEncoder(handle_unknown='ignore')\nencoded = encoder.fit_transform(df[['gender']])`      }
+    }
+    ],
+  },
+  {
+    title: `三、数值特征缩放`,
+    content: [
+    {
+      type: "text",
+      content: `不同特征量纲差异大时，基于距离或梯度的模型 (KNN､SVM､神经网络､线性回归) 需要进行缩放｡常用方法:\n\n- 标准化 (StandardScaler): 均值为 0, 标准差为 1｡\n\n- 归一化 (MinMaxScaler): 缩放到 [0,1] 区间｡\n\n- 鲁棒缩放 (RobustScaler): 基于中位数和 IQR, 对异常值不敏感｡\n\n- 非线性变换：对数变换､Box-Cox､Yeo-Johnson, 处理偏态分布｡\n\n代码示例:`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler, PowerTransformer\n\n# 标准化\nscaler = StandardScaler()\ndf['age_scaled'] = scaler.fit_transform(df[['age']])\n\n# Box-Cox变换(需正数)\npt = PowerTransformer(method='box-cox')\ndf['income_trans'] = pt.fit_transform(df[['income']])`      }
+    },
+    {
+      type: "text",
+      content: `选择建议：树模型通常不需要缩放，但对数变换仍可增强信号；若存在明显异常值，优先使用 RobustScaler｡`
+    }
+    ],
+  },
+  {
+    title: `四、特征构造`,
+    content: [
+    {
+      type: "text",
+      content: `特征构造是从现有特征中创建新特征，是特征工程中最体现创造力的部分｡常用方法:`
+    }
+    ],
+  },
+  {
+    title: `1. 聚合特征 (分组统计)`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `agg_features = df.groupby('user_id').agg({\n    'clicks': ['sum', 'mean', 'max'],\n    'duration': ['sum', 'mean']\n}).reset_index()\nagg_features.columns = ['user_id', 'total_clicks', 'avg_clicks', 'max_clicks', 'total_duration', 'avg_duration']`      }
+    }
+    ],
+  },
+  {
+    title: `2. 交互特征`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `df['clicks_per_page_view'] = df['total_clicks'] / df['total_page_views']\ndf['area_income_interact'] = df['area'] * df['income']`      }
+    }
+    ],
+  },
+  {
+    title: `3. 时间特征`,
+    content: [
+    {
+      type: "text",
+      content: `从时间戳中提取年､月､日､星期几､小时等｡`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `df['timestamp'] = pd.to_datetime(df['timestamp'])\ndf['hour'] = df['timestamp'].dt.hour\ndf['day_of_week'] = df['timestamp'].dt.dayofweek`      }
+    }
+    ],
+  },
+  {
+    title: `4. 分箱特征`,
+    content: [
+    {
+      type: "text",
+      content: `将连续值离散化，例如用 KBinsDiscretizer 或自定义分箱｡`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from sklearn.preprocessing import KBinsDiscretizer\nkbd = KBinsDiscretizer(n_bins=5, encode='ordinal', strategy='quantile')\ndf['age_bin'] = kbd.fit_transform(df[['age']])`      }
+    }
+    ],
+  },
+  {
+    title: `5. 多项式特征`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from sklearn.preprocessing import PolynomialFeatures\npoly = PolynomialFeatures(degree=2, interaction_only=False)\nX_poly = poly.fit_transform(df[['x1', 'x2']])`      }
+    }
+    ],
+  },
+  {
+    title: `五、特征选择`,
+    content: [
+    {
+      type: "text",
+      content: `从大量特征中筛选出最有价值的子集，可提升性能并降低过拟合｡\n\n- 过滤法：基于统计指标 (相关系数､卡方检验､互信息)｡\n\n- 包装法：递归特征消除 (RFE)｡\n\n- 嵌入法：L1 正则化 (Lasso)､树模型特征重要性｡\n\n示例:`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from sklearn.feature_selection import SelectKBest, f_regression, RFE\nfrom sklearn.linear_model import LogisticRegression\n\n# 过滤法:选择K个最佳特征\nselector = SelectKBest(score_func=f_regression, k=5)\nX_selected = selector.fit_transform(X, y)\n\n# 包装法:RFE\nestimator = LogisticRegression()\nrfe = RFE(estimator, n_features_to_select=3)\nX_rfe = rfe.fit_transform(X, y)`      }
+    }
+    ],
+  },
+  {
+    title: `六、特征降维`,
+    content: [
+    {
+      type: "text",
+      content: `当特征维度极高时，可通过降维减少冗余和计算成本｡\n\n- PCA (主成分分析): 线性无监督降维｡\n\n- t-SNE: 主要用于可视化｡\n\n- 自编码器：深度学习非线性降维｡`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from sklearn.decomposition import PCA\npca = PCA(n_components=0.95) # 保留95%方差\nX_pca = pca.fit_transform(X)`      }
+    }
+    ],
+  },
+  {
+    title: `综合实战案例：用户购买预测`,
+    content: [
+    {
+      type: "text",
+      content: `基于实例，展示特征工程完整流程:`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `import pandas as pd\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.model_selection import train_test_split\n\n# 1. 读取数据\ndf = pd.read_csv('user_behavior.csv')\n\n# 2. 缺失值处理\ndf.fillna({'age': df['age'].median(), 'gender': 'unknown'}, inplace=True)\n\n# 3. 独热编码\ndf = pd.get_dummies(df, columns=['gender'])\n\n# 4. 时间特征\ndf['timestamp'] = pd.to_datetime(df['timestamp'])\ndf['hour'] = df['timestamp'].dt.hour\ndf['day_of_week'] = df['timestamp'].dt.dayofweek\n\n# 5. 聚合特征(按用户)\nagg = df.groupby('user_id').agg({'clicks': ['sum', 'mean'], 'duration': 'sum'})\nagg.columns = ['total_clicks', 'avg_clicks', 'total_duration']\nagg.reset_index(inplace=True)\n\n# 6. 交互特征\nagg['clicks_per_duration'] = agg['total_clicks'] / (agg['total_duration'] + 1e-5)\n\n# 7. 标准化\nscaler = StandardScaler()\nnumeric_cols = ['total_clicks', 'avg_clicks', 'total_duration']\nagg[numeric_cols] = scaler.fit_transform(agg[numeric_cols])\n\n# 8. 特征选择(例如保留所有特征,实际可用SelectKBest)\nfeatures = agg.drop('purchased', axis=1)\ntarget = agg['purchased']\n\n# 9. 训练模型\nX_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)`      }
+    },
+    {
+      type: "text",
+      content: `此流程涵盖了缺失值､类别编码､时间特征､聚合､交互､缩放等核心步骤，体现了特征工程从 原始数据到模型输入的全过程｡`
+    }
+    ],
+  },
+  {
+    title: `总结`,
+    content: [
+    {
+      type: "text",
+      content: `特征工程没有固定的公式，需要结合业务理解､数据探索和反复实验｡核心在于：清洗数据､编 码分类､缩放数值､构造信息､精选特征｡用好 Python 的 pandas 和 scikit-learn 库可以高效完 成大部分工作｡记住，好的特征工程有时比模型选择更重要｡\n\n如需更深入了解某个知识点 (如目标编码､时序特征､深度学习嵌入), 可参考相关搜索来源的详 细展开｡`
+    },
+    {
+      type: "note",
+      content: `（注：文档部分内容可能由 AI 生成）`
+    }
+    ],
+  }
+    ],
+  },
+  {
+    id: 'outlier-detection',
+    title: `异常值检测`,
+    subtitle: `异常值检测核心知识点、语法与实战举例`,
+    sections: [
+  {
+    title: `一、核心概念与影响`,
+    content: [
+    {
+      type: "text",
+      content: `定义：异常值指 “在一组测定数据中明显偏离其他结果的个别测定值”。从统计角度看，也可定义 为与平均值偏差超过两倍标准差 (或三倍标准差的高度异常值)。异常值具有显著性偏离的特征，表现为极大值或极小值。\n\n产生原因：主要包括测量误差、实验条件变化、数据录入错误、数据处理异常，以及数据本身固 有的极端变异性。\n\n影响：异常值的存亡对平均值和精密度影响显著，可能歪曲统计分析结果、降低机器学习模型的 泛化能力。但需注意，部分异常值可能蕴含重要信息 (如欺诈交易、设备故障信号), 不可一概剔 除。`
+    }
+    ],
+  },
+  {
+    title: `二、核心检测方法`,
+    content: [
+    {
+      type: "text",
+      content: `根据数据分布特征和应用场景，异常值检测方法可分为以下三大类:`
+    }
+    ],
+  },
+  {
+    title: `1. 基于统计的方法`,
+    content: [
+    {
+      type: "text",
+      content: `#### Z‑score 法 (标准差法)\n\n通过计算数据点与均值的标准差倍数来判定。公式: $Z=(x-\\mu) / \\sigma$ 。通常取绝对值大于 3 作为异常阈值，适用于近似正态分布的数据。\n\n#### IQR 法 (四分位距法)\n\n不依赖正态分布，更为稳健。计算下四分位数 Q1 和上四分位数 Q3, 令 $IQR=Q 3-Q 1$ , 则低于 $Q 1-1.5 ×I Q R$ 或高于 $Q 3+1.5 ×I Q R$ 的点视为异常；若取 3 倍则为极端异常。\n\n#### 格拉布斯检验 (Grubbs’ test)\n\n专门用于小样本可疑值检验。计算统计量 $G=\\frac{max |x_{i}-\\bar{x}|}{s}$ , 与查表临界值比较，若 G 大于临界值则判定为异常。该方法在标准物质定值、化学检测中广泛使用。\n\n#### Q 检验法 (Dixon 检验)\n\n适用于样本量较小 (3\\~10) 的情形。将数据排序后计算极差与相邻差的比值，与临界值比较。`
+    }
+    ],
+  },
+  {
+    title: `2. 基于可视化的方法`,
+    content: [
+    {
+      type: "text",
+      content: `- 箱线图 (Boxplot): 基于 IQR 原理，直观显示数据的分布、中位数、四分位距及异常点位置。\n\n- 散点图 / 直方图：通过观察点的聚集与离散趋势辅助识别离群值。\n\n- 时间序列图：专门用于检测时序数据中的突变点或趋势偏离。`
+    }
+    ],
+  },
+  {
+    title: `3. 基于机器学习的方法`,
+    content: [
+    {
+      type: "text",
+      content: `当数据维度高、分布复杂时，传统统计方法效果有限，常用算法包括:\n\n- 孤立森林 (Isolation Forest): 通过随机切分特征空间，异常点更容易被 “孤立”(路径更 短)。适用于高维数据集。\n\n- 局部异常因子 (LOF): 基于密度，计算每个点与其邻域密度之比，比值大者为异常。\n\n- DBSCAN 聚类：将低密度区域中的点标记为噪声 (即异常)。\n\n- 一类支持向量机 (One‑Class SVM): 学习正常数据的边界，偏离边界者视为异常。\n\n选择原则：数据近似正态分布且样本充足时优先用 Z‑score 或 3σ 准则；分布偏斜或不明确时用 IQR; 高维大数据可尝试孤立森林。`
+    }
+    ],
+  },
+  {
+    title: `三、异常值处理策略`,
+    content: [
+    {
+      type: "text",
+      content: `检测出异常值后，需根据其产生原因和业务目标选择处理方式:`
+    },
+    {
+      type: "table",
+      table: {
+        headers: [`处理方式`, `说明`, `适用场景`],
+        rows: [[`删除`, `直接剔除异常值所在记录`, `异常值极少且确为错误数据`], [`替换`, `用均值、中位数、前后值 (时间序列) 或预测值替代`, `异常值不多但希望保留样本量`], [`截尾 (Winsorize)`, `将异常值缩放到边界分位数 (如 1% 和 99%)`, `金融收益率数据，防止极端值干扰`], [`视为缺失值`, `转为缺失后进行插补`, `异常值包含部分信息`], [`保留`, `不做处理，单独分析`, `异常值代表真实极端事件 (如欺诈检测)`]]      }
+    },
+    {
+      type: "text",
+      content: `关键原则：先查原因，再做处理。若属明显过失 (如仪器故障、录入错误) 可直接剔除；原因不 明时应通过统计检验客观判断，不可凭主观随意取舍。`
+    }
+    ],
+  },
+  {
+    title: `四、Python 语法与代码实现`,
+    content: [
+    {
+      type: "text",
+      content: `以下展示最常用的三种检测方法的典型代码 (依赖 pandas、numpy、scipy、sklearn):`
+    }
+    ],
+  },
+  {
+    title: `1. Z‑score 法`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `import pandas as pd\nimport numpy as np\nfrom scipy import stats\n\ndata = pd.Series([1, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 100])\nz_scores = np.abs(stats.zscore(data))\noutliers = data[z_scores > 3]\nprint("Z-score异常值:", outliers.tolist()) # 输出:`      }
+    }
+    ],
+  },
+  {
+    title: `2. IQR 法`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `Q1 = data.quantile(0.25)\nQ3 = data.quantile(0.75)\nIQR = Q3 - Q1\nlower = Q1 - 1.5 * IQR\nupper = Q3 + 1.5 * IQR\noutliers_iqr = data[(data < lower) | (data > upper)]\nprint("IQR异常值:", outliers_iqr.tolist()) # 输出:`      }
+    }
+    ],
+  },
+  {
+    title: `3. 孤立森林 (Isolation Forest)`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `from sklearn.ensemble import IsolationForest\n\n# 数据需为二维\nX = data.values.reshape(-1, 1)\niso_forest = IsolationForest(contamination=0.1, random_state=42)\nlabels = iso_forest.fit_predict(X) # -1 为异常,1为正常\noutliers_if = data[labels == -1]\nprint("孤立森林异常值:", outliers_if.tolist())`      }
+    }
+    ],
+  },
+  {
+    title: `4. 可视化辅助`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `import matplotlib.pyplot as plt\\nplt.rcParams['font.family']=['Microsoft YaHei']\n\nplt.boxplot(data, vert=False)\nplt.title("Boxplot – 异常值可视化")\nplt.show()`      }
+    }
+    ],
+  },
+  {
+    title: `五、综合实战举例`,
+    content: [
+    {
+      type: "text",
+      content: `场景：某电商平台用户年度消费金额 (元), 数据中存在明显离群点。\n\n步骤:\n\n1. 数据探索：读入数据，用 describe () 查看统计量，绘制箱线图。\n\n2. 检测：由于消费金额常呈右偏分布，选择 IQR 法更稳健。\n\n3. 处理：将异常值 (如 Q3 + 3×IQR 以上) 进行截尾处理 (Winsorize), 替换为边界值。`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `# 模拟数据\nimport pandas as pd\nimport numpy as np\n\nnp.random.seed(0)\namounts = np.concatenate([np.random.normal(5000, 2000, 200), # 正常用户\nnp.array([50000, 80000, 120000])]) # 异常高消费\ndf = pd.DataFrame({'消费金额': amounts})\n\n# IQR检测\nQ1 = df['消费金额'].quantile(0.25)\nQ3 = df['消费金额'].quantile(0.75)\nIQR = Q3 - Q1\nupper = Q3 + 1.5 * IQR\n\n# 标记异常\ndf['is_outlier'] = df['消费金额'] > upper\nprint("异常数量:", df['is_outlier'].sum())\n\n# 截尾处理(替换为上边界)\ndf['金额_修正'] = df['消费金额'].clip(upper=upper)`      }
+    },
+    {
+      type: "text",
+      content: `中类似的电商案例指出，高额消费可能是真实公司采购而非错误，此时不应简单删除，而应结合 业务判断。若确认为错误数据 (如重复计算), 则可删除或用中位数替换。\n\n业务解读：处理后的数据均值更稳健，后续的客户分层或回归模型不会因少数极端值产生偏差。 同时，被标记的异常值单独拿出来分析，可能发现高价值客户或异常行为模式。\n\n总结：异常值检测并非机械的 “剔除” 操作，而是需要综合数据分布、业务逻辑和检测方法的特 点进行决策。掌握统计基础、善用可视化、灵活运用 Python 工具包，并始终保留对异常值背后 成因的追问，才能真正做好数据质量的守门人。\n\n(文中代码片段均整合自搜索结果)`
+    },
+    {
+      type: "note",
+      content: `（注：文档部分内容可能由 AI 生成）`
+    }
+    ],
+  }
+    ],
+  },
+  {
+    id: 'data-merging',
+    title: `多数据集合并`,
+    subtitle: `多数据集合并核心知识点、语法与举例`,
+    sections: [
+  {
+    title: `数据分析技术中的多数据集合并：核心知识点､语法与实例`,
+    content: [
+    {
+      type: "text",
+      content: `在实际数据分析工作中，我们经常需要将来自不同系统､不同表或不同文件的数据整合在一起，以便进行更全面､准确的分析。多数据集合并是数据预处理与集成中的关键环节，既涉及 SQL 中 的集合运算，也涵盖 Python Pandas 中的关联与拼接操作。下面从核心知识点､语法规则和实战 案例三个维度进行系统讲解。`
+    }
+    ],
+  },
+  {
+    title: `1. 合并的前提：数据兼容性`,
+    content: [
+    {
+      type: "text",
+      content: `无论使用哪种工具，进行合并操作前都必须确保数据集在结构上兼容。核心要求包括:\n\n- 字段数量相同：两个结果集的列数必须一致 (如 A 返回 3 个字段，B 也必须返回 3 个字段)。\n\n- 字段类型兼容：对应位置的字段数据类型需能隐式转换 (如 INT 与 DECIMAL 兼容，VARCHAR 与 TEXT 兼容)。\n\n- 字段顺序一致：合并时按位置匹配 (第 1 个字段 vs 第 1 个字段), 与字段名无关。建议保持字段名一致以避免混淆。`
+    }
+    ],
+  },
+  {
+    title: `2. 合并的基本类型`,
+    content: [
+    {
+      type: "text",
+      content: `从载体的角度，合并可分为两类:\n\n- 纵向合并 (堆叠): 将多个结构相同的数据集按行追加，用于扩展行数。例如合并多个月的销售记录､多台服务器的日志。\n\n- 横向合并 (关联): 基于共同键将一个数据集的列拼接到另一个数据集上，用于扩展列数。例如将用户基本信息与订单信息关联。`
+    }
+    ],
+  },
+  {
+    title: `3. 连接方式 (横向合并的核心逻辑)`,
+    content: [
+    {
+      type: "text",
+      content: `横向合并主要有四种连接类型，源自数据库 JOIN 的概念:`
+    },
+    {
+      type: "table",
+      table: {
+        headers: [`连接类型`, `行为`, `适用场景`],
+        rows: [[`内连接 (Inner)`, `只保留两个表中键匹配的行`, `精确匹配，如订单与发货记录必须对应`], [`左连接 (Left)`, `保留左表全部行，右表无匹配则填充 NaN`, `保留主表完整性，如所有客户及其订单`], [`右连接 (Right)`, `保留右表全部行，左表无匹配则填充 NaN`, `优先保留右表数据完整性`], [`全外连接 (Outer)`, `保留两表所有行，无匹配时填充 NaN`, `数据一致性检测，查找不匹配记录`]]      }
+    }
+    ],
+  },
+  {
+    title: `4. 去重与保留重复`,
+    content: [
+    {
+      type: "text",
+      content: `- 去重合并：在 SQL 中使用 UNION (自动去重), 在 Pandas 中使用 drop\\_duplicates () 配合 concat 实现。\n\n- 保留重复合并：在 SQL 中使用 UNION ALL (性能更高), 在 Pandas 中直接用 concat (axis=0) 不做去重。\n\n- 大数据量下优先使用 UNION ALL 或直接拼接，避免不必要的排序去重开销。`
+    }
+    ],
+  },
+  {
+    title: `5. 合并的键与索引`,
+    content: [
+    {
+      type: "text",
+      content: `- 基于列 (主键) 合并：最常用方式，通过一个或多个共同列将数据集关联。Pandas 的 merge () 与 SQL 的 JOIN 对应。\n\n- 基于索引合并：Pandas 的 join () 方法默认按索引对齐，适用于时间序列等场景，性能更高。\n\n- 多键合并：当单一列无法唯一标识记录时，需使用多个列作为组合键 (如 year + month)。`
+    }
+    ],
+  },
+  {
+    title: `6. 处理列名冲突`,
+    content: [
+    {
+      type: "text",
+      content: `合并时如果两个数据集有非键列的重复名称，系统会自动添加后缀 (如 \\_x, \\_y)。建议使用有业务含义的自定义后缀 (如 \\_sales, \\_target) 来增强可读性。`
+    }
+    ],
+  },
+  {
+    title: `7. 数据合并的价值`,
+    content: [
+    {
+      type: "text",
+      content: `- 整合多源数据：将分散在不同系统､不同平台的数据打通，形成完整视图。\n\n- 消除数据冗余：去重处理可节省存储空间，避免统计错误。\n\n- 提高数据一致性：统一清洗与转换，减少因格式不一致导致的分析偏差。\n\n- 支持决策分析：提供更丰富､更及时的信息基础。`
+    }
+    ],
+  },
+  {
+    title: `(一) SQL 集合运算语法`,
+    content: [
+    {
+      type: "text",
+      content: `SQL 中的集合运算主要用于纵向合并多个查询结果集，前提是各结果集字段数､类型､顺序一致。\n\n#### 1. UNION (合并去重)`
+    },
+    {
+      type: "code",
+      code: {
+        language: "sql",
+        code: `SELECT 字段列表 FROM 表A [WHERE 条件]\nUNION\nSELECT 字段列表 FROM 表B [WHERE 条件]\n[ORDER BY 排序字段];`      }
+    },
+    {
+      type: "text",
+      content: `#### 2. UNION ALL (保留重复)`
+    },
+    {
+      type: "code",
+      code: {
+        language: "sql",
+        code: `SELECT 字段列表 FROM 表A\nUNION ALL\nSELECT 字段列表 FROM 表B;`      }
+    },
+    {
+      type: "text",
+      content: `#### 3. INTERSECT (交集)`
+    },
+    {
+      type: "code",
+      code: {
+        language: "sql",
+        code: `SELECT 字段列表 FROM 表A\nINTERSECT\nSELECT 字段列表 FROM 表B;`      }
+    },
+    {
+      type: "text",
+      content: `#### 4. EXCEPT / MINUS (差集)\n\n标准 SQL 使用 EXCEPT,Oracle 使用 MINUS:`
+    },
+    {
+      type: "code",
+      code: {
+        language: "sql",
+        code: `-- 在 A 中但不在 B 中的记录\nSELECT 字段列表 FROM 表A\nEXCEPT\nSELECT 字段列表 FROM 表B;`      }
+    },
+    {
+      type: "text",
+      content: `注意：EXCEPT 和 MINUS 自动去重，且顺序敏感 (A EXCEPT B ≠ B EXCEPT A)。\n\n#### 5. 补集 (间接实现)\n\n补集 = 全量集合 - 目标集合，通过 EXCEPT 实现:`
+    },
+    {
+      type: "code",
+      code: {
+        language: "sql",
+        code: `SELECT 字段 FROM 全量表\nEXCEPT\nSELECT 字段 FROM 目标表;`      }
+    },
+    {
+      type: "text",
+      content: `上述语法适用于 MySQL 8.0+､PostgreSQL､SQL Server､Oracle 等。MySQL 5.7 及以下不支持 INTERSECT/EXCEPT, 需用 JOIN 替代。`
+    }
+    ],
+  },
+  {
+    title: `(二) Pandas 数据合并语法`,
+    content: [
+    {
+      type: "text",
+      content: `Pandas 提供了三种核心方法:merge ()､join ()､concat (), 分别适用于不同场景。\n\n#### 1. merge () —— 基于列的关联合并`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `pd.merge(\n    left,          # 左侧 DataFrame\n    right,         # 右侧 DataFrame\n    on=None,       # 连接键(列名)\n    how='inner',   # 连接方式:inner/left/right/outer\n    left_on=None,  # 左侧连接键(列名不同时使用)\n    right_on=None, # 右侧连接键\n    suffixes=('_x', '_y'), # 重复列名的后缀\n    indicator=False # 是否添加来源标识列\n)`      }
+    },
+    {
+      type: "text",
+      content: `#### 2. join () —— 基于索引的便捷合并`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `df1.join(\n    df2, \n    how='left',    # 连接方式\n    lsuffix='_left', # 左表列名冲突后缀\n    rsuffix='_right' # 右表列名冲突后缀\n)`      }
+    },
+    {
+      type: "text",
+      content: `默认按索引对齐，本质上是 merge () 的索引特化版本。\n\n#### 3. concat () —— 堆叠拼接 (纵向 / 横向)`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `pd.concat(\n    [df1, df2, ...], # 待拼接的 DataFrame 列表\n    axis=0,           # 0=纵向堆叠(行),1=横向堆叠(列)\n    join='outer',     # 索引对齐方式:outer/inner\n    ignore_index=False, # 是否忽略原索引\n    keys=None         # 添加层次化键标识来源\n)`      }
+    },
+    {
+      type: "text",
+      content: `- 纵向堆叠 (axis=0) 适合合并结构相同的表，如多个月份的销售数据。\n\n- 横向堆叠 (axis=1) 常用于组合不同维度的特征，需注意索引对齐。`
+    }
+    ],
+  },
+  {
+    title: `案例 1:SQL 合并多平台订单 (UNION ALL 与 UNION)`,
+    content: [
+    {
+      type: "text",
+      content: `假设有手机端订单表 app\\_orders 和网页端订单表 web\\_orders, 结构相同。\n\n#### 需求 1: 统计两个平台的总订单量 (含重复记录)—— 用 UNION ALL`
+    },
+    {
+      type: "code",
+      code: {
+        language: "sql",
+        code: `SELECT COUNT(*) AS total_orders\nFROM (\n    SELECT order_id FROM app_orders\n    UNION ALL\n    SELECT order_id FROM web_orders\n) AS all_orders;`      }
+    },
+    {
+      type: "text",
+      content: `#### 需求 2: 获取在所有平台中不重复的订单列表 —— 用 UNION`
+    },
+    {
+      type: "code",
+      code: {
+        language: "sql",
+        code: `SELECT order_id, user_id, amount FROM app_orders\nUNION\nSELECT order_id, user_id, amount FROM web_orders\nORDER BY order_id;`      }
+    }
+    ],
+  },
+  {
+    title: `案例 2:SQL 交集与差集分析用户行为`,
+    content: [
+    {
+      type: "text",
+      content: `#### 需求 1: 找出同时在手机端和网页端下单的用户 (交集)`
+    },
+    {
+      type: "code",
+      code: {
+        language: "sql",
+        code: `SELECT DISTINCT user_id FROM app_orders\nINTERSECT\nSELECT DISTINCT user_id FROM web_orders;`      }
+    },
+    {
+      type: "text",
+      content: `#### 需求 2: 找出仅在手机端下单､未在网页端下单的用户 (差集)`
+    },
+    {
+      type: "code",
+      code: {
+        language: "sql",
+        code: `SELECT DISTINCT user_id FROM app_orders\nEXCEPT\nSELECT DISTINCT user_id FROM web_orders;`      }
+    }
+    ],
+  },
+  {
+    title: `案例 3:Pandas 内连接合并用户与订单信息`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `import pandas as pd\n\n# 用户表\nusers = pd.DataFrame({\n    'user_id': [1, 2, 3],\n    'name': ['Alice', 'Bob', 'Charlie']\n})\n\n# 订单表\norders = pd.DataFrame({\n    'user_id': [1, 2, 4],\n    'amount': [100, 200, 150]\n})\n\n# 内连接:只保留有订单的用户\ninner_merged = pd.merge(users, orders, on='user_id', how='inner')\nprint(inner_merged)\n\n# user_id name amount\n# 0      1 Alice    100\n# 1      2   Bob    200`      }
+    },
+    {
+      type: "text",
+      content: `通过 how='left' 可保留所有用户，无订单的用户 amount 为 NaN。`
+    }
+    ],
+  },
+  {
+    title: `案例 4:Pandas 纵向堆叠多个月度报表`,
+    content: [
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `# 假设 jan_df, feb_df, mar_df 是三张结构相同的月度销售表\ncombined_df = pd.concat(\n    [jan_df, feb_df, mar_df], \n    axis=0, \n    ignore_index=True\n)`      }
+    },
+    {
+      type: "text",
+      content: `若需标记每条记录来自哪个月份，可使用 keys 参数:`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `combined_df = pd.concat(\n    [jan_df, feb_df, mar_df], \n    keys=['Jan', 'Feb', 'Mar']\n)\n# 结果会多一个层次化索引`      }
+    }
+    ],
+  },
+  {
+    title: `案例 5:Pandas 基于索引的全连接合并`,
+    content: [
+    {
+      type: "text",
+      content: `将两个结构不同但索引对应的 DataFrame 进行外连接:`
+    },
+    {
+      type: "code",
+      code: {
+        language: "python",
+        code: `df1 = pd.DataFrame({'value': [1, 2, 3]}, index=['a', 'b', 'c'])\ndf2 = pd.DataFrame({'score': [90, 80]}, index=['a', 'c'])\n\n# 外连接(保留所有索引)\njoined = df1.join(df2, how='outer')\n\nprint(joined)\n#   value  score\n# a   1.0   90.0\n# b   2.0    NaN\n# c   3.0   80.0`      }
+    },
+    {
+      type: "text",
+      content: `用 how='inner' 则只保留 a 和 c 两行。`
+    }
+    ],
+  },
+  {
+    title: `SQL 集合运算 vs Pandas 方法对照`,
+    content: [
+    {
+      type: "table",
+      table: {
+        headers: [`操作`, `SQL`, `Pandas`],
+        rows: [[`纵向合并 (去重)`, `UNION`, `concat + drop\\_duplicates`], [`纵向合并 (保留重复)`, `UNION ALL`, `concat(axis=0)`], [`内连接`, `INNER JOIN`, `merge(how='inner')`], [`左连接`, `LEFT JOIN`, `merge(how='left')`], [`全外连接`, `FULL OUTER JOIN`, `merge(how='outer')`], [`基于列合并`, `ON 子句`, `merge (on = 列名)`], [`基于索引合并`, `需将索引转为列`, `join () 或 merge (left\\_index=True, right\\_index=True)`]]      }
+    }
+    ],
+  },
+  {
+    title: `性能建议`,
+    content: [
+    {
+      type: "text",
+      content: `- 大数据量纵向合并且不需去重时，SQL 用 UNION ALL,Pandas 用 concat (比 UNION 和 merge 都快)。\n\n- 合并前先过滤掉不必要的列和行，减少内存占用。\n\n- 用 merge 前检查键的唯一性 (df ['key'].is\\_unique), 避免意外的一对多膨胀。`
+    }
+    ],
+  },
+  {
+    title: `五､总结`,
+    content: [
+    {
+      type: "text",
+      content: `多数据集合并是数据分析流程中不可或缺的环节。其核心在于理解合并的方向 (纵向 vs 横向)､连接方式 (内 / 左 / 右 / 外) 以及去重策略。SQL 中的集合运算擅长纵向整合查询结果，而 Pandas 的 merge､concat､join 提供了更灵活､更面向内存数据框的操作方式。掌握这些知识点与对应语法，能够帮助你高效地将分散的数据整合成统一､可靠的分析基底，为后续的统计建模与可视化打下扎实基础。`
+    },
+    {
+      type: "note",
+      content: `（注：文档部分内容可能由 AI 生成）`
     }
     ],
   }
